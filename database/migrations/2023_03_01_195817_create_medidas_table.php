@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('medidas', function (Blueprint $table) {
             $table->id();
+            $table->string('nombreunidad');
+            $table->string('abrv');
             $table->timestamps();
         });
     }

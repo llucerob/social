@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('beneficiarios', function (Blueprint $table) {
             $table->id();
+            $table->string('rut');
+            $table->string('nombres');
+            $table->string('apellidos');
+            $table->integer('folioid');
+            $table->string('direccion');
+            $table->string('sector');
+            $table->integer('telefono');
+            $table->string('correo');
             $table->timestamps();
         });
     }
