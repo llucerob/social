@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('materiales', function (Blueprint $table) {
+        Schema::create('reembolsos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->foreignId('categoria_id')
-                    ->constrained('categorias')
+            $table->foreignId('beneficiarios_id')
+                    ->constrained('beneficiarios')
                     ->onDelete('cascade');
-            $table->integer('stock');
-            $table->integer('limite');
-            $table->integer('limiteurgencia');
-            $table->string('medida'); 
+            $table->integer('total')->nullable();
+            $table->enum('entregado', [1,0])->default('0');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('materiales');
+        Schema::dropIfExists('reembolsos');
     }
 };

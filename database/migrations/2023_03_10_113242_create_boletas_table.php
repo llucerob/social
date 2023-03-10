@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reembolsos', function (Blueprint $table) {
+        Schema::create('boletas', function (Blueprint $table) {
             $table->id();
-            
+            $table->integer('valor');
+            $table->string('detalle');
+            $table->string('ruta');
+            $table->foreingId('reembolsos_id')
+                    ->constrained('reembolsos')
+                    ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -23,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reembolsos');
+        Schema::dropIfExists('boletas');
     }
 };
