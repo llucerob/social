@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('valor');
             $table->string('detalle');
             $table->string('ruta');
-            $table->foreingId('reembolsos_id')
+            $table->foreignId('reembolsos_id')
                     ->constrained('reembolsos')
                     ->onDelete('cascade');
             $table->timestamps();
