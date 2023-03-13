@@ -6,19 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Material extends Model
+class Reembolso extends Model
 {
     use HasFactory;
-    protected $table = 'materiales';
-
+    protected $table = 'reembolsos';
     
+
     /**
-     * asociar la categoria del material
+     * relaciona un reembolso al usuario
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function categoria(): HasOne
+    public function beneficiario(): HasOne
     {
-        return $this->hasOne(Categoria::class, 'cartegoria_id', 'id');
+        return $this->hasOne(Beneficiario::class, 'beneficiarios_id', 'id');
     }
 }
