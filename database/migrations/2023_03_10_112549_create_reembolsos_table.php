@@ -16,16 +16,10 @@ return new class extends Migration
             $table->foreignId('beneficiarios_id')
                     ->constrained('beneficiarios')
                     ->onDelete('cascade');
-<<<<<<<< HEAD:database/migrations/2023_03_11_030046_create_reembolsos_table.php
             $table->integer('total')->default('0');
             $table->string('mes');
             $table->enum('entregado', [1,0])->default('0');
-            
-========
-            $table->integer('total')->nullable();
-            $table->enum('entregado', [1,0])->default('0');
->>>>>>>> 6b14d747092eb6c2ebee19d3be15fb05683f8c5d:database/migrations/2023_03_10_112549_create_reembolsos_table.php
-            $table->timestamps();
+             $table->timestamps();
         });
     }
 
