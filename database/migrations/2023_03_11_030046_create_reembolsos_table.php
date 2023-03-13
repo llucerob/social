@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('reembolsos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('beneficiarios_id')
+                    ->constrained('beneficiarios')
+                    ->onDelete('cascade');
+            $table->integer('total')->default('0');
+            $table->string('mes');
+            $table->enum('entregado', [1,0])->default('0');
             
             $table->timestamps();
         });
