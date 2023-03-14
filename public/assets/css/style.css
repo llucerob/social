@@ -28194,7 +28194,7 @@ button[data-toggle=dropdown]:hover ~ .dropdown-menu {
 .toggle-sidebar {
   position: absolute;
   right: 30px;
-  top: 30px;
+  top: 10px;
   cursor: pointer;
 }
 .toggle-sidebar svg {
@@ -29658,7 +29658,7 @@ button[data-toggle=dropdown]:hover ~ .dropdown-menu {
 }
 .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper .logo-wrapper,
 .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper .logo-icon-wrapper {
-  padding: 27px 30px;
+  padding: 32px 30px;
   box-shadow: -9px 0 20px rgba(89, 102, 122, 0.1);
 }
 .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper .logo-icon-wrapper {

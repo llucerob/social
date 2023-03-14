@@ -11,28 +11,91 @@
           <ul class="sidebar-links" id="simple-bar">
             <li class="back-btn">
               <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
-            </li>
-            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#" target="_blank">
+            </li>           
+            <li class="sidebar-list pt-4 mt-2"><a class="sidebar-link sidebar-title mt-3" href="#" target="_blank">
                 <svg class="stroke-icon">
                   <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-home') }}"></use>
                 </svg>
                 <svg class="fill-icon">
                   <use href="{{ asset('assets/svg/icon-sprite.svg#fill-home') }}"></use>
-                </svg><span>Dashboard</span></a></li>
-            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="https://pixelstrap.freshdesk.com/support/home" target="_blank">
+                </svg><span>Escritorio</span></a></li>
+
+                <li class="pin-title sidebar-main-title">
+                  <div> 
+                    <h6>Social</h6>
+                  </div>
+                </li>
+
+            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#">
                 <svg class="stroke-icon">
-                  <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-social') }}"></use>
+                  <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-user') }}"></use>
                 </svg>
                 <svg class="fill-icon">
-                  <use href="{{ asset('assets/svg/icon-sprite.svg#fill-social') }}"></use>
-                </svg><span>Raise Support</span></a></li>
-            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="https://docs.pixelstrap.com/cuba/laravel/document/" target="_blank">
+                  <use href="{{ asset('assets/svg/icon-sprite.svg#fill-user') }}"></use>
+                </svg><span>Beneficiarios</span></a>
+                <ul class="sidebar-submenu" style="display: block;">
+                <li><a href="#">Listar Beneficiario</a>
+                </li>
+                <li><a href="#">Nuevo Beneficiario</a>
+                </li></ul>
+              </li>
+            
+              
+            <li class="pin-title sidebar-main-title">
+                  <div> 
+                    <h6>Reembolsos</h6>
+                  </div>
+                </li>
+
+            
+            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#">
+                  <svg class="stroke-icon">
+                    <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-charts') }}"></use>
+                  </svg>
+                  <svg class="fill-icon">
+                    <use href="{{ asset('assets/svg/icon-sprite.svg#fill-charts') }}"></use>
+                  </svg><span>Boletas</span></a></li>
+
+
+            <li class="pin-title sidebar-main-title">
+                  <div> 
+                    <h6>Bodega</h6>
+                  </div>
+                </li>
+
+            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#">
                 <svg class="stroke-icon">
-                  <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-form') }}"></use>
+                  <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-bonus-kit') }}"></use>
                 </svg>
                 <svg class="fill-icon">
-                  <use href="{{ asset('assets/svg/icon-sprite.svg#fill-form') }}"></use>
-                </svg><span>Documentation </span></a></li>
+                  <use href="{{ asset('assets/svg/icon-sprite.svg#fill-bonus-kit') }}"></use>
+                </svg><span>Materiales</span></a>
+              <ul class="sidebar-submenu">
+                <li><a href="#">Listar Material</a></li>
+                <li><a href="#">Nuevo Material</a></li>
+              </ul>
+              </li>
+
+            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#">
+                  <svg class="stroke-icon">
+                    <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-to-do') }}"></use>
+                  </svg>
+                  <svg class="fill-icon">
+                    <use href="{{ asset('assets/svg/icon-sprite.svg#fill-to-do') }}"></use>
+                  </svg><span>Más</span></a>
+                  <ul class="sidebar-submenu">
+                    <li><a href="#">Medidas</a></li>
+                    <li><a href="#">Categorias</a></li>
+                  </ul>
+              </li>
+
+            
+            
+             
+
+
+
+
           </ul>
         </div>
         <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>

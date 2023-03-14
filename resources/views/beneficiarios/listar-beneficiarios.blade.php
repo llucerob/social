@@ -15,7 +15,8 @@
 @endsection
 
 @section('breadcrumb-items')
-    <li class="breadcrumb-item active">Escritorio</li>
+    <li class="breadcrumb-item">Beneficiarios</li>
+    <li class="breadcrumb-item active">Listar</li>
    
 @endsection
 
