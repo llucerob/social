@@ -11,12 +11,12 @@
 @endsection
 
 @section('breadcrumb-title')
-    <h3>Listado Beneficiarios</h3>
+    <h3>Crear Nuevo Beneficiario</h3>
 @endsection
 
 @section('breadcrumb-items')
     <li class="breadcrumb-item">Beneficiarios</li>
-    <li class="breadcrumb-item active">Listar</li>
+    <li class="breadcrumb-item active">Nuevo</li>
    
 @endsection
 

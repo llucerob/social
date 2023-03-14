@@ -34,9 +34,9 @@
                   <use href="{{ asset('assets/svg/icon-sprite.svg#fill-user') }}"></use>
                 </svg><span>Beneficiarios</span></a>
                 <ul class="sidebar-submenu" style="display: block;">
-                <li><a href="#">Listar Beneficiario</a>
+                <li><a href="{{url('beneficiarios/listar')}}">Listar Beneficiario</a>
                 </li>
-                <li><a href="#">Nuevo Beneficiario</a>
+                <li><a href="{{url('beneficiarios/nuevo')}}">Nuevo Beneficiario</a>
                 </li></ul>
               </li>
             

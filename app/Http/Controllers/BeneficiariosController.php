@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Beneficiario;
+use App\Models\Registrosocial;
 
 class BeneficiariosController extends Controller
 {
@@ -14,7 +15,7 @@ class BeneficiariosController extends Controller
     {
         $beneficiario = Beneficiario::all();
 
-        return view('beneficiarios.listarbeneficiarios', ['beneficiarios' => $beneficiario]);
+        return view('beneficiarios.listar-beneficiarios', ['beneficiarios' => $beneficiario]);
     }
 
     /**
@@ -22,7 +23,7 @@ class BeneficiariosController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
