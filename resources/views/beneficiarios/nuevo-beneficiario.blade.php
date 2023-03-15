@@ -28,12 +28,10 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>How to use starter kit ?</h5>
+                    <h5>A continuacion usted creara un nuevo beneficiario.</h5>
                     
                 </div>
                 <div class="card-body">
-                    <p><span class="f-w-600">HTML</span></p>
-                    <p>If you know just HTML, select your choice of layout from starter kit folder, customize it with optional changes like colors and branding, add required dependency only.</p>
                     
                    
                 </div>

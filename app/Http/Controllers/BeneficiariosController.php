@@ -24,6 +24,8 @@ class BeneficiariosController extends Controller
     public function create()
     {
         
+        return view('beneficiarios.nuevo-beneficiario');
+        
     }
 
     /**
