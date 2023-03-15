@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Beneficiario;
 use App\Models\Registrosocial;
+use App\Models\Sector;
 
 class BeneficiariosController extends Controller
 {
@@ -23,8 +24,9 @@ class BeneficiariosController extends Controller
      */
     public function create()
     {
+        $sectores = Sector::all();
         
-        return view('beneficiarios.nuevo-beneficiario');
+        return view('beneficiarios.nuevo-beneficiario', ['sector' => $sectores]);
         
     }
 

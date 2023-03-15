@@ -3,7 +3,7 @@
     "use strict";
 //Minimum and Maxium Date
     $('#minMaxExample').datepicker({
-        language: 'en',
+        language: 'es',
         minDate: new Date() // Now can select only dates, which goes after today
     })
 
@@ -11,7 +11,7 @@
     var disabledDays = [0, 6];
 
     $('#disabled-days').datepicker({
-        language: 'en',
+        language: 'es',
         onRenderCell: function (date, cellType) {
             if (cellType == 'day') {
                 var day = date.getDay(),

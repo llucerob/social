@@ -76,6 +76,12 @@
               </ul>
               </li>
 
+              <li class="pin-title sidebar-main-title">
+                <div> 
+                  <h6>Utilidades</h6>
+                </div>
+              </li>
+
             <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#">
                   <svg class="stroke-icon">
                     <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-to-do') }}"></use>
@@ -86,6 +92,7 @@
                   <ul class="sidebar-submenu">
                     <li><a href="#">Medidas</a></li>
                     <li><a href="#">Categorias</a></li>
+                    <li><a href="#">Sectores</a></li>
                   </ul>
               </li>
 
