@@ -47,19 +47,20 @@ Route::middleware('auth')->group(function () {
     //CONTROLADORES UTILIDADES
 
     Route::get('utils/medidas', [UtilsController::class, 'medidas'])->name('medidas');
-   
-    Route::get('utils/medidas/guardar', [UtilsController::class, 'storemedidas'])->name('medidas.store');
-    Route::get('utils/medidas/destroy', [UtilsController::class, 'destroymedidas'])->name('medidas.destroy');
+    Route::post('utils/medidas/guardar', [UtilsController::class, 'storemedidas'])->name('medidas.store');
+    Route::get('utils/medidas/destroy/{id}', [UtilsController::class, 'destroymedidas']);
 
-    Route::get('utils/categorias/listar', [UtilsController::class, 'listacategorias'])->name('categorias.listar');
-    Route::get('utils/categorias/nuevo', [UtilsController::class, 'createcategorias'])->name('categorias.create');
-    Route::get('utils/categorias/guardar', [UtilsController::class, 'storecategorias'])->name('categorias.store');
-    Route::get('utils/categorias/destroy', [UtilsController::class, 'destroycategorias'])->name('categorias.destroy');
+    Route::get('utils/categorias', [UtilsController::class, 'categorias'])->name('categorias');
+    Route::post('utils/categorias/guardar', [UtilsController::class, 'storecategorias'])->name('categorias.store');
+    Route::get('utils/categorias/destroy/{id}', [UtilsController::class, 'destroycategorias']);
     
-    Route::get('utils/sectores/listar', [UtilsController::class, 'listasectores'])->name('sectores.listar');
-    Route::get('utils/sectores/nuevo', [UtilsController::class, 'createsectores'])->name('sectores.create');
+    Route::get('utils/sectores', [UtilsController::class, 'sectores'])->name('sectores');
     Route::post('utils/sectores/guardar', [UtilsController::class, 'storesectores'])->name('sectores.store');
-    Route::post('utils/sectores/destroy', [UtilsController::class, 'destroysectores'])->name('sectores.destroy');
+    Route::get('utils/sectores/destroy/{id}', [UtilsController::class, 'destroysectores']);
+
+    //CONTROLADORES MATERIALES
+
+    
 
 
 });

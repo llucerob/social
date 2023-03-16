@@ -90,9 +90,9 @@
                     <use href="{{ asset('assets/svg/icon-sprite.svg#fill-to-do') }}"></use>
                   </svg><span>Más</span></a>
                   <ul class="sidebar-submenu">
-                    <li><a href="#">Medidas</a></li>
-                    <li><a href="#">Categorias</a></li>
-                    <li><a href="#">Sectores</a></li>
+                    <li><a href="{{url('utils/medidas')}}">Medidas</a></li>
+                    <li><a href="{{url('utils/categorias')}}">Categorias</a></li>
+                    <li><a href="{{url('utils/sectores')}}">Sectores</a></li>
                   </ul>
               </li>
 
