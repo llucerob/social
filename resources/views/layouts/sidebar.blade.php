@@ -71,8 +71,8 @@
                   <use href="{{ asset('assets/svg/icon-sprite.svg#fill-bonus-kit') }}"></use>
                 </svg><span>Materiales</span></a>
               <ul class="sidebar-submenu">
-                <li><a href="#">Listar Material</a></li>
-                <li><a href="#">Nuevo Material</a></li>
+                <li><a href="{{route('materiales.index')}}">Listar Material</a></li>
+                <li><a href="{{route('materiales.create')}}">Nuevo Material</a></li>
               </ul>
               </li>
 
@@ -90,9 +90,9 @@
                     <use href="{{ asset('assets/svg/icon-sprite.svg#fill-to-do') }}"></use>
                   </svg><span>Más</span></a>
                   <ul class="sidebar-submenu">
-                    <li><a href="{{url('utils/medidas')}}">Medidas</a></li>
-                    <li><a href="{{url('utils/categorias')}}">Categorias</a></li>
-                    <li><a href="{{url('utils/sectores')}}">Sectores</a></li>
+                    <li><a href="{{route('medidas')}}">Medidas</a></li>
+                    <li><a href="{{route('categorias')}}">Categorias</a></li>
+                    <li><a href="{{route('sectores')}}">Sectores</a></li>
                   </ul>
               </li>
 
