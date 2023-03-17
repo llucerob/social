@@ -56,29 +56,39 @@
                                         <th>{{ $m->limite }} [{{ $m->medida}}]</th>
                                         <th>{{ $m->limiteurgencia}} [{{ $m->medida}}]</th>
                                         <th>
-                                            <a href="#" class="btn btn-outline-success btn-sm" title="Agregar"><i class="fa fa-plus"></i></a>
-                                            <a href="#" class="btn btn-outline-primary btn-sm" title="Editar"><i class="fa fa-pencil"></i></a>
+                                            <a href="#modalAumentar" class="btn btn-outline-success btn-sm" title="Agregar" data-bs-toggle="modal" data-bs-target="#modalAumentar"><i class="fa fa-plus"></i></a>
+                                            <a href="{{url('materiales/editar/'.$m->id)}}" class="btn btn-outline-primary btn-sm" title="Editar"><i class="fa fa-pencil"></i></a>
                                             <a href="{{url('materiales/destroy/'.$m->id)}}" class="btn btn-outline-danger btn-sm" title="Eliminar"><i class="icon-trash"></i></a>
 
-                                            <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#tooltipmodal">Tooltips and popovers</button>
-                                                <div class="modal fade" id="tooltipmodal" tabindex="-1" role="dialog" aria-labelledby="tooltipmodal" aria-hidden="true">
+                                                <div class="modal fade" id="modalAumentar" tabindex="-1" role="dialog" aria-labelledby="modalAumentar" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title">Modal title</h5>
+                                                                <h5 class="modal-title">Aumento de material</h5>
                                                             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
+                                                        <form action="{{url('materiales/aumentar/'.$m->id.'/guardar')}}" method="post" enctype="multipart/form-data">
+                                                            @csrf
                                                         <div class="modal-body">
-                                                            <h5>Popover in a modal</h5>
-                                                            <p>This <a class="btn btn-primary popover-test" href="#" role="button" title="" data-content="Popover body content is set in this attribute." data-container="#exampleModalPopovers" data-original-title="Popover title">button</a> triggers a popover on click.</p>
-                                                            <hr>
-                                                            <h5>Tooltips in a modal</h5>
-                                                            <p><a class="tooltip-test" href="#" title="" data-container="#exampleModalPopovers" data-original-title="Tooltip">This link</a> and <a class="tooltip-test" href="#" title="" data-container="#exampleModalPopovers" data-original-title="Tooltip">that link</a> have tooltips on hover.</p>
+
+                                                            
+                                                            <div class="col">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label" for="inputStock">Ingrese cantidad a agregar en [{{$m->medida}}]</label>
+                                                                    <input class="form-control" id="inputStock" type="number" name="stock">
+                                                                <div class="valid-feedback">¡Luce bien!</div>
+                                                            </div>
+                                                            
+                                                            
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                                                            <button class="btn btn-primary" type="button">Save changes</button>
+                                                            
+                                                            
+                                                            <button class="btn btn-primary" type="submit">Guardar</button>
+                                                            <input type="reset" class="btn btn-secondary" value="Limpiar">
+                                                            
                                                         </div>
+                                                    </form>
                                                     </div>
                                                 </div>
                                             </div>

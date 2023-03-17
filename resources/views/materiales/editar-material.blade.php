@@ -11,12 +11,12 @@
 @endsection
 
 @section('breadcrumb-title')
-    <h3>Crear Nuevo Material</h3>
+    <h3>Editar Material</h3>
 @endsection
 
 @section('breadcrumb-items')
     <li class="breadcrumb-item">Materiales</li>
-    <li class="breadcrumb-item active">Nuevo</li>
+    <li class="breadcrumb-item active">Editar</li>
    
 @endsection
 
@@ -28,12 +28,12 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>A continuación usted creará un nuevo Material.</h5>
+                    <h5>A continuación usted editará {{$material->nombre}}.</h5>
                     
                 </div>
                 
 
-                    <form class="needs-validation theme-form" novalidate="" action="{{ route('materiales.store') }}" method="post" enctype="multipart/form-data">
+                    <form class="needs-validation theme-form" novalidate="" action="{{ url('materiales/update/'.$material->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
                           <div class="row g-3">
@@ -43,7 +43,7 @@
                               
                               <div class="mb-3">
                                 <label class="form-label" for="inputNombre">Nombre</label>
-                                <input class="form-control" id="inputNombre" type="text" required name="nombre" placeholder="pañales">
+                                <input class="form-control" id="inputNombre" type="text" required name="nombre"  value="{{$material->nombre}}" placeholder="pañales">
                                 <div class="valid-feedback">¡Luce bien!</div>
                               </div>
                             </div>
@@ -55,7 +55,7 @@
                                 <select class="form-select digits" id="selectCategoria" name="categoria">
 
                                     @foreach ($categorias as $c )
-                                        <option value="{{ $c->id }}">{{ $c->nombre }}</option>
+                                        <option value="{{ $c->id }}" @if ($c->id == $material->categoria_id) selected @endif>{{ $c->nombre }}</option>
                                     @endforeach
                                   
                                 </select>
@@ -69,15 +69,7 @@
                           
 
 
-                          <div class="row g-3">
-                            <h5 class="mt-4">Stock Materiales</h5>
-                            <div class="col-md-6">
-                              <div class="mb-3">
-                                <label class="form-label" for="inputStock">Stock</label>
-                                <input class="form-control" id="inputStock" type="number" name="stock">
-                                <div class="valid-feedback">¡Luce bien!</div>
-                              </div>
-                            </div>
+                          <div class="row g-3" >
 
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -93,7 +85,9 @@
                                   </select>
                                   <div class="valid-feedback">¡Luce bien!</div>
                                 </div>
-                              </div>
+                            </div>
+
+
 
                           </div>
                           
@@ -102,7 +96,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                   <label class="form-label" for="inputLimite">Limite</label>
-                                  <input class="form-control" id="inputLimite" type="number" name="limite">
+                                  <input class="form-control" id="inputLimite" type="number" value="{{$material->limite}}" name="limite">
                                   <div class="valid-feedback">¡Luce bien!</div>
                                 </div>
                             </div>
@@ -110,7 +104,7 @@
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label" for="inputUrgencia">Limite Emergencia</label>
-                                <input class="form-control" id="inputUrgencia" type="number" name="limiteurgencia">
+                                <input class="form-control" id="inputUrgencia" type="number" name="limiteurgencia" value="{{$material->limiteurgencia}}">
                                 <div class="valid-feedback">¡Luce bien!</div>
                               </div>
                             </div>

@@ -63,7 +63,9 @@ class BeneficiariosController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $beneficiario = Beneficiario::findOrFail($id);
+
+        return view('beneficiarios.editar-beneficiario', ['beneficiario' => $beneficiario]);
     }
 
     /**
@@ -79,6 +81,10 @@ class BeneficiariosController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $beneficiario = Beneficiario::findOrFail($id);
+
+        $beneficiario->delete();
+
+        return redirect()->route('beneficiarios.index');
     }
 }

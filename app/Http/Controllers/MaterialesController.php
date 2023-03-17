@@ -68,7 +68,12 @@ class MaterialesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+       $material = Material::findOrFail($id);
+       $categorias = Categoria::all();
+       $medidas = Medida::all();
+       
+
+       return view('materiales.editar-material', ['material' => $material, 'categorias' => $categorias, 'medidas' => $medidas]);
     }
 
     /**
@@ -76,7 +81,20 @@ class MaterialesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $material = Material::findOrFail($id);
+
+
+        $material->nombre            =   $request->nombre;
+        $material->categoria_id      =   $request->categoria;
+        
+        $material->medida            =   $request->medida;
+        $material->limite            =   $request->limite;
+        $material->limiteurgencia    =   $request->limiteurgencia;
+
+        $material->update();
+
+        return redirect()->route('materiales.index');
+        
     }
 
     /**
@@ -87,6 +105,16 @@ class MaterialesController extends Controller
         $material = Material::findOrFail($id);
 
         $material->delete();
+
+        return redirect()->route('materiales.index');
+    }
+
+    public function storeaumentar(string $id, Request $request){
+        $material = Material::findOrFail($id);
+
+        $material->stock= $material->stock + $request->stock;
+        
+        $material->update();
 
         return redirect()->route('materiales.index');
     }
