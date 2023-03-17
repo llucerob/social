@@ -16,8 +16,9 @@ class MaterialesController extends Controller
     public function index()
     {
         $materiales = Material::all();
+        
 
-        dd($materiales->categoria());
+        
 
         return view('materiales.listar-materiales', ['materiales' => $materiales]);
 
@@ -83,6 +84,10 @@ class MaterialesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $material = Material::findOrFail($id);
+
+        $material->delete();
+
+        return redirect()->route('materiales.index');
     }
 }

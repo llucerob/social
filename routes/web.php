@@ -44,6 +44,9 @@ Route::middleware('auth')->group(function () {
     Route::get('materiales/crear', [MaterialesController::class, 'create'])->name('materiales.create');
     Route::post('materiales/guardar', [MaterialesController::class, 'store'])->name('materiales.store');
     Route::get('materiales/destroy/{id}', [MaterialesController::class, 'destroy'])->name('materiales.destroy');
+    Route::get('materiales/aumentar/{id}', [MaterialesController::class, 'aumentar'])->name('materiales.aumentar');
+    
+
 
     
     //CONTROLADPRES BENEFICIARIOS

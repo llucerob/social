@@ -52,10 +52,15 @@
                                     <tr>
                                         <th>{{ $m->nombre }}</th>
                                         <th>{{ $m->categoria->nombre }}</th>
-                                        <th>{{ $m->stock }} {{ $m->medida}}</th>
-                                        <th>{{ $m->limite }}</th>
-                                        <th>{{ $m->limiteurgencia}}</th>
-                                        <th>Acciones</th>
+                                        <th>{{ $m->stock }} [{{ $m->medida}}]</th>
+                                        <th>{{ $m->limite }} [{{ $m->medida}}]</th>
+                                        <th>{{ $m->limiteurgencia}} [{{ $m->medida}}]</th>
+                                        <th>
+                                            <a href="#" class="btn btn-outline-success btn-sm" title="Agregar"><i class="fa fa-plus"></i></a>
+                                            <a href="#" class="btn btn-outline-primary btn-sm" title="Editar"><i class="fa fa-pencil"></i></a>
+                                            <a href="{{url('materiales/destroy/'.$m->id)}}" class="btn btn-outline-danger btn-sm" title="Eliminar"><i class="icon-trash"></i></a>
+                                                                                           
+                                        </th>
                                     </tr>
                                         
                                     @endforeach
