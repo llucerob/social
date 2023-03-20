@@ -4,6 +4,7 @@
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/date-picker.css')}}">
+    
 @endsection
 
 @section('style')
@@ -33,14 +34,15 @@
                 </div>
                 
 
-                    <form class="needs-validation theme-form" novalidate="">
-                        <div class="card-body">
+                    <form class="needs-validation theme-form" novalidate="" action="{{ route('beneficiarios.store')}}" method="post" enctype="multipart/form-data">
+                      @csrf  
+                      <div class="card-body">
                           <div class="row g-3">
 
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label" for="inputNombre">Nombre</label>
-                                <input class="form-control" id="inputNombre" type="text" required name="nombre" placeholder="Juan Alberto">
+                                <input class="form-control" id="inputNombre" type="text" required name="nombres" placeholder="Juan Alberto">
                                 <div class="valid-feedback">¡Luce bien!</div>
                               </div>
                             </div>
@@ -62,7 +64,7 @@
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label" for="inputRut">Rut</label>
-                                <input class="form-control" id="inputRut" type="text" name="rut" placeholder="99999999-1">
+                                <input class="form-control" id="inputRut" type="text" required name="rut" placeholder="99999999-1">
                                 <div class="valid-feedback">¡Luce bien!</div>
                               </div>
                             </div>
@@ -70,7 +72,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                   <label class="form-label" for="inputfnac">Fecha Nacimiento</label>
-                                  <input class="datepicker-here form-control digits" data-lenguage="es" id="inputfnac" type="text" name="fnac" placeholder="12/01/1999">
+                                  <input class="datepicker-here form-control digits" required  data-lenguage="es" id="inputfnac" type="text" name="fnac" placeholder="12/01/1999">
                                   <div class="valid-feedback">¡Luce bien!</div>
                                 </div>
                               </div>
@@ -82,7 +84,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                   <label class="form-label" for="inputRegistrosocial">Registro Social</label>
-                                  <input class="form-control" id="inputRegistrosocial" type="text" name="registrosocial" placeholder="1252831">
+                                  <input class="form-control" id="inputRegistrosocial" type="text" required name="registrosocial" placeholder="1252831">
                                   <div class="valid-feedback">¡Luce bien!</div>
                                 </div>
                             </div>
@@ -90,7 +92,7 @@
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label" for="inputPorcentaje">Porcentaje</label>
-                                <input class="form-control" id="inputPorcentaje" type="number" name="porcentaje" placeholder="99">
+                                <input class="form-control" id="inputPorcentaje" type="number" name="porcentaje" required placeholder="99">
                                 <div class="valid-feedback">¡Luce bien!</div>
                               </div>
                             </div>
@@ -102,7 +104,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                   <label class="form-label" for="inputDireccion">Dirección</label>
-                                  <input class="form-control" id="inputDireccion" type="text" name="direccion" placeholder="avda. siempre viva">
+                                  <input class="form-control" id="inputDireccion" type="text" name="direccion" required placeholder="avda. siempre viva">
                                   <div class="valid-feedback">¡Luce bien!</div>
                                 </div>
                               </div>
@@ -110,7 +112,7 @@
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label" for="selectSector">Sector</label>
-                                <select class="form-select digits" id="selectSector">
+                                <select class="form-select digits" required id="selectSector" name="sector">
 
                                     @foreach ($sector as $s )
                                         <option value="{{ $s->nombre }}">{{ $s->nombre }}</option>
@@ -129,7 +131,7 @@
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label" for="inputTelefono">Teléfono</label>
-                                <input class="form-control" id="inputTelefono" type="text" name="telefono" placeholder="Perez Perez">
+                                <input class="form-control" id="inputTelefono" type="text"  name="telefono" placeholder="72 2442330">
                                 <div class="valid-feedback">¡Luce bien!</div>
                               </div>
                             </div>
@@ -137,7 +139,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                   <label class="form-label" for="inputCorreo">Email</label>
-                                  <input class="form-control" id="inputCorreo" type="email" name="correo" placeholder="algo@algo.com">
+                                  <input class="form-control" id="inputCorreo" type="email"  name="correo" placeholder="algo@algo.com">
                                   <div class="valid-feedback">¡Luce bien!</div>
                                 </div>
                             </div>

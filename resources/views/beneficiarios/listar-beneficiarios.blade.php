@@ -4,6 +4,7 @@
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatables.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/daterange-picker.css')}}">
 @endsection
 
 @section('style')
@@ -27,7 +28,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>A continuación se listarán todos los benefeciarios</h5>
+                    <h5>A continuación se listarán todos los beneficiarios</h5>
                     
                 </div>
                 <div class="card-body">
@@ -38,6 +39,7 @@
                                 <tr>
                                     <th>Rut</th>
                                     <th>Nombre Completo</th>
+                                    
                                     <th>Registro Social</th>
                                     <th>Dirección</th>
                                     <th>Contacto</th>
@@ -49,37 +51,41 @@
 
                                 <tr>
                                     <th>{{ $b->rut }}</th>
-                                    <th>{{ $b->nombre }} {{$b->apellidos }}</th>
-                                    <th> </th>
+                                    <th>{{ $b->nombres }} {{$b->apellidos }}
+                                    </th>
+                                   
+                                    <th class="text-center">{{ $b->registrosocial->folioid }} <br> <span class="txt-secondary"> {{ $b->registrosocial->porcentaje }}% </span></th>
                                     <th>{{ $b->direccion }}, {{ $b->sector }}</th>
                                     <th> 
                                         <ul>
-                                            <li>{{ $b->telefono}}</li>
-                                            <li>{{ $b->correo}}</li>
+                                            <li>@if(empty($b->telefono)) "NO REGISTRA INFORMACIóN" @else {{ $b->telefono}}@endif</li>
+                                            <br>
+                                            <li>@if(empty($b->correo)) "NO REGISTRA INFORMACIóN" @else {{ $b->correo}}@endif</li>
                                         </ul>
                                     </th>
                                     <th>
                                         <a href="#modalAumentar" class="btn btn-outline-success btn-sm" title="Agregar" data-bs-toggle="modal" data-bs-target="#modalAumentar"><i class="fa fa-plus"></i></a>
-                                        <a href="{{url('materiales/editar/'.$m->id)}}" class="btn btn-outline-primary btn-sm" title="Editar"><i class="fa fa-pencil"></i></a>
-                                        <a href="{{url('materiales/destroy/'.$m->id)}}" class="btn btn-outline-danger btn-sm" title="Eliminar"><i class="icon-trash"></i></a>
+                                        <a href="{{url('beneficiarios/editar/'.$b->id)}}" class="btn btn-outline-primary btn-sm" title="Editar"><i class="fa fa-pencil"></i></a>
+                                        <a href="{{url('beneficiarios/destroy/'.$b->id)}}" class="btn btn-outline-danger btn-sm" title="Eliminar"><i class="icon-trash"></i></a>
 
                                             <div class="modal fade" id="modalAumentar" tabindex="-1" role="dialog" aria-labelledby="modalAumentar" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title">Aumento de material</h5>
+                                                            <h5 class="modal-title">Registro social Hogares</h5>
                                                         <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <form action="{{url('materiales/aumentar/'.$m->id.'/guardar')}}" method="post" enctype="multipart/form-data">
+                                                        </div>
+                                                    <form action="{{url('beneficiarios/porcentaje/'.$b->registrosocial->id.'/modificar')}}" method="post" enctype="multipart/form-data">
                                                         @csrf
                                                     <div class="modal-body">
 
                                                         
                                                         <div class="col">
                                                             <div class="mb-3">
-                                                                <label class="form-label" for="inputStock">Ingrese cantidad a agregar en [{{$m->medida}}]</label>
-                                                                <input class="form-control" id="inputStock" type="number" name="stock">
+                                                                <label class="form-label" for="inputStock">Modifique el valor del registro social de Hogares </label>
+                                                                <input class="touchspin" id="inputStock" value={{$b->registrosocial->porcentaje}} name="porcentaje">
                                                             <div class="valid-feedback">¡Luce bien!</div>
+                                                            </div>
                                                         </div>
                                                         
                                                         
@@ -88,7 +94,7 @@
                                                         
                                                         
                                                         <button class="btn btn-primary" type="submit">Guardar</button>
-                                                        <input type="reset" class="btn btn-secondary" value="Limpiar">
+                                                        
                                                         
                                                     </div>
                                                 </form>
@@ -123,6 +129,11 @@
 @endsection
 
 @section('script')
+    
+    <!-- <script src="{{asset('assets/js/touchspin/vendors.min.js')}}"></script>-->
+    <script src="{{asset('assets/js/touchspin/touchspin.js')}}"></script>
+    
+    <script src="{{asset('assets/js/touchspin/input-groups.min.js')}}"></script>
 
     <script src="{{asset('assets/js/datatable/datatables/jquery.dataTables.min.js')}}"></script>
 
@@ -135,5 +146,7 @@
             });
         });
     </script>
+    
+   
 
 @endsection

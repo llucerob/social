@@ -4,6 +4,7 @@
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/date-picker.css')}}">
+
 @endsection
 
 @section('style')
@@ -62,7 +63,7 @@
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label" for="inputRut">Rut</label>
-                                <input class="form-control" id="inputRut" type="text" name="rut" placeholder="99999999-1">
+                                <input class="form-control" id="inputRut" type="text" name="rut" data-role="input, input-mask" data-mask="________-_">
                                 <div class="valid-feedback">¡Luce bien!</div>
                               </div>
                             </div>
@@ -79,7 +80,22 @@
                           
                           <div class="row g-3">
 
-                            <div class="col-md-6">
+                            <div class="col-md-4 mt-3">
+                              <div class="mb-3">
+                                <label class="col-form-label m-r-10">¿Desea modificar el Nº de registro social?</label>
+                                <label class="form-label" for="registro"></label>
+                                
+                                <div class="media-body text-end text-center" >
+                                  <label class="switch">
+                                  <input type="checkbox" checked="" name="tieneregistro" id="registro"><span class="switch-state"></span>
+                                  </label>
+                                </div>
+
+                                <div class="valid-feedback">¡Luce bien!</div>
+                              </div>
+                          </div>
+
+                            <div class="col-md-4">
                                 <div class="mb-3">
                                   <label class="form-label" for="inputRegistrosocial">Registro Social</label>
                                   <input class="form-control" id="inputRegistrosocial" type="text" name="registrosocial" placeholder="1252831">
@@ -87,7 +103,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                               <div class="mb-3">
                                 <label class="form-label" for="inputPorcentaje">Porcentaje</label>
                                 <input class="form-control" id="inputPorcentaje" type="number" name="porcentaje" placeholder="99">
@@ -169,8 +185,11 @@
 @endsection
 
 @section('script')
+
+    
     <script src="{{ asset('assets/js/form-validation-custom.js')}}"></script>
     <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.js')}}"></script>
     <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.es.js')}}"></script>
     <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.custom.js')}}"></script>
+    
 @endsection

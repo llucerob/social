@@ -54,6 +54,10 @@ Route::middleware('auth')->group(function () {
     Route::get('beneficiarios/listar', [BeneficiariosController::class, 'index'])->name('beneficiarios.index');
     Route::get('beneficiarios/nuevo', [BeneficiariosController::class, 'create'])->name('beneficiarios.create');
     Route::post('beneficiarios/guardar', [BeneficiariosController::class, 'store'])->name('beneficiarios.store');
+    Route::get('beneficiarios/destroy/{id}', [BeneficiariosController::class, 'destroy']);
+    Route::get('beneficiarios/editar/{id}', [BeneficiariosController::class, 'edit']);
+    Route::post('beneficiarios/update/{id}', [BeneficiariosController::class, 'update']);
+    Route::post('beneficiarios/porcentaje/{id}/modificar', [BeneficiariosController::class, 'modificaporcentaje' ]);
 
 
     

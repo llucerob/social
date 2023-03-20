@@ -35,19 +35,53 @@ class BeneficiariosController extends Controller
      */
     public function store(Request $request)
     {
+
         $beneficiario = new Beneficiario;
         
         $beneficiario->nombres      = $request->nombres;
         $beneficiario->apellidos    = $request->apellidos;
+        $beneficiario->rut          = $request->rut;
+        $beneficiario->fnac          = $request->fnac;
         $beneficiario->direccion    = $request->direccion;
         $beneficiario->sector       = $request->sector;
         $beneficiario->telefono     = $request->telefono;
         $beneficiario->correo       = $request->correo;
 
+        
+
+        $registrosocial = Registrosocial::all();
+
+        foreach ($registrosocial as $r){
+
+            if($r->folioid == $request->registrosocial){
+                $r->porcentaje = $request->porcentaje;
+                $r->update();
+                $beneficiario->registrosociales_id = $r->id;
+
+
+            }
+
+        }
+
+
+        if(empty($beneficiario->registrosociales_id)){
+            
+            $registro               = new Registrosocial;
+            $registro->folioid      = $request->registrosocial;
+            $registro->porcentaje   = $request->porcentaje;
+            $registro->save();
+            $beneficiario->registrosociales_id = $registro->id;
+
+
+        }
+
         $beneficiario->save();
 
 
-        return redirect('dashboard');
+
+
+
+        return redirect()->route('beneficiarios.index');
     }
 
     /**
@@ -64,8 +98,9 @@ class BeneficiariosController extends Controller
     public function edit(string $id)
     {
         $beneficiario = Beneficiario::findOrFail($id);
+        $sector =    Sector::all();
 
-        return view('beneficiarios.editar-beneficiario', ['beneficiario' => $beneficiario]);
+        return view('beneficiarios.editar-beneficiario', ['beneficiario' => $beneficiario, 'sector' => $sector]);
     }
 
     /**
@@ -86,5 +121,17 @@ class BeneficiariosController extends Controller
         $beneficiario->delete();
 
         return redirect()->route('beneficiarios.index');
+    }
+
+    public function modificaporcentaje(string $id, Request $request){
+
+        $registrosocial = Registrosocial::findOrFail($id);
+
+        $registrosocial->porcentaje = $request->porcentaje;
+
+        $registrosocial->update();
+
+        return redirect()->route('beneficiarios.index');
+
     }
 }

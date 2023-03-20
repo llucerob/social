@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Beneficiario extends Model
@@ -14,14 +15,13 @@ class Beneficiario extends Model
 
 
     /**
-     * Obtiene el id del registro social del beneficiario
-     * 
+     * Get the registrosocial that owns the Beneficiario
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function registrosocial(): HasOne
+    public function registrosocial(): BelongsTo
     {
-        return $this->hasOne(Registrosocial::class, 'registrosociales_id', 'id');
+        return $this->belongsTo(Registrosocial::class, 'registrosociales_id', 'id');
     }
 
     /**
