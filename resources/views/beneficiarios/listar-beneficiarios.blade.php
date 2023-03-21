@@ -50,7 +50,7 @@
                                 @foreach ($beneficiarios as $b )
 
                                 <tr>
-                                    <th>{{ $b->rut }}</th>
+                                    <th width="8%">{{ $b->rut }}</th>
                                     <th>{{ $b->nombres }} {{$b->apellidos }}
                                     </th>
                                    
@@ -63,10 +63,12 @@
                                             <li>@if(empty($b->correo)) "NO REGISTRA INFORMACIóN" @else {{ $b->correo}}@endif</li>
                                         </ul>
                                     </th>
-                                    <th>
-                                        <a href="#modalAumentar" class="btn btn-outline-success btn-sm" title="Agregar" data-bs-toggle="modal" data-bs-target="#modalAumentar"><i class="fa fa-plus"></i></a>
-                                        <a href="{{url('beneficiarios/editar/'.$b->id)}}" class="btn btn-outline-primary btn-sm" title="Editar"><i class="fa fa-pencil"></i></a>
-                                        <a href="{{url('beneficiarios/destroy/'.$b->id)}}" class="btn btn-outline-danger btn-sm" title="Eliminar"><i class="icon-trash"></i></a>
+                                    <th >
+                                        
+                                        <a href="{{url('beneficiarios/solicitar/'.$b->id)}}" class="btn btn-outline-primary btn-sm m-1" title="Solicitar"><i class="fa fa-ticket"></i></a>
+                                        <a href="#modalAumentar" class="btn btn-outline-success btn-sm m-1" title="Agregar" data-bs-toggle="modal" data-bs-target="#modalAumentar"><i class="fa fa-plus"></i></a>
+                                        <a href="{{url('beneficiarios/editar/'.$b->id)}}" class="btn btn-outline-warning btn-sm m-1" title="Editar"><i class="fa fa-pencil"></i></a>
+                                        <a href="{{url('beneficiarios/destroy/'.$b->id)}}" class="btn btn-outline-danger btn-sm m-1" title="Eliminar"><i class="icon-trash"></i></a>
 
                                             <div class="modal fade" id="modalAumentar" tabindex="-1" role="dialog" aria-labelledby="modalAumentar" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">

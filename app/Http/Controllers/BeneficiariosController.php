@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Beneficiario;
 use App\Models\Registrosocial;
 use App\Models\Sector;
+use App\Models\Material;
 
 class BeneficiariosController extends Controller
 {
@@ -97,8 +98,8 @@ class BeneficiariosController extends Controller
      */
     public function edit(string $id)
     {
-        $beneficiario = Beneficiario::findOrFail($id);
-        $sector =    Sector::all();
+        $beneficiario   = Beneficiario::findOrFail($id);
+        $sector         =    Sector::all();
 
         return view('beneficiarios.editar-beneficiario', ['beneficiario' => $beneficiario, 'sector' => $sector]);
     }
@@ -132,6 +133,15 @@ class BeneficiariosController extends Controller
         $registrosocial->update();
 
         return redirect()->route('beneficiarios.index');
+
+    }
+
+    public function solicitar(string $id){
+
+        $materiales     = Material::all();
+        $beneficiario   = Beneficiario::findOrFail($id);
+
+        return view('solicitudes.solicitar-material', ['materiales' => $materiales, 'beneficiario' => $beneficiario]);
 
     }
 }
