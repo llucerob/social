@@ -36,7 +36,7 @@
                         <table class="display datatables" id="beneficiarios">
 
                             <thead>
-                                <tr>
+                                <tr class="text-center">
                                     <th>Rut</th>
                                     <th>Nombre Completo</th>
                                     
@@ -66,7 +66,7 @@
                                     <th >
                                         
                                         <a href="{{url('beneficiarios/solicitar/'.$b->id)}}" class="btn btn-outline-primary btn-sm m-1" title="Solicitar"><i class="fa fa-ticket"></i></a>
-                                        <a href="#modalAumentar" class="btn btn-outline-success btn-sm m-1" title="Agregar" data-bs-toggle="modal" data-bs-target="#modalAumentar"><i class="fa fa-plus"></i></a>
+                                        <a href="#modalAumentar" class="btn btn-outline-success btn-sm m-1" title="Modificar %" data-bs-toggle="modal" data-bs-target="#modalAumentar"><i class="fa fa-plus"></i></a>
                                         <a href="{{url('beneficiarios/editar/'.$b->id)}}" class="btn btn-outline-warning btn-sm m-1" title="Editar"><i class="fa fa-pencil"></i></a>
                                         <a href="{{url('beneficiarios/destroy/'.$b->id)}}" class="btn btn-outline-danger btn-sm m-1" title="Eliminar"><i class="icon-trash"></i></a>
 
@@ -93,11 +93,7 @@
                                                         
                                                     </div>
                                                     <div class="modal-footer">
-                                                        
-                                                        
-                                                        <button class="btn btn-primary" type="submit">Guardar</button>
-                                                        
-                                                        
+                                                        <button class="btn btn-primary" type="submit">Guardar</button>                                                                         
                                                     </div>
                                                 </form>
                                                 </div>

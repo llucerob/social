@@ -144,4 +144,54 @@ class BeneficiariosController extends Controller
         return view('solicitudes.solicitar-material', ['materiales' => $materiales, 'beneficiario' => $beneficiario]);
 
     }
+
+    public function solicitudparte1(string $id, Request $request){
+
+        
+        $seleccionados = [];
+        
+
+        foreach( $request->materiales as $key => $m )
+        {
+          
+            $material  = Material::findOrFail($m);
+            
+            if(is_null($request->emergencia)){
+                $seleccionados[$key]['id']        = $material->id;
+                $seleccionados[$key]['nombre']    = $material->nombre;
+                $seleccionados[$key]['limite']    = $material->limite;
+                $seleccionados[$key]['medida']    = $material->medida;
+                
+            }else{
+
+                $seleccionados[$key]['id']        = $material->id;  
+                $seleccionados[$key]['nombre']    = $material->nombre;
+                $seleccionados[$key]['limite']    = $material->limiteurgencia;
+                $seleccionados[$key]['medida']    = $material->medida;
+                
+            }
+        
+        }
+        $beneficiario = Beneficiario::findOrFail($id);
+
+
+
+        return view('solicitudes.solicitar-material-2', ['seleccionados' => $seleccionados, 'emergencia' => $request->emergencia, 'beneficiario' => $beneficiario]);
+
+    }
+    public function solicitudparte2(string $id, Request $request){
+        $beneficiario = Beneficiario::findOrFail($id);
+
+        //dd($beneficiario);
+
+        foreach($request->material as $m){
+            
+            $beneficiario->solicitudes()->attach($m['id'], ['cantidad' => $m['cantidad'], 'medida' => $m['medida']]);
+
+        }
+
+
+        return redirect()->route('beneficiarios.index');
+        
+    }
 }

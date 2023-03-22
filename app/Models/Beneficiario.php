@@ -30,8 +30,8 @@ class Beneficiario extends Model
      */
     public function solicitudes(): BelongsToMany
     {
-        return $this->belongsToMany(Material::class, 'solicitudes', 'materiales_id', 'beneficiario_id')
-                    ->as('solicitud')
+        return $this->belongsToMany(Material::class, 'solicitudes',  'beneficiario_id', 'materiales_id')
+                    ->as('solicitudes')
                     ->withPivot('cantidad', 'medida', 'entregado')
                     ->withTimestamps();
 

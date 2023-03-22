@@ -59,6 +59,8 @@ Route::middleware('auth')->group(function () {
     Route::post('beneficiarios/update/{id}', [BeneficiariosController::class, 'update']);
     Route::post('beneficiarios/porcentaje/{id}/modificar', [BeneficiariosController::class, 'modificaporcentaje' ]);
     Route::get('beneficiarios/solicitar/{id}', [BeneficiariosController::class, 'solicitar']);
+    Route::post('beneficiarios/solicitar/{id}/parte1', [BeneficiariosController::class, 'solicitudparte1']);
+    Route::post('beneficiarios/solicitar/{id}/parte2', [BeneficiariosController::class, 'solicitudparte2']);
 
 
 
