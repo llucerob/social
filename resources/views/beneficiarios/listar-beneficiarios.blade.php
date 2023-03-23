@@ -69,6 +69,8 @@
                                         <a href="#modalAumentar" class="btn btn-outline-success btn-sm m-1" title="Modificar %" data-bs-toggle="modal" data-bs-target="#modalAumentar"><i class="fa fa-plus"></i></a>
                                         <a href="{{url('beneficiarios/editar/'.$b->id)}}" class="btn btn-outline-warning btn-sm m-1" title="Editar"><i class="fa fa-pencil"></i></a>
                                         <a href="{{url('beneficiarios/destroy/'.$b->id)}}" class="btn btn-outline-danger btn-sm m-1" title="Eliminar"><i class="icon-trash"></i></a>
+                                        <a href="{{url('beneficiario/'.$b->id.'/solicitud')}}" class="btn btn-outline-primary btn-sm m-1" title="Solicitar"><i class="fa fa-check"></i></a>
+
 
                                             <div class="modal fade" id="modalAumentar" tabindex="-1" role="dialog" aria-labelledby="modalAumentar" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
