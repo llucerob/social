@@ -27,14 +27,14 @@
        
         
         <div class="col-sm-6">
-            <div class="card">
+            <div class="card" >
                 <div class="card-header">
                     <h5>Usted esta solicitando materiales para {{$beneficiario->nombres}}</h5>
                     
                 </div>
                 
 
-                    <form class="needs-validation theme-form" novalidate="" action="{{url('beneficiarios/solicitar/'.$beneficiario->id.'/parte2')}}" method="post" enctype="multipart/form-data">
+                    <form class="needs-validation theme-form" novalidate="" action="{{url('beneficiarios/solicitar/'.$beneficiario->id.'/parte2')}}" method="post" id="form" enctype="multipart/form-data">
                       @csrf  
                       <div class="card-body">
                           <div class="row g-3">
@@ -78,14 +78,20 @@
                         </div>
                         <div class="card-footer text-end">
                           
-                          <a class="btn btn-light" type="button" href="{{url()->previous()}}">Volver</a>
-                          <button class="btn btn-primary" type="submit">Grabar</button>
+                          <a class="btn btn-light" type="button" id="volver" href="{{url()->previous()}}">Volver</a>
+                          <button class="btn btn-primary" id="guardar" onclick="cambio();" type="submit">Grabar</button>
                         </div>
                       </form>
                     
                    
                 
             </div>
+        </div>
+
+        <div class="col-sm-6">
+
+
+
         </div>
         
         
@@ -100,6 +106,22 @@
 @endsection
 
 @section('script')
+
+<script>
+      
+  function cambio()
+  {
+    if(document.getElementById('guardar').onclick){
+      document.getElementById('form').submit();  
+      document.getElementById('guardar').disabled   = true;
+      document.getElementById('volver').hidden    = true; 
+
+    
+    }
+        
+  }
+  
+</script>   
   <script src="{{asset('assets/js/touchspin/touchspin.js')}}"></script>
   <script src="{{asset('assets/js/touchspin/input-groups.min.js')}}"></script>
     

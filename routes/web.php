@@ -22,9 +22,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
+/*Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');*/
+
+Route::get('/dashboard', [UtilsController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 
 Route::middleware('auth')->group(function () {
@@ -61,7 +63,9 @@ Route::middleware('auth')->group(function () {
     Route::get('beneficiarios/solicitar/{id}', [BeneficiariosController::class, 'solicitar']);
     Route::post('beneficiarios/solicitar/{id}/parte1', [BeneficiariosController::class, 'solicitudparte1']);
     Route::post('beneficiarios/solicitar/{id}/parte2', [BeneficiariosController::class, 'solicitudparte2']);
-    Route::get('beneficiario/{id}/solicitud', [BeneficiariosController::class, 'solicitud']);
+    
+    
+    Route::post('marco', [BeneficiariosController::class, 'marco'])->name('marco');
 
 
 

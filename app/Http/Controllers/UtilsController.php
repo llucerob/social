@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Sector;
 use App\Models\Categoria;
 use App\Models\Medida;
+use App\Models\Beneficiario;
 
 
 
@@ -112,5 +113,12 @@ class UtilsController extends Controller
 
         return redirect()->route('sectores');
         
+    }
+
+
+    public function dashboard(){
+
+        return view('dashboard');
+
     }
 }

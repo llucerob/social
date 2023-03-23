@@ -8,6 +8,7 @@ use App\Models\Registrosocial;
 use App\Models\Sector;
 use App\Models\Material;
 use Carbon\Carbon;
+use FontLib\Table\Type\post;
 use PDF;
 
 class BeneficiariosController extends Controller
@@ -186,49 +187,50 @@ class BeneficiariosController extends Controller
 
         //dd($beneficiario);
 
-        foreach($request->material as $m){
+        $lista = [];
+
+        foreach($request->material as $key => $m){
             
             $beneficiario->solicitudes()->attach($m['id'], ['cantidad' => $m['cantidad'], 'medida' => $m['medida']]);
 
-        }
+            $material = Material::findOrFail($m['id']);
+            $lista[$key]['nombre']      =   $material->nombre;
+            $lista[$key]['cantidad']    =   $m['cantidad'];
+            $lista[$key]['medida']      =   $m['medida'];
 
+        }
+        
+            
         $arr = [];
 
-        $arr['cliente']['nombre']       =   $beneficiario->nombres;
-        $arr['cliente']['apellido']     =   $beneficiario->apellidos;
-        $arr['cliente']['rut']          =   $beneficiario->rut;
-        $arr['cliente']['direccion']    =   $beneficiario->direccion;
-        $arr['cliente']['sector']       =   $beneficiario->sector;        
-        $arr['cliente']['telefono']     =   $beneficiario->telefono;
-        $arr['cliente']['correo']       =   $beneficiario->correo;
+        $arr['nombre']       =   $beneficiario->nombres;
+        $arr['apellido']     =   $beneficiario->apellidos;
+        $arr['rut']          =   $beneficiario->rut;
+        $arr['direccion']    =   $beneficiario->direccion;
+        $arr['sector']       =   $beneficiario->sector;        
+        $arr['telefono']     =   $beneficiario->telefono;
+        $arr['correo']       =   $beneficiario->correo;
         
+        $arr['lista']        =  $lista;
+        
+        
+        /*view()->share('solicitud', $arr);
+
+        $pdf = PDF::loadView('pdfs.solicitud', $arr);
 
 
+        $pdf->stream('solicitud'.$beneficiario->rut.'.pdf');*/
 
 
+        view()->share('solicitud', $arr);
 
-
-
-        return redirect()->route('beneficiarios.index');
+        $pdf = PDF::loadView('pdfs.solicitud', $arr);
+        return $pdf->download('solicitud'.$arr['nombre'].'.pdf');
+       
         
     }
-    public function solicitud(string $id){
-        $beneficiario = Beneficiario::findOrFail($id);
 
-
-        //$fecha = Carbon::parse($beneficiario->created_at)->format('d/m/Y H:m' );
-        
-
-        $arr = [];
-
-        $arr['cliente']['nombre']       =   $beneficiario->nombres;
-        $arr['cliente']['apellido']     =   $beneficiario->apellidos;
-        $arr['cliente']['rut']          =   $beneficiario->rut;
-        $arr['cliente']['direccion']    =   $beneficiario->direccion;
-        $arr['cliente']['sector']       =   $beneficiario->sector;        
-        $arr['cliente']['telefono']     =   $beneficiario->telefono;
-        $arr['cliente']['correo']       =   $beneficiario->correo;
-
+    public function marco(){
         
         
 
