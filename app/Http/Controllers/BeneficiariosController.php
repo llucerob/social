@@ -7,6 +7,8 @@ use App\Models\Beneficiario;
 use App\Models\Registrosocial;
 use App\Models\Sector;
 use App\Models\Material;
+use Carbon\Carbon;
+use PDF;
 
 class BeneficiariosController extends Controller
 {
@@ -190,8 +192,49 @@ class BeneficiariosController extends Controller
 
         }
 
+        $arr = [];
+
+        $arr['cliente']['nombre']       =   $beneficiario->nombres;
+        $arr['cliente']['apellido']     =   $beneficiario->apellidos;
+        $arr['cliente']['rut']          =   $beneficiario->rut;
+        $arr['cliente']['direccion']    =   $beneficiario->direccion;
+        $arr['cliente']['sector']       =   $beneficiario->sector;        
+        $arr['cliente']['telefono']     =   $beneficiario->telefono;
+        $arr['cliente']['correo']       =   $beneficiario->correo;
+        
+
+
+
+
+
+
 
         return redirect()->route('beneficiarios.index');
         
     }
+    public function solicitud(string $id){
+        $beneficiario = Beneficiario::findOrFail($id);
+
+
+        //$fecha = Carbon::parse($beneficiario->created_at)->format('d/m/Y H:m' );
+        
+
+        $arr = [];
+
+        $arr['cliente']['nombre']       =   $beneficiario->nombres;
+        $arr['cliente']['apellido']     =   $beneficiario->apellidos;
+        $arr['cliente']['rut']          =   $beneficiario->rut;
+        $arr['cliente']['direccion']    =   $beneficiario->direccion;
+        $arr['cliente']['sector']       =   $beneficiario->sector;        
+        $arr['cliente']['telefono']     =   $beneficiario->telefono;
+        $arr['cliente']['correo']       =   $beneficiario->correo;
+
+        
+        
+
+
+    }
+
+
+
 }
