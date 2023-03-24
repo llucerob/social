@@ -7,8 +7,8 @@ use App\Models\Beneficiario;
 use App\Models\Registrosocial;
 use App\Models\Sector;
 use App\Models\Material;
-use Carbon\Carbon;
-use FontLib\Table\Type\post;
+use App\Models\Entregado;
+use App\Models\Solicitud;
 use PDF;
 
 class BeneficiariosController extends Controller
@@ -45,7 +45,7 @@ class BeneficiariosController extends Controller
         $beneficiario->nombres      = $request->nombres;
         $beneficiario->apellidos    = $request->apellidos;
         $beneficiario->rut          = $request->rut;
-        $beneficiario->fnac          = $request->fnac;
+        $beneficiario->fnac         = $request->fnac;
         $beneficiario->direccion    = $request->direccion;
         $beneficiario->sector       = $request->sector;
         $beneficiario->telefono     = $request->telefono;
@@ -88,14 +88,7 @@ class BeneficiariosController extends Controller
         return redirect()->route('beneficiarios.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
+  
     /**
      * Show the form for editing the specified resource.
      */
@@ -112,7 +105,60 @@ class BeneficiariosController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $beneficiario = Beneficiario::findOrFail($id);
+
+        $beneficiario->nombres      = $request->nombres;
+        $beneficiario->apellidos    = $request->apellidos;
+        $beneficiario->rut          = $request->rut;
+        $beneficiario->fnac         = $request->fnac;
+        $beneficiario->direccion    = $request->direccion;
+        $beneficiario->sector       = $request->sector;
+        $beneficiario->telefono     = $request->telefono;
+        $beneficiario->correo       = $request->correo;
+
+        //dd($beneficiario->registrosocial);
+
+        $registrosocial = Registrosocial::all();
+
+        foreach ($registrosocial as $r){
+
+            if($r->folioid == $request->registrosocial){
+                $r->porcentaje = $request->porcentaje;
+                $r->update();
+                $beneficiario->registrosociales_id = $r->id;
+                
+
+            }else{
+
+                
+                $registro               = new Registrosocial;
+                $registro->folioid      = $request->registrosocial;
+                $registro->porcentaje   = $request->porcentaje;
+                $registro->save();
+                $beneficiario->registrosociales_id = $registro->id;
+            }
+
+        }
+
+
+        if(empty($beneficiario->registrosociales_id)){
+            
+            $registro               = new Registrosocial;
+            $registro->folioid      = $request->registrosocial;
+            $registro->porcentaje   = $request->porcentaje;
+            $registro->save();
+            $beneficiario->registrosociales_id = $registro->id;
+
+
+        }
+
+        $beneficiario->update();
+
+
+
+
+
+        return redirect()->route('beneficiarios.index');
     }
 
     /**
@@ -187,20 +233,29 @@ class BeneficiariosController extends Controller
 
         //dd($beneficiario);
 
-        $lista = [];
+        
 
         foreach($request->material as $key => $m){
             
             $beneficiario->solicitudes()->attach($m['id'], ['cantidad' => $m['cantidad'], 'medida' => $m['medida']]);
 
-            $material = Material::findOrFail($m['id']);
-            $lista[$key]['nombre']      =   $material->nombre;
-            $lista[$key]['cantidad']    =   $m['cantidad'];
-            $lista[$key]['medida']      =   $m['medida'];
+           
 
         }
         
             
+       
+        return redirect()->route('dashboard');
+       
+        
+    }
+
+    public function imprimir(string $id){
+
+        
+
+        $beneficiario = Beneficiario::findOrFail($id);
+
         $arr = [];
 
         $arr['nombre']       =   $beneficiario->nombres;
@@ -210,33 +265,60 @@ class BeneficiariosController extends Controller
         $arr['sector']       =   $beneficiario->sector;        
         $arr['telefono']     =   $beneficiario->telefono;
         $arr['correo']       =   $beneficiario->correo;
+
+
+        $lista = [];
         
-        $arr['lista']        =  $lista;
+
+        foreach($beneficiario->solicitudes as $key => $b){
+
+           $lista[$key]['nombre']   = $b->nombre;
+           $lista[$key]['cantidad'] = $b->solicitudes->cantidad;
+           $lista[$key]['medida']   = $b->solicitudes->medida;
+           $arr['fechasolicitud']   = $b->solicitudes->created_at;
+           
+        }
         
+        $arr['productos']           =  $lista;
         
-        /*view()->share('solicitud', $arr);
-
-        $pdf = PDF::loadView('pdfs.solicitud', $arr);
-
-
-        $pdf->stream('solicitud'.$beneficiario->rut.'.pdf');*/
-
-
         view()->share('solicitud', $arr);
 
         $pdf = PDF::loadView('pdfs.solicitud', $arr);
-        return $pdf->download('solicitud'.$arr['nombre'].'.pdf');
-       
-        
-    }
-
-    public function marco(){
-        
-        
+        return $pdf->download('solicitud'.$arr['rut'].'.pdf');
 
 
     }
 
+    public function entregarmaterial(string $id){
+
+        $beneficiario = Beneficiario::findOrFail($id);
+
+        return view('solicitudes.listar-solicitud', ['beneficiario' => $beneficiario]);
+
+    }
+
+    public function entregar(string $m){
+
+
+        $solicitud = Solicitud::findOrFail($m);
+
+        $entregado = new Entregado;
+
+        $entregado->materiales_id   = $solicitud->materiales_id;
+        $entregado->beneficiario_id = $solicitud->beneficiario_id;
+        $entregado->cantidad        = $solicitud->cantidad;
+        $entregado->medida          = $solicitud->medida;
+
+        $entregado->save();
+
+        $solicitud->delete();
+
+
+        
+        
+
+        return redirect()->back();
+    }
 
 
 }
