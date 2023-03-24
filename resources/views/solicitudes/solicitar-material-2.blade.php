@@ -78,8 +78,8 @@
                         </div>
                         <div class="card-footer text-end">
                           
-                          <a class="btn btn-light" type="button" id="volver" href="{{url()->previous()}}">Volver</a>
-                          <button class="btn btn-primary" id="guardar" onclick="cambio();" type="submit">Grabar</button>
+                          <a class="btn btn-light" type="button"  href="{{url()->previous()}}">Volver</a>
+                          <button class="btn btn-primary"  type="submit">Grabar</button>
                         </div>
                       </form>
                     
@@ -106,6 +106,7 @@
 @endsection
 
 @section('script')
+<!--
 
 <script>
       
@@ -121,7 +122,7 @@
         
   }
   
-</script>   
+</script>   -->
   <script src="{{asset('assets/js/touchspin/touchspin.js')}}"></script>
   <script src="{{asset('assets/js/touchspin/input-groups.min.js')}}"></script>
     

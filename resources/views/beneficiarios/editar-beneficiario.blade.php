@@ -34,8 +34,9 @@
                 </div>
                 
 
-                    <form class="needs-validation theme-form" novalidate="">
-                        <div class="card-body">
+                    <form class="needs-validation theme-form" novalidate="" action="{{ route('beneficiarios.update', [$beneficiario->id])}}" method="post" enctype="multipart/form-data">
+                      @csrf  
+                      <div class="card-body">
                           <div class="row g-3">
 
                             <div class="col-md-6">
@@ -126,7 +127,7 @@
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label class="form-label" for="selectSector">Sector</label>
-                                <select class="form-select digits" id="selectSector">
+                                <select class="form-select digits" id="selectSector" name="sector">
 
                                     @foreach ($sector as $s )
                                         <option value="{{ $s->nombre }}" @if ($s->nombre == $beneficiario->sector) selected @endif>{{ $s->nombre }}</option>

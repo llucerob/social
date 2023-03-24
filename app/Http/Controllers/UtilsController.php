@@ -118,7 +118,10 @@ class UtilsController extends Controller
 
     public function dashboard(){
 
-        return view('dashboard');
+        $beneficiarios = Beneficiario::all();
+
+
+        return view('dashboard', ['beneficiarios' => $beneficiarios]);
 
     }
 }

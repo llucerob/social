@@ -32,7 +32,20 @@ class Beneficiario extends Model
     {
         return $this->belongsToMany(Material::class, 'solicitudes',  'beneficiario_id', 'materiales_id')
                     ->as('solicitudes')
-                    ->withPivot('cantidad', 'medida', 'entregado')
+                    ->withPivot('cantidad', 'medida', 'entregado','id' )
+                    ->withTimestamps();
+
+    }
+    /**
+     * las solicitudes hechas por el beneficiario a traves de un pivote
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function entregados(): BelongsToMany
+    {
+        return $this->belongsToMany(Material::class, 'entregados',  'beneficiario_id', 'materiales_id')
+                    ->as('entregados')
+                    ->withPivot('cantidad', 'medida')
                     ->withTimestamps();
 
     }

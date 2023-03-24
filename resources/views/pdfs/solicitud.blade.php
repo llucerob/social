@@ -131,7 +131,7 @@
 </td>
     <td>
         <div class="receipt-right text-left">
-            <p><b>Fecha :</b> {{now()->format('d/m/Y')}}</p>
+            <p><b>Fecha :</b> {{$fechasolicitud->format('d/m/Y')}}</p>
             <p><b>Atendido :</b>{{ Auth::user()->name }} </p>
             
         </div>
@@ -154,7 +154,7 @@
     </thead>
     <tbody>
 
-        @foreach ( $lista as $l )
+        @foreach ( $productos as $l )
         <tr>
             <td>{{$l['nombre']}}</td>
             <td>{{$l['cantidad']}}{{$l['medida']}}</td>

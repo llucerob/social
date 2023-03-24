@@ -49,7 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('materiales/editar/{id}', [MaterialesController::class, 'edit']);
     Route::post('materiales/update/{id}', [MaterialesController::class, 'update']);
     Route::post('materiales/aumentar/{id}/guardar', [MaterialesController::class, 'storeaumentar']);
-
+  
 
     
     //CONTROLADPRES BENEFICIARIOS
@@ -58,14 +58,15 @@ Route::middleware('auth')->group(function () {
     Route::post('beneficiarios/guardar', [BeneficiariosController::class, 'store'])->name('beneficiarios.store');
     Route::get('beneficiarios/destroy/{id}', [BeneficiariosController::class, 'destroy']);
     Route::get('beneficiarios/editar/{id}', [BeneficiariosController::class, 'edit']);
-    Route::post('beneficiarios/update/{id}', [BeneficiariosController::class, 'update']);
+    Route::post('beneficiarios/update/{id}', [BeneficiariosController::class, 'update'])->name('beneficiarios.update');
     Route::post('beneficiarios/porcentaje/{id}/modificar', [BeneficiariosController::class, 'modificaporcentaje' ]);
     Route::get('beneficiarios/solicitar/{id}', [BeneficiariosController::class, 'solicitar']);
     Route::post('beneficiarios/solicitar/{id}/parte1', [BeneficiariosController::class, 'solicitudparte1']);
     Route::post('beneficiarios/solicitar/{id}/parte2', [BeneficiariosController::class, 'solicitudparte2']);
-    
-    
-    Route::post('marco', [BeneficiariosController::class, 'marco'])->name('marco');
+    Route::get('beneficiario/{id}/imprimir', [BeneficiariosController::class, 'imprimir'])->name('imprimir', '{id}');
+    Route::get('beneficiario/{id}/ver', [BeneficiariosController::class, 'show']);
+    Route::get('beneficiario/{id}/entregarmaterial', [BeneficiariosController::class, 'entregarmaterial']);
+    Route::get('material/entregar/{m}', [BeneficiariosController::class, 'entregar'])->name('entregar.material');
 
 
 

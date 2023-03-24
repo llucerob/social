@@ -66,10 +66,11 @@
                                     <th >
                                         
                                         <a href="{{url('beneficiarios/solicitar/'.$b->id)}}" class="btn btn-outline-primary btn-sm m-1" title="Solicitar"><i class="fa fa-ticket"></i></a>
+                                        @if (count($b->solicitudes) > 0) <a href="{{url('beneficiario/'.$b->id.'/imprimir')}}" class="btn btn-outline-secondary btn-sm m-1" title="imprimir"><i class="fa fa-file-pdf-o"></i></a> @endif
                                         <a href="#modalAumentar" class="btn btn-outline-success btn-sm m-1" title="Modificar %" data-bs-toggle="modal" data-bs-target="#modalAumentar"><i class="fa fa-plus"></i></a>
                                         <a href="{{url('beneficiarios/editar/'.$b->id)}}" class="btn btn-outline-warning btn-sm m-1" title="Editar"><i class="fa fa-pencil"></i></a>
                                         <a href="{{url('beneficiarios/destroy/'.$b->id)}}" class="btn btn-outline-danger btn-sm m-1" title="Eliminar"><i class="icon-trash"></i></a>
-                                        <a href="{{url('beneficiario/'.$b->id.'/solicitud')}}" class="btn btn-outline-primary btn-sm m-1" title="Solicitar"><i class="fa fa-check"></i></a>
+                                        
 
 
                                             <div class="modal fade" id="modalAumentar" tabindex="-1" role="dialog" aria-labelledby="modalAumentar" aria-hidden="true">
