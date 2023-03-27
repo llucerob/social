@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Beneficiario extends Model
 {
@@ -49,11 +50,15 @@ class Beneficiario extends Model
                     ->withTimestamps();
 
     }
-    
 
+    /**
+     * Get all of the comments for the Beneficiario
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function devoluciones(): HasMany
+    {
+        return $this->hasMany(Reembolso::class, 'beneficiarios_id', 'id');
+    }
 
-
-
-
-    
 }

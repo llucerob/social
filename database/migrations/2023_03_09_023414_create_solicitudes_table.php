@@ -21,7 +21,7 @@ return new class extends Migration
                     ->onDelete('cascade');
             $table->integer('cantidad');
             $table->string('medida');
-            $table->enum('entregado', [1,0])->default('0');
+            $table->string('comentario')->nullable();
             $table->timestamps();
         });
     }

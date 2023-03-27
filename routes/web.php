@@ -67,6 +67,13 @@ Route::middleware('auth')->group(function () {
     Route::get('beneficiario/{id}/ver', [BeneficiariosController::class, 'show']);
     Route::get('beneficiario/{id}/entregarmaterial', [BeneficiariosController::class, 'entregarmaterial']);
     Route::get('material/entregar/{m}', [BeneficiariosController::class, 'entregar'])->name('entregar.material');
+    Route::post('beneficiario/{id}/creardevolucion', [BeneficiariosController::class, 'creadevolucion'])->name('crear.devolucion');
+    Route::get('beneficiarios/listar/devoluciones', [BeneficiariosController::class, 'listardevoluciones'])->name('listar.devoluciones');
+    Route::get('beneficiario/aceptar/rendicion/{id}', [BeneficiariosController::class, 'aceptarendicion'])->name('acepta.rendicion');
+    Route::get('beneficiario/eliminar/rendicion/{id}', [BeneficiariosController::class, 'eliminarrendicion'])->name('eliminar.rendicion');
+    Route::post('beneficiario/agregar/boleta/{id}', [BeneficiariosController::class, 'agregarboleta'])->name('agregar.boleta');
+    Route::get('beneficiario/ver/boletas/{id}', [BeneficiariosController::class, 'verboletas'])->name('ver.boletas');
+
 
 
 

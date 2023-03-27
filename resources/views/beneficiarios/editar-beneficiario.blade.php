@@ -88,7 +88,7 @@
                                  
                                 <div class="media-body text-end text-center" >
                                   <label class="switch">
-                                  <input type="checkbox" onchange="cambio();" id="registro"><span class="switch-state"></span>
+                                  <input type="checkbox" onchange="cambio();" id="registro" name="registro"><span class="switch-state"></span>
                                   </label>
                                 </div>
 
@@ -99,7 +99,7 @@
                             <div class="col-md-4">
                                 <div class="mb-3">
                                   <label class="form-label" for="inputRegistrosocial">Registro Social</label>
-                                  <input class="form-control" id="inputRegistrosocial" type="text" name="registrosocial" readOnly placeholder="1252831" value="{{$beneficiario->registrosocial->folioid}}">
+                                  <input class="form-control" id="inputRegistrosocial" type="text" required name="registrosocial" readOnly placeholder="1252831" value="{{$beneficiario->registrosocial->folioid}}">
                                   <div class="valid-feedback">¡Luce bien!</div>
                                 </div>
                             </div>
@@ -107,7 +107,7 @@
                             <div class="col-md-4">
                               <div class="mb-3">
                                 <label class="form-label" for="inputPorcentaje">Porcentaje</label>
-                                <input class="form-control" id="inputPorcentaje" type="number" name="porcentaje" readOnly placeholder="99" value="{{$beneficiario->registrosocial->porcentaje}}">
+                                <input class="form-control" id="inputPorcentaje" type="number" name="porcentaje" required readOnly placeholder="99" value="{{$beneficiario->registrosocial->porcentaje}}">
                                 <div class="valid-feedback">¡Luce bien!</div>
                               </div>
                             </div>

@@ -48,7 +48,7 @@
                 </li>
 
             
-            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#">
+            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="{{route('listar.devoluciones')}}">
                   <svg class="stroke-icon">
                     <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-charts') }}"></use>
                   </svg>

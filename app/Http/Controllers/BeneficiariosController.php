@@ -9,7 +9,11 @@ use App\Models\Sector;
 use App\Models\Material;
 use App\Models\Entregado;
 use App\Models\Solicitud;
+use App\Models\Reembolso;
+use App\Models\Boleta;
 use PDF;
+use DB;
+use Storage;
 
 class BeneficiariosController extends Controller
 {
@@ -120,37 +124,33 @@ class BeneficiariosController extends Controller
 
         $registrosocial = Registrosocial::all();
 
-        foreach ($registrosocial as $r){
+        
+        $r = DB::table('registrosociales')->where('folioid', $request->registrosocial)->first();
 
-            if($r->folioid == $request->registrosocial){
-                $r->porcentaje = $request->porcentaje;
-                $r->update();
-                $beneficiario->registrosociales_id = $r->id;
-                
+        //dd($r->id);
+
+       
+        
+        if(isset($request->registro)){
+            if(isset($r)){
+
+                $registro               = Registrosocial::findOrFail($r->id);
+
+                $registro->folioid      = $request->registrosocial;
+                $registro->porcentaje   = $request->porcentaje;
+                $registro->update();
+                $beneficiario->registrosociales_id = $r->id; 
 
             }else{
-
-                
                 $registro               = new Registrosocial;
                 $registro->folioid      = $request->registrosocial;
                 $registro->porcentaje   = $request->porcentaje;
                 $registro->save();
                 $beneficiario->registrosociales_id = $registro->id;
-            }
 
+            }              
         }
-
-
-        if(empty($beneficiario->registrosociales_id)){
-            
-            $registro               = new Registrosocial;
-            $registro->folioid      = $request->registrosocial;
-            $registro->porcentaje   = $request->porcentaje;
-            $registro->save();
-            $beneficiario->registrosociales_id = $registro->id;
-
-
-        }
+        
 
         $beneficiario->update();
 
@@ -300,9 +300,11 @@ class BeneficiariosController extends Controller
     public function entregar(string $m){
 
 
-        $solicitud = Solicitud::findOrFail($m);
+        $solicitud  = Solicitud::findOrFail($m);
 
-        $entregado = new Entregado;
+        $material   = Material::findOrFail($solicitud->materiales_id);    
+
+        $entregado  = new Entregado;
 
         $entregado->materiales_id   = $solicitud->materiales_id;
         $entregado->beneficiario_id = $solicitud->beneficiario_id;
@@ -311,6 +313,13 @@ class BeneficiariosController extends Controller
 
         $entregado->save();
 
+        $material->stock     =   $material->stock - $solicitud->cantidad;
+
+        $material->update();
+
+
+
+
         $solicitud->delete();
 
 
@@ -318,6 +327,97 @@ class BeneficiariosController extends Controller
         
 
         return redirect()->back();
+    }
+
+    public function creadevolucion(string $id, Request $request){
+
+        $beneficiario       = Beneficiario::findOrFail($id);
+
+
+        $reembolso      =   new Reembolso;
+
+        $reembolso->beneficiarios_id    = $beneficiario->id;
+
+        $reembolso->total               = $request->devolucion;
+        $reembolso->mes                 = $request->mes;
+
+        $reembolso->save();
+
+
+        return redirect()->back();
+
+
+
+    }
+
+    public function listardevoluciones(){
+
+        $reembolso = Reembolso::all();
+        
+        return view('devoluciones.listar-devoluciones', ['reembolso' => $reembolso]);
+    }
+
+    public function aceptarendicion(string $id){
+
+        $reembolso = Reembolso::findOrFail($id);
+
+        $reembolso->entregado = 1;
+
+        $reembolso->update();
+
+        return redirect()->back();
+
+    }
+
+    public function eliminarrendicion(string $id){
+
+        $reembolso = Reembolso::findOrfail($id);
+
+        $reembolso->delete();
+
+        return redirect()->back();
+    }
+
+    public function agregarboleta(string $id , Request $request){
+
+        $boleta = new Boleta;
+
+        if($request->file('boleta')){
+            $ruta = Storage::disk('public')->put('boletas', $request->file('boleta'));
+
+            $boleta->reembolsos_id  = $id;
+            $boleta->ruta           = $ruta;
+            $boleta->valor          = $request->valor;
+            $boleta->detalle        = $request->comentario;
+            $boleta->save();
+
+            //aqui voy
+
+            $beneficiario  = Beneficiario::findOrFail($id);
+
+            $beneficiario->suma = $beneficiario->suma + $request->valor;
+            $beneficiario->update();
+
+
+
+            return redirect()->back(); 
+        }
+
+
+        return redirect()->back();
+        
+
+        
+    }
+
+    public function verboletas(string $id){
+
+
+        $r = Reembolso::findOrFail($id);
+
+        
+        return view('devoluciones.listar-boletas', ['rendicion' => $r]);
+
     }
 
 
