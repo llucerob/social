@@ -393,10 +393,10 @@ class BeneficiariosController extends Controller
 
             //aqui voy
 
-            $beneficiario  = Beneficiario::findOrFail($id);
+            $rendicion = Reembolso::findorfail($id);
 
-            $beneficiario->suma = $beneficiario->suma + $request->valor;
-            $beneficiario->update();
+            $rendicion->suma = $rendicion->suma + $request->valor;
+            $rendicion->update();
 
 
 

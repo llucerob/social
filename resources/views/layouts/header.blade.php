@@ -44,11 +44,18 @@
             </div>
           </div>
           <ul class="profile-dropdown onhover-show-div">
-            <li><a href="#"><i data-feather="user"></i><span>Perfil </span></a></li>
-            <li><a href="#"><i data-feather="mail"></i><span>Inbox</span></a></li>
-            <li><a href="#"><i data-feather="file-text"></i><span>Taskboard</span></a></li>
-            <li><a href="#"><i data-feather="settings"></i><span>Settings</span></a></li>
-            <li><a href="#"><i data-feather="log-in"> </i><span>Log in</span></a></li>
+            <li><a href="{{url('profile')}}"><i data-feather="user"></i><span>Perfil </span></a></li>
+            
+            <li> <!-- Authentication -->
+              <form method="POST" action="{{ route('logout') }}">
+                  @csrf
+
+                  <x-responsive-nav-link :href="route('logout')"
+                          onclick="event.preventDefault();
+                                      this.closest('form').submit();">
+                      <i data-feather="log-in"> </i><span>Log Out</span></a>
+                  </x-responsive-nav-link>
+              </form></li>
           </ul>
         </li>
       </ul>
