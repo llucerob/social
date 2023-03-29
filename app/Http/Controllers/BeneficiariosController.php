@@ -11,9 +11,11 @@ use App\Models\Entregado;
 use App\Models\Solicitud;
 use App\Models\Reembolso;
 use App\Models\Boleta;
-use PDF;
-use DB;
-use Storage;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Carbon;
+
 
 class BeneficiariosController extends Controller
 {
@@ -23,6 +25,10 @@ class BeneficiariosController extends Controller
     public function index()
     {
         $beneficiario = Beneficiario::all();
+
+             
+
+        //dd(Carbon::parse($b->fnac)->age);
 
         return view('beneficiarios.listar-beneficiarios', ['beneficiarios' => $beneficiario]);
     }
@@ -46,14 +52,15 @@ class BeneficiariosController extends Controller
 
         $beneficiario = new Beneficiario;
         
-        $beneficiario->nombres      = $request->nombres;
-        $beneficiario->apellidos    = $request->apellidos;
-        $beneficiario->rut          = $request->rut;
-        $beneficiario->fnac         = $request->fnac;
-        $beneficiario->direccion    = $request->direccion;
-        $beneficiario->sector       = $request->sector;
-        $beneficiario->telefono     = $request->telefono;
-        $beneficiario->correo       = $request->correo;
+        $beneficiario->nombres          = $request->nombres;
+        $beneficiario->apellidos        = $request->apellidos;
+        $beneficiario->rut              = $request->rut;
+        $beneficiario->fnac             = $request->fnac;
+        $beneficiario->direccion        = $request->direccion;
+        $beneficiario->sector           = $request->sector;
+        $beneficiario->telefono         = $request->telefono;
+        $beneficiario->grupofamiliar    = $request->grupofam;
+        $beneficiario->correo           = $request->correo;
 
         
 
@@ -111,14 +118,15 @@ class BeneficiariosController extends Controller
     {
         $beneficiario = Beneficiario::findOrFail($id);
 
-        $beneficiario->nombres      = $request->nombres;
-        $beneficiario->apellidos    = $request->apellidos;
-        $beneficiario->rut          = $request->rut;
-        $beneficiario->fnac         = $request->fnac;
-        $beneficiario->direccion    = $request->direccion;
-        $beneficiario->sector       = $request->sector;
-        $beneficiario->telefono     = $request->telefono;
-        $beneficiario->correo       = $request->correo;
+        $beneficiario->nombres          = $request->nombres;
+        $beneficiario->apellidos        = $request->apellidos;
+        $beneficiario->rut              = $request->rut;
+        $beneficiario->fnac             = $request->fnac;
+        $beneficiario->direccion        = $request->direccion;
+        $beneficiario->sector           = $request->sector;
+        $beneficiario->telefono         = $request->telefono;
+        $beneficiario->correo           = $request->correo;
+        $beneficiario->grupofamiliar    = $request->grupofam;
 
         //dd($beneficiario->registrosocial);
 

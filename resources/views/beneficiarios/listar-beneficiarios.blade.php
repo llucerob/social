@@ -40,7 +40,7 @@
                                     <th>Rut</th>
                                     <th>Nombre Completo</th>
                                     
-                                    <th>Registro Social</th>
+                                    <th width="12%">Registro Social</th>
                                     <th>Dirección</th>
                                     <th>Contacto</th>
                                     <th>Acción</th>
@@ -51,10 +51,16 @@
 
                                 <tr>
                                     <th width="8%">{{ $b->rut }}</th>
-                                    <th>{{ $b->nombres }} {{$b->apellidos }}
+                                    <th>{{ $b->nombres }} {{$b->apellidos }}<br>
+                                        ({{ \Carbon\Carbon::parse($b->fnac)->age;}} Años)
                                     </th>
                                    
-                                    <th class="text-center">{{ $b->registrosocial->folioid }} <br> <span class="txt-secondary"> {{ $b->registrosocial->porcentaje }}% </span></th>
+                                    <th class="text-center">{{ $b->registrosocial->folioid }} <br> <span class="txt-secondary"> {{ $b->registrosocial->porcentaje }}% </span>
+                                    
+                                    <br>Fecha: {{date_format($b->registrosocial->updated_at, 'd/m/y')}}
+                                    
+                                    </th>
+                                    
                                     <th>{{ $b->direccion }}, {{ $b->sector }}</th>
                                     <th> 
                                         <ul>

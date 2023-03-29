@@ -81,7 +81,7 @@
                           
                           <div class="row g-3">
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="mb-3">
                                   <label class="form-label" for="inputRegistrosocial">Registro Social</label>
                                   <input class="form-control" id="inputRegistrosocial" type="text" required name="registrosocial" placeholder="1252831">
@@ -89,10 +89,17 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                               <div class="mb-3">
                                 <label class="form-label" for="inputPorcentaje">Porcentaje</label>
                                 <input class="form-control" id="inputPorcentaje" type="number" name="porcentaje" required placeholder="99">
+                                <div class="valid-feedback">¡Luce bien!</div>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="mb-3">
+                                <label class="form-label" for="inputgrupofam">Grupo Familiar</label>
+                                <input class="form-control" id="inputgrupofam" type="number" name="grupofam" required placeholder="99">
                                 <div class="valid-feedback">¡Luce bien!</div>
                               </div>
                             </div>

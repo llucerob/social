@@ -81,7 +81,7 @@
                           
                           <div class="row g-3">
 
-                            <div class="col-md-4 mt-3">
+                            <div class="col-md-3 mt-3">
                               <div class="mb-3">
                                 <label class="col-form-label m-r-10 form-label" for="registro">¿Desea modificar el Nº de registro social?
                                 
@@ -96,7 +96,7 @@
                               </div>
                           </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="mb-3">
                                   <label class="form-label" for="inputRegistrosocial">Registro Social</label>
                                   <input class="form-control" id="inputRegistrosocial" type="text" required name="registrosocial" readOnly placeholder="1252831" value="{{$beneficiario->registrosocial->folioid}}">
@@ -104,10 +104,17 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                               <div class="mb-3">
                                 <label class="form-label" for="inputPorcentaje">Porcentaje</label>
                                 <input class="form-control" id="inputPorcentaje" type="number" name="porcentaje" required readOnly placeholder="99" value="{{$beneficiario->registrosocial->porcentaje}}">
+                                <div class="valid-feedback">¡Luce bien!</div>
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="mb-3">
+                                <label class="form-label" for="inputgrupofam">Grupo Familiar</label>
+                                <input class="form-control" id="inputgrupofam" type="number" name="grupofam" required placeholder="99" value="{{$beneficiario->grupofamiliar}}">
                                 <div class="valid-feedback">¡Luce bien!</div>
                               </div>
                             </div>
