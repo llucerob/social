@@ -127,12 +127,14 @@
             <p><b>Rut :</b> {{$rut}}</p>
             <p><b>Dirección :</b> {{$direccion}}, {{$sector}}</p>
             <p><b>Contacto :</b> {{$telefono}} / {{$correo}}</p>
+
         </div>
 </td>
     <td>
         <div class="receipt-right text-left">
             <p><b>Fecha :</b> {{$fechasolicitud->format('d/m/Y')}}</p>
             <p><b>Atendido :</b>{{ Auth::user()->name }} </p>
+            <p><b>Retiro :</b> @if($domicilio == 1) Envio a domicilio @else Retiro en local @endif </p>
             
         </div>
     </td>

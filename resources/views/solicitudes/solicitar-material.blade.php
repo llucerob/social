@@ -47,12 +47,14 @@
                                
                                   <div class="media-body text-end text-center" >
                                     <label class="switch">
-                                    <input type="checkbox" onchange="cambio();" id="registro" name="emergencia"><span class="switch-state"></span>
+                                    <input type="checkbox" id="registro" name="emergencia"><span class="switch-state"></span>
                                     </label>
                                   </div>
                                 <div class="valid-feedback">¡Luce bien!</div>
                               </div>
                           </div>
+
+                          
 
                             <div class="col-md-6">
                               <div class="mb-2">

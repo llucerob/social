@@ -33,7 +33,7 @@ class Beneficiario extends Model
     {
         return $this->belongsToMany(Material::class, 'solicitudes',  'beneficiario_id', 'materiales_id')
                     ->as('solicitudes')
-                    ->withPivot('cantidad', 'medida', 'entregado','id' )
+                    ->withPivot('cantidad', 'medida', 'entregado','id', 'domicilio' )
                     ->withTimestamps();
 
     }
@@ -46,7 +46,7 @@ class Beneficiario extends Model
     {
         return $this->belongsToMany(Material::class, 'entregados',  'beneficiario_id', 'materiales_id')
                     ->as('entregados')
-                    ->withPivot('cantidad', 'medida')
+                    ->withPivot('cantidad', 'medida', 'domicilio')
                     ->withTimestamps();
 
     }

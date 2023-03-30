@@ -42,10 +42,12 @@
                                     
                                     <th width="12%">Registro Social</th>
                                     <th>Dirección</th>
-                                    <th>Contacto</th>
+                                    
+                                    <th>Comentario</th>
                                     <th>Acción</th>
                                 </tr>
                             </thead>
+                             
                             <tbody>
                                 @foreach ($beneficiarios as $key => $b )
 
@@ -57,17 +59,14 @@
                                    
                                     <th class="text-center">{{ $b->registrosocial->folioid }} <br> <span class="txt-secondary"> {{ $b->registrosocial->porcentaje }}% </span>
                                     
-                                    <br>Fecha: {{date_format($b->registrosocial->updated_at, 'd/m/y')}}
+                                    <br>Fecha: @if($b->registrosocial->updated_at == null) {{$b->registrosocial->fechainforme}} @else {{date_format($b->registrosocial->updated_at, 'd/m/y')}} @endif
                                     
                                     </th>
                                     
                                     <th>{{ $b->direccion }}, {{ $b->sector }}</th>
-                                    <th> 
-                                        <ul>
-                                            <li>@if(empty($b->telefono)) "NO REGISTRA INFORMACIóN" @else {{ $b->telefono}}@endif</li>
-                                            <br>
-                                            <li>@if(empty($b->correo)) "NO REGISTRA INFORMACIóN" @else {{ $b->correo}}@endif</li>
-                                        </ul>
+                                    
+                                    <th>
+                                        {{$b->comentario}}
                                     </th>
                                     <th >
                                         
@@ -78,7 +77,8 @@
                                         <a href="#modalAumentar{{$key}}" class="btn btn-outline-success btn-sm m-1" title="Modificar %" data-bs-toggle="modal" data-bs-target="#modalAumentar{{$key}}"><i class="fa fa-plus"></i></a>
                                         <a href="{{url('beneficiarios/editar/'.$b->id)}}" class="btn btn-outline-warning btn-sm m-1" title="Editar"><i class="fa fa-pencil"></i></a>
                                         <a href="{{url('beneficiarios/destroy/'.$b->id)}}" class="btn btn-outline-danger btn-sm m-1" title="Eliminar"><i class="icon-trash"></i></a>
-                                        
+                                        <a href="{{route('ver.pedidos', [$b->id])}}" class="btn btn-outline-dark btn-sm m-1" title="Ver"><i class="fa fa-eye"></i></a>
+
 
 
                                             <div class="modal fade" id="modalAumentar{{$key}}" tabindex="-1" role="dialog" aria-labelledby="modalAumentar{{$key}}" aria-hidden="true">
@@ -171,6 +171,7 @@
                                 @endforeach
                                 
                             </tbody>
+                           
 
                         </table>
 
@@ -204,8 +205,8 @@
         $(document).ready(function(){
 
             $('#beneficiarios').DataTable({
-                language: {url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-CL.json',
-                },
+                language: {url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-CL.json'},
+                
             });
         });
     </script>

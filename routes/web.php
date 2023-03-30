@@ -73,6 +73,10 @@ Route::middleware('auth')->group(function () {
     Route::get('beneficiario/eliminar/rendicion/{id}', [BeneficiariosController::class, 'eliminarrendicion'])->name('eliminar.rendicion');
     Route::post('beneficiario/agregar/boleta/{id}', [BeneficiariosController::class, 'agregarboleta'])->name('agregar.boleta');
     Route::get('beneficiario/ver/boletas/{id}', [BeneficiariosController::class, 'verboletas'])->name('ver.boletas');
+    Route::get('beneficiario/{id}/verpedidos', [BeneficiariosController::class, 'verpedidos'])->name('ver.pedidos');
+
+    //datatables
+    Route::get('datatable/beneficiarios', [BeneficiariosController::class, 'ajaxbeneficiarios'])->name('datatable.beneficiarios');
 
 
 

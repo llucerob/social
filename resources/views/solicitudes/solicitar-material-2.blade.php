@@ -26,7 +26,7 @@
     <div class="row starter-main">
        
         
-        <div class="col-sm-6">
+        <div class="col-md-12">
             <div class="card" >
                 <div class="card-header">
                     <h5>Usted esta solicitando materiales para {{$beneficiario->nombres}}</h5>
@@ -38,10 +38,23 @@
                       @csrf  
                       <div class="card-body">
                           <div class="row g-3">
+                            <div class="col text-center">
+                              <div class="mb-3">
+                                <label class="col-form-label m-r-10 form-label" for="domicilio">¿A domicilio?
+                              
+                               
+                                  <div class="media-body text-end text-center mt-4" >
+                                    <label class="switch">
+                                    <input type="checkbox"  id="domicilio" name="domicilio"><span class="switch-state"></span>
+                                    </label>
+                                  </div>
+                                <div class="valid-feedback">¡Luce bien!</div>
+                              </div>
+                          </div>
                             <div class="col">
                                 <div class="mb-3">
                             
-                                  <label class="col-form-label m-r-10 form-label" for="cantidad">¿Es solicitud de emergencia?</label>
+                                  <label class="col-form-label m-r-10 form-label" for="cantidad">Ingrese  cantidad</label>
                                 
                                  
                                     <div class="table-responsive">
@@ -70,12 +83,14 @@
                                     </div>
                                 </div>
                             </div>
-
-                          </div>
-                          
+                            
                           
                           
                         </div>
+                        
+
+                      </div>
+                      
                         <div class="card-footer text-end">
                           
                           <a class="btn btn-light" type="button"  href="{{url()->previous()}}">Volver</a>

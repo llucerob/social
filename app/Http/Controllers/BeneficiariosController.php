@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
+use Yajra\DataTables\Facades\DataTables;
 
 
 class BeneficiariosController extends Controller
@@ -31,6 +32,18 @@ class BeneficiariosController extends Controller
         //dd(Carbon::parse($b->fnac)->age);
 
         return view('beneficiarios.listar-beneficiarios', ['beneficiarios' => $beneficiario]);
+    }
+
+    public function ajaxbeneficiarios(){
+
+
+        $b = Beneficiario::select('rut','nombres', 'apellidos', 'direccion', 'sector', 'fnac', 'grupofamiliar', 'comentario')->get();
+
+        
+        return DataTables($b)->tojson();
+
+
+        
     }
 
     /**
@@ -244,9 +257,13 @@ class BeneficiariosController extends Controller
         
 
         foreach($request->material as $key => $m){
+            if($request->domicilio == 'on'){
+                $beneficiario->solicitudes()->attach($m['id'], ['cantidad' => $m['cantidad'], 'medida' => $m['medida'], 'domicilio' => '1']);
+                
+            }else{
+                $beneficiario->solicitudes()->attach($m['id'], ['cantidad' => $m['cantidad'], 'medida' => $m['medida'], 'domicilio' => '0']);
+            }
             
-            $beneficiario->solicitudes()->attach($m['id'], ['cantidad' => $m['cantidad'], 'medida' => $m['medida']]);
-
            
 
         }
@@ -284,6 +301,7 @@ class BeneficiariosController extends Controller
            $lista[$key]['cantidad'] = $b->solicitudes->cantidad;
            $lista[$key]['medida']   = $b->solicitudes->medida;
            $arr['fechasolicitud']   = $b->solicitudes->created_at;
+           $arr['domicilio']        = $b->solicitudes->domicilio;
            
         }
         
@@ -318,6 +336,7 @@ class BeneficiariosController extends Controller
         $entregado->beneficiario_id = $solicitud->beneficiario_id;
         $entregado->cantidad        = $solicitud->cantidad;
         $entregado->medida          = $solicitud->medida;
+        $entregado->domicilio       = $solicitud->domicilio;
 
         $entregado->save();
 
@@ -425,6 +444,18 @@ class BeneficiariosController extends Controller
 
         
         return view('devoluciones.listar-boletas', ['rendicion' => $r]);
+
+    }
+
+
+    public function verpedidos(string $id){
+
+        $beneficiario = Beneficiario::findOrFail($id);
+
+
+
+        return view('beneficiarios.listar-solicitudes', ['beneficiario' => $beneficiario]);
+
 
     }
 
