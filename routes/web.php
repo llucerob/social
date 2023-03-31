@@ -59,15 +59,15 @@ Route::middleware('auth')->group(function () {
     Route::get('beneficiarios/destroy/{id}', [BeneficiariosController::class, 'destroy']);
     Route::get('beneficiarios/editar/{id}', [BeneficiariosController::class, 'edit']);
     Route::post('beneficiarios/update/{id}', [BeneficiariosController::class, 'update'])->name('beneficiarios.update');
-    Route::post('beneficiarios/porcentaje/{id}/modificar', [BeneficiariosController::class, 'modificaporcentaje' ]);
-    Route::get('beneficiarios/solicitar/{id}', [BeneficiariosController::class, 'solicitar']);
+    Route::post('beneficiarios/porcentaje/modificar', [BeneficiariosController::class, 'modificaporcentaje' ])->name('porcentaje.modificar');
+    Route::get('beneficiarios/solicitar/{id}', [BeneficiariosController::class, 'solicitar'])->name('beneficiarios.solicitar');
     Route::post('beneficiarios/solicitar/{id}/parte1', [BeneficiariosController::class, 'solicitudparte1']);
     Route::post('beneficiarios/solicitar/{id}/parte2', [BeneficiariosController::class, 'solicitudparte2']);
     Route::get('beneficiario/{id}/imprimir', [BeneficiariosController::class, 'imprimir'])->name('imprimir', '{id}');
     Route::get('beneficiario/{id}/ver', [BeneficiariosController::class, 'show']);
     Route::get('beneficiario/{id}/entregarmaterial', [BeneficiariosController::class, 'entregarmaterial']);
     Route::get('material/entregar/{m}', [BeneficiariosController::class, 'entregar'])->name('entregar.material');
-    Route::post('beneficiario/{id}/creardevolucion', [BeneficiariosController::class, 'creadevolucion'])->name('crear.devolucion');
+    Route::post('beneficiario/creardevolucion', [BeneficiariosController::class, 'creadevolucion'])->name('crear.devolucion');
     Route::get('beneficiarios/listar/devoluciones', [BeneficiariosController::class, 'listardevoluciones'])->name('listar.devoluciones');
     Route::get('beneficiario/aceptar/rendicion/{id}', [BeneficiariosController::class, 'aceptarendicion'])->name('acepta.rendicion');
     Route::get('beneficiario/eliminar/rendicion/{id}', [BeneficiariosController::class, 'eliminarrendicion'])->name('eliminar.rendicion');

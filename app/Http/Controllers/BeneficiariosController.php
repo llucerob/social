@@ -37,10 +37,31 @@ class BeneficiariosController extends Controller
     public function ajaxbeneficiarios(){
 
 
-        $b = Beneficiario::select('rut','nombres', 'apellidos', 'direccion', 'sector', 'fnac', 'grupofamiliar', 'comentario')->get();
+        $ben = Beneficiario::all();
+        $arr = [];
 
+        foreach($ben  as $key => $b ){
+            
+            $arr[$key]['rut']                   = $b->rut;
+            $arr[$key]['nombre']                = $b->nombres.' '.$b->apellidos.' ('.Carbon::parse($b->fnac)->age.' Años)';
+
+            if($b->registrosocial->updated_at == null){
+                $arr[$key]['registrosocial']    = $b->registrosocial->folioid.' ('.$b->registrosocial->porcentaje.'% Fecha: '.$b->registrosocial->fechainforme.')';
+            }else{
+                $arr[$key]['registrosocial']    = $b->registrosocial->folioid.' ('.$b->registrosocial->porcentaje.'% Fecha: '.$b->registrosocial->updated_at.')';
+
+            }
+            
+            $arr[$key]['direccion']             = $b->direccion.' ,'.$b->sector;
+            $arr[$key]['id']                    = $b->id;
+            $arr[$key]['idficha']               = $b->registrosocial->id;
+            $arr[$key]['porcentaje']            = $b->registrosocial->porcentaje;
+
+        }
+
+           // dd($arr);
         
-        return DataTables($b)->tojson();
+        return DataTables($arr)->tojson();
 
 
         
@@ -194,9 +215,9 @@ class BeneficiariosController extends Controller
         return redirect()->route('beneficiarios.index');
     }
 
-    public function modificaporcentaje(string $id, Request $request){
+    public function modificaporcentaje(Request $request){
 
-        $registrosocial = Registrosocial::findOrFail($id);
+        $registrosocial = Registrosocial::findOrFail($request->id);
 
         $registrosocial->porcentaje = $request->porcentaje;
 

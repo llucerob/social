@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Beneficiario extends Model
 {
@@ -19,10 +20,24 @@ class Beneficiario extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+    
     public function registrosocial(): BelongsTo
     {
         return $this->belongsTo(Registrosocial::class, 'registrosociales_id', 'id');
     }
+    
+
+    /**
+     * Get the registrosical associated with the Beneficiario
+     *
+     * @return \IlluminaBeneficiarioatabase\Elregistrosociales_idtions\HasOne
+     */
+
+    /*
+    public function registrosocial(): HasOne
+    {
+        return $this->hasOne(Beneficiario::class, 'registrosociales_id', 'id');
+    }*/
 
     /**
      * las solicitudes hechas por el beneficiario a traves de un pivote
