@@ -176,7 +176,7 @@
                         {data: 'direccion'},
                         {
                             data: null,
-                            defaultContent: '<button  class="btn solicitar btn-primary btn-sm m-1" title="Solicitar Material"><i class="fa fa-ticket"></i></button><button class="btn imprimir btn-secondary btn-sm m-1" title="imprimir"><i class="fa fa-file-pdf-o"></i></button><button href="#modalDevolucion" class="btn btn-info btn-sm m-1 devolucion" title="Solicitar Devolución" data-bs-toggle="modal" data-bs-target="#modalDevolucion"><i class="fa fa-money"></i></button><button href="#modalAumentar" class="btn aumentar btn-success btn-sm m-1" title="Modificar %" data-bs-toggle="modal" data-bs-target="#modalAumentar"><i class="fa fa-plus"></i></button><button class="btn btn-outline-warning btn-sm m-1" title="Editar"><i class="fa fa-pencil"></i></button><a href="#" class="btn btn-outline-danger btn-sm m-1" title="Eliminar"><i class="icon-trash"></i></a><a href="#" class="btn btn-outline-dark btn-sm m-1" title="Ver"><i class="fa fa-eye"></i></a>',
+                            defaultContent: '<button  class="btn solicitar btn-primary btn-sm m-1" title="Solicitar Material"><i class="fa fa-ticket"></i></button><button class="btn imprimir btn-secondary btn-sm m-1" title="imprimir"><i class="fa fa-file-pdf-o"></i></button><button href="#modalDevolucion" class="btn devolucion btn-info btn-sm m-1" title="Solicitar Devolución" data-bs-toggle="modal" data-bs-target="#modalDevolucion"><i class="fa fa-money"></i></button><button href="#modalAumentar" class="btn aumentar btn-success btn-sm m-1" title="Modificar %" data-bs-toggle="modal" data-bs-target="#modalAumentar"><i class="fa fa-plus"></i></button><button class="btn btn-warning btn-sm m-1 editar" title="Editar"><i class="fa fa-pencil"></i></button><button class="btn btn-danger eliminar btn-sm m-1" title="Eliminar"><i class="icon-trash"></i></button><button class="btn ver btn-dark btn-sm m-1" title="Ver"><i class="fa fa-eye"></i></button>',
                            
                                 
                             },
@@ -189,7 +189,10 @@
             obtener_data_solicitar('#beneficiarios', tabla);
             obtener_data_imprimir('#beneficiarios', tabla);
             obtener_data_aumentar('#beneficiarios', tabla);
-            obtener_data_devolucion('#beneficiarios', table);
+            obtener_data_devolucion('#beneficiarios', tabla);
+            obtener_data_editar('#beneficiarios', tabla);
+            obtener_data_eliminar('#beneficiarios', tabla);
+            obtener_data_ver('#beneficiarios', tabla);
             
         });
 
@@ -212,7 +215,8 @@
         var obtener_data_aumentar = function(tbody, tabla){
             $(tbody).on ('click', 'button.aumentar',function(){
                 var data = tabla.row($(this).parents('tr')).data();
-                var idregistro = $('#idregistro').val(data.idficha);                
+                var idregistro = $('#idregistro').val(data.idficha);  
+                             
                 var inputporcentaje = $('#inputporcentaje').val(data.porcentaje);
 
             })
@@ -220,11 +224,32 @@
         var obtener_data_devolucion = function(tbody, tabla){
             $(tbody).on ('click', 'button.devolucion',function(){
                 var data = tabla.row($(this).parents('tr')).data();
+                
                 var idusuario = $('#idusuario').val(data.id);                
                 
 
             })
         }
+        var obtener_data_editar = function(tbody, tabla){
+            $(tbody).on ('click', 'button.editar', function(){
+                var data = tabla.row($(this).parents('tr')).data();
+                location.href = "/beneficiarios/editar/"+data.id;
+            })
+        }
+
+        var obtener_data_eliminar = function(tbody, tabla){
+            $(tbody).on ('click', 'button.eliminar', function(){
+                var data = tabla.row($(this).parents('tr')).data();
+                location.href = "/beneficiarios/destroy/"+data.id;
+            })
+        }
+        var obtener_data_ver = function(tbody, tabla){
+            $(tbody).on ('click', 'button.ver', function(){
+                var data = tabla.row($(this).parents('tr')).data();
+                location.href = "/beneficiario/"+data.id+"/verpedidos";
+            })
+        }
+
 
         
 

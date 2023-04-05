@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Session;
+
 
 
 class BeneficiariosController extends Controller
@@ -28,7 +30,7 @@ class BeneficiariosController extends Controller
         $beneficiario = Beneficiario::all();
 
              
-
+       
         //dd(Carbon::parse($b->fnac)->age);
 
         return view('beneficiarios.listar-beneficiarios', ['beneficiarios' => $beneficiario]);
@@ -210,6 +212,7 @@ class BeneficiariosController extends Controller
     {
         $beneficiario = Beneficiario::findOrFail($id);
 
+        
         $beneficiario->delete();
 
         return redirect()->route('beneficiarios.index');
@@ -217,7 +220,7 @@ class BeneficiariosController extends Controller
 
     public function modificaporcentaje(Request $request){
 
-        $registrosocial = Registrosocial::findOrFail($request->id);
+        $registrosocial = Registrosocial::findOrFail($request->registro);
 
         $registrosocial->porcentaje = $request->porcentaje;
 
@@ -298,9 +301,13 @@ class BeneficiariosController extends Controller
 
     public function imprimir(string $id){
 
-        
+             
 
         $beneficiario = Beneficiario::findOrFail($id);
+
+        if(count($beneficiario->solicitudes) > 0 ){
+
+       
 
         $arr = [];
 
@@ -332,6 +339,11 @@ class BeneficiariosController extends Controller
 
         $pdf = PDF::loadView('pdfs.solicitud', $arr);
         return $pdf->download('solicitud'.$arr['rut'].'.pdf');
+
+        }else{
+
+            return redirect()->route('beneficiarios.index');
+        }
 
 
     }
@@ -377,9 +389,9 @@ class BeneficiariosController extends Controller
         return redirect()->back();
     }
 
-    public function creadevolucion(string $id, Request $request){
+    public function creadevolucion(Request $request){
 
-        $beneficiario       = Beneficiario::findOrFail($id);
+        $beneficiario       = Beneficiario::findOrFail($request->idusuario);
 
 
         $reembolso      =   new Reembolso;

@@ -110,6 +110,50 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-sm-10">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Devoluciones creadas {{$beneficiario->nombres}}, {{$beneficiario->apellido}} </h5>
+                    
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="display datatables" id="devoluciones">
+
+                            <thead>
+                                <tr class="text-center">
+                                    <th>Monto</th>
+                                    <th>Fecha</th>
+                                    
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($beneficiario->devoluciones as $e )
+
+                               
+
+                                <tr>
+                                    
+                                    <th>${{number_format($e->total,0,',','.')}}</th>
+                                    <th>{{$e->mes}}</th>
+                                    <th>@if($e->entregado == 0) RENDICION NO FINALIZADA O ACEPTADA @else RENDICION ACEPTADA @endif</th>
+                                    
+                                </tr>
+                                    
+                                @endforeach
+                                
+                            </tbody>
+
+                        </table>
+
+                    </div> 
+                   
+                </div>
+            </div>
+        </div>
+        
         
         
         
@@ -141,15 +185,24 @@
         });
     </script>
 
-<script>
-    $(document).ready(function(){
+    <script>
+        $(document).ready(function(){
 
-        $('#solicitudes').DataTable({
-            language: {url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-CL.json',
-            },
+            $('#solicitudes').DataTable({
+                language: {url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-CL.json',
+                },
+            });
         });
-    });
-</script>
+    </script>
+    <script>
+        $(document).ready(function(){
+
+            $('#devoluciones').DataTable({
+                language: {url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-CL.json',
+                },
+            });
+        });
+    </script>
     
    
 

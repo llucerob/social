@@ -61,7 +61,10 @@
             </div>
           </div>
           <!-- Container-fluid starts-->
+          @include('notificaciones-flash')
+          
           @yield('content')
+
           <!-- Container-fluid Ends-->
         </div>
         <!-- footer start-->

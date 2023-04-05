@@ -28,7 +28,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>A continuación se listarán Todas las boletas de la rendicion del mes </h5>
+                    <h5>A continuación se listarán las boletas de la rendicion de {{$rendicion->mes}} de {{$rendicion->beneficiario->nombres}} {{$rendicion->beneficiario->apellidos}}</h5>
                     
                 </div>
                 <div class="card-body">
