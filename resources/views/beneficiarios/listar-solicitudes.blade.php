@@ -114,7 +114,7 @@
         <div class="col-sm-10">
             <div class="card">
                 <div class="card-header">
-                    <h5>Devoluciones creadas {{$beneficiario->nombres}}, {{$beneficiario->apellido}} </h5>
+                    <h5>Devoluciones creadas {{$beneficiario->nombres}} {{$beneficiario->apellidos}} </h5>
                     
                 </div>
                 <div class="card-body">

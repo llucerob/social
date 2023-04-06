@@ -50,7 +50,7 @@ class BeneficiariosController extends Controller
             if($b->registrosocial->updated_at == null){
                 $arr[$key]['registrosocial']    = $b->registrosocial->folioid.' ('.$b->registrosocial->porcentaje.'% Fecha: '.$b->registrosocial->fechainforme.')';
             }else{
-                $arr[$key]['registrosocial']    = $b->registrosocial->folioid.' ('.$b->registrosocial->porcentaje.'% Fecha: '.$b->registrosocial->updated_at.')';
+                $arr[$key]['registrosocial']    = $b->registrosocial->folioid.' ('.$b->registrosocial->porcentaje.'% Fecha: '.date_format($b->registrosocial->updated_at, 'd-m-Y').')';
 
             }
             
