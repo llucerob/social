@@ -28,7 +28,7 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-header">
-                    <h5>Solicitudes entregadas a  {{$beneficiario->direccion}}, {{$beneficiario->sector}} </h5>
+                    <h5>Solicitudes entregadas </h5>
                     
                 </div>
                 <div class="card-body">
@@ -38,9 +38,9 @@
                             <thead>
                                 <tr class="text-center">
                                     <th>Nombre</th>
-                                    <th>Cantidad</th>
-                                    
+                                    <th>Cantidad</th>                                    
                                     <th>Fecha</th>
+                                    <th>Tipo Entrega</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,9 +50,10 @@
 
                                 <tr>
                                     
-                                    <th>{{$e->nombre}}</th>
-                                    <th>{{$e->entregados->cantidad}}</th>
-                                    <th>{{$e->entregados->created_at}}</th>
+                                    <td>{{$e->nombre}}</td>
+                                    <td>{{$e->entregados->cantidad}}[{{$e->entregados->medida}}]</td>
+                                    <td>{{date_format( $e->entregados->created_at, 'd-m-Y')}}</td>
+                                    <td>@if($e->entregados->domicilio == 1) ENTREGA DOMICILIO @else ENTREGA LOCAL @endif</td>   
                                     
                                 </tr>
                                     
@@ -71,7 +72,7 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-header">
-                    <h5>Solicitudes por entregar a   {{$beneficiario->direccion}}, {{$beneficiario->sector}} </h5>
+                    <h5>Solicitudes por entregar </h5>
                     
                 </div>
                 <div class="card-body">
@@ -84,6 +85,7 @@
                                     <th>Cantidad</th>
                                     
                                     <th>Fecha</th>
+                                    <th>Tipo de entrega</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -93,9 +95,12 @@
 
                                 <tr>
                                     
-                                    <th>{{$e->nombre}}</th>
-                                    <th>{{$e->solicitudes->cantidad}}</th>
-                                    <th>{{$e->solicitudes->created_at}}</th>
+                                    <td>{{$e->nombre}}</td>
+                                    <td>{{$e->solicitudes->cantidad}}[{{$e->solicitudes->medida}}]</td>
+                                    <td>{{date_format($e->solicitudes->created_at, 'd-m-Y')}}</td>
+                                    <td>@if($e->solicitudes->domicilio == 1) ENTREGA DOMICILIO @else ENTREGA LOCAL @endif</td>   
+                                
+
                                     
                                 </tr>
                                     
@@ -126,7 +131,7 @@
                                     <th>Monto</th>
                                     <th>Fecha</th>
                                     
-                                    <th>Fecha</th>
+                                    <th>Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
