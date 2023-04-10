@@ -200,7 +200,7 @@
             $(tbody).on ('click', 'button.solicitar',function(){
                 var data = tabla.row($(this).parents('tr')).data();
 
-                location.href = "/beneficiarios/solicitar/"+data.id;
+                location.href = "solicitar/"+data.id;
                 
             })
         }
@@ -208,7 +208,7 @@
             $(tbody).on ('click', 'button.imprimir',function(){
                 var data = tabla.row($(this).parents('tr')).data();
 
-                location.href = "/beneficiario/"+data.id+"/imprimir/";
+                location.href = +data.id+"/imprimir/";
                 
             })
         }
@@ -233,20 +233,20 @@
         var obtener_data_editar = function(tbody, tabla){
             $(tbody).on ('click', 'button.editar', function(){
                 var data = tabla.row($(this).parents('tr')).data();
-                location.href = "/beneficiarios/editar/"+data.id;
+                location.href = "editar/"+data.id;
             })
         }
 
         var obtener_data_eliminar = function(tbody, tabla){
             $(tbody).on ('click', 'button.eliminar', function(){
                 var data = tabla.row($(this).parents('tr')).data();
-                location.href = "/beneficiarios/destroy/"+data.id;
+                location.href = "destroy/"+data.id;
             })
         }
         var obtener_data_ver = function(tbody, tabla){
             $(tbody).on ('click', 'button.ver', function(){
                 var data = tabla.row($(this).parents('tr')).data();
-                location.href = "/beneficiario/"+data.id+"/verpedidos";
+                location.href = +data.id+"/verpedidos";
             })
         }
 

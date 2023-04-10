@@ -39,6 +39,7 @@
                                 <tr class="text-center">
                                     <th>Nombre</th>
                                     <th>Cantidad</th>
+                                    <th>Comentario</th>
                                     
                                     <th>Acción</th>
                                 </tr>
@@ -50,9 +51,10 @@
 
                                 <tr>
                                     
-                                    <th>{{ $b->nombre }} </th>
-                                    <th>{{ $b->solicitudes->cantidad }} [{{$b->solicitudes->medida}}] </th>
-                                    <th><a href="{{route('entregar.material', [$b->solicitudes->id] )}}" class="btn btn-outline-success btn-sm m-1"><i class="fa fa-check"></i></a></th>
+                                    <td>{{ $b->nombre }} </td>
+                                    <td>{{ $b->solicitudes->cantidad }} [{{$b->solicitudes->medida}}] </td>
+                                    <td>{{ $b->solicitudes->comentario}}</td>
+                                    <td><a href="{{route('entregar.material', [$b->solicitudes->id] )}}" class="btn btn-outline-success btn-sm m-1"><i class="fa fa-check"></i></a></td>
                                     
                                 </tr>
                                     

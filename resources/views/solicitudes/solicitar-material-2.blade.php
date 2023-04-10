@@ -50,7 +50,8 @@
                                   </div>
                                 <div class="valid-feedback">¡Luce bien!</div>
                               </div>
-                          </div>
+                            </div>
+                            
                             <div class="col">
                                 <div class="mb-3">
                             
@@ -86,6 +87,16 @@
                             
                           
                           
+                        </div>
+                        <div class="row g-3">
+
+                          <div class="col-md-10">
+                            <div class="mb-3">
+                              <label class="form-label" for="inputComentario">Comentario</label>
+                              <input class="form-control" id="inputComentario" type="text" name="comentario" >
+                              <div class="valid-feedback">¡Luce bien!</div>
+                            </div>
+                          </div>
                         </div>
                         
 

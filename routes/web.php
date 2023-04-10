@@ -63,8 +63,8 @@ Route::middleware('auth')->group(function () {
     Route::get('beneficiarios/solicitar/{id}', [BeneficiariosController::class, 'solicitar'])->name('beneficiarios.solicitar');
     Route::post('beneficiarios/solicitar/{id}/parte1', [BeneficiariosController::class, 'solicitudparte1']);
     Route::post('beneficiarios/solicitar/{id}/parte2', [BeneficiariosController::class, 'solicitudparte2']);
-    Route::get('beneficiario/{id}/imprimir', [BeneficiariosController::class, 'imprimir'])->name('imprimir', '{id}');
-    Route::get('beneficiario/{id}/ver', [BeneficiariosController::class, 'show']);
+    Route::get('beneficiarios/{id}/imprimir', [BeneficiariosController::class, 'imprimir'])->name('imprimir', '{id}');
+    //Route::get('beneficiarios/{id}/ver', [BeneficiariosController::class, 'show']);
     Route::get('beneficiario/{id}/entregarmaterial', [BeneficiariosController::class, 'entregarmaterial']);
     Route::get('material/entregar/{m}', [BeneficiariosController::class, 'entregar'])->name('entregar.material');
     Route::post('beneficiario/creardevolucion', [BeneficiariosController::class, 'creadevolucion'])->name('crear.devolucion');
@@ -73,7 +73,7 @@ Route::middleware('auth')->group(function () {
     Route::get('beneficiario/eliminar/rendicion/{id}', [BeneficiariosController::class, 'eliminarrendicion'])->name('eliminar.rendicion');
     Route::post('beneficiario/agregar/boleta/{id}', [BeneficiariosController::class, 'agregarboleta'])->name('agregar.boleta');
     Route::get('beneficiario/ver/boletas/{id}', [BeneficiariosController::class, 'verboletas'])->name('ver.boletas');
-    Route::get('beneficiario/{id}/verpedidos', [BeneficiariosController::class, 'verpedidos'])->name('ver.pedidos');
+    Route::get('/beneficiarios/{id}/verpedidos', [BeneficiariosController::class, 'verpedidos'])->name('ver.pedidos');
 
     //datatables
     Route::get('datatable/beneficiarios', [BeneficiariosController::class, 'ajaxbeneficiarios'])->name('datatable.beneficiarios');

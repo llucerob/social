@@ -40,6 +40,7 @@
                                     <th>Nombre</th>
                                     <th>Cantidad</th>                                    
                                     <th>Fecha</th>
+                                    <th>Comentario</th>
                                     <th>Tipo Entrega</th>
                                 </tr>
                             </thead>
@@ -53,6 +54,7 @@
                                     <td>{{$e->nombre}}</td>
                                     <td>{{$e->entregados->cantidad}}[{{$e->entregados->medida}}]</td>
                                     <td>{{date_format( $e->entregados->created_at, 'd-m-Y')}}</td>
+                                    <td>{{$e->entregados->comentario}}</td>
                                     <td>@if($e->entregados->domicilio == 1) ENTREGA DOMICILIO @else ENTREGA LOCAL @endif</td>   
                                     
                                 </tr>
@@ -85,6 +87,7 @@
                                     <th>Cantidad</th>
                                     
                                     <th>Fecha</th>
+                                    <th>Comentario</th>
                                     <th>Tipo de entrega</th>
                                 </tr>
                             </thead>
@@ -98,6 +101,7 @@
                                     <td>{{$e->nombre}}</td>
                                     <td>{{$e->solicitudes->cantidad}}[{{$e->solicitudes->medida}}]</td>
                                     <td>{{date_format($e->solicitudes->created_at, 'd-m-Y')}}</td>
+                                    <td>{{$e->solicitudes->comentario}}</td>
                                     <td>@if($e->solicitudes->domicilio == 1) ENTREGA DOMICILIO @else ENTREGA LOCAL @endif</td>   
                                 
 

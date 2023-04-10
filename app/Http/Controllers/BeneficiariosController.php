@@ -132,7 +132,7 @@ class BeneficiariosController extends Controller
 
 
 
-        return redirect()->route('beneficiarios.index');
+        return redirect()->route('beneficiarios.index')->with('success', 'Se ha creado un nuevo beneficiario' );
     }
 
   
@@ -202,7 +202,7 @@ class BeneficiariosController extends Controller
 
 
 
-        return redirect()->route('beneficiarios.index');
+        return redirect()->route('beneficiarios.index')->with('success', 'Se ha actualizado el beneficiario' );
     }
 
     /**
@@ -215,7 +215,7 @@ class BeneficiariosController extends Controller
         
         $beneficiario->delete();
 
-        return redirect()->route('beneficiarios.index');
+        return redirect()->route('beneficiarios.index')->with('success', 'Se ha eliminado el beneficiario' );
     }
 
     public function modificaporcentaje(Request $request){
@@ -282,10 +282,10 @@ class BeneficiariosController extends Controller
 
         foreach($request->material as $key => $m){
             if($request->domicilio == 'on'){
-                $beneficiario->solicitudes()->attach($m['id'], ['cantidad' => $m['cantidad'], 'medida' => $m['medida'], 'domicilio' => '1']);
+                $beneficiario->solicitudes()->attach($m['id'], ['cantidad' => $m['cantidad'], 'medida' => $m['medida'], 'domicilio' => '1', 'comentario' => $request->comentario ]);
                 
             }else{
-                $beneficiario->solicitudes()->attach($m['id'], ['cantidad' => $m['cantidad'], 'medida' => $m['medida'], 'domicilio' => '0']);
+                $beneficiario->solicitudes()->attach($m['id'], ['cantidad' => $m['cantidad'], 'medida' => $m['medida'], 'domicilio' => '0', 'comentario' => $request->comentario ]);
             }
             
            
@@ -294,7 +294,7 @@ class BeneficiariosController extends Controller
         
             
        
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('success', 'Solicitud creada correctamente' );
        
         
     }
@@ -342,7 +342,10 @@ class BeneficiariosController extends Controller
 
         }else{
 
-            return redirect()->route('beneficiarios.index');
+
+
+
+            return redirect()->route('beneficiarios.index')->with('info', 'El Beneficiario no tiene ningún pedido en sistema' );
         }
 
 
@@ -351,6 +354,8 @@ class BeneficiariosController extends Controller
     public function entregarmaterial(string $id){
 
         $beneficiario = Beneficiario::findOrFail($id);
+
+        
 
         return view('solicitudes.listar-solicitud', ['beneficiario' => $beneficiario]);
 
@@ -370,6 +375,7 @@ class BeneficiariosController extends Controller
         $entregado->cantidad        = $solicitud->cantidad;
         $entregado->medida          = $solicitud->medida;
         $entregado->domicilio       = $solicitud->domicilio;
+        $entregado->comentario      = $solicitud->comentario;
 
         $entregado->save();
 
@@ -386,7 +392,7 @@ class BeneficiariosController extends Controller
         
         
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Entrega realizada correctamente' );;
     }
 
     public function creadevolucion(Request $request){
@@ -404,7 +410,7 @@ class BeneficiariosController extends Controller
         $reembolso->save();
 
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Se ha creado una nueva devolucion' );
 
 
 
