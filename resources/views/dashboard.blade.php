@@ -39,9 +39,9 @@
                             {{count($b->solicitudes)}} materiales por entregar 
                         </div>
                         <div class="card-footer">
-                            <a class="btn btn-outline-primary btn-sm m-1" title="Imprimir" href="{{ url('beneficiario/'.$b->id.'/imprimir') }}">Imprimir</a>
+                            <a class="btn btn-outline-primary btn-sm m-1" title="Imprimir" href="{{ route('imprimir', [$b->id]) }}">Imprimir</a>
                             <a class="btn btn-outline-secondary btn-sm m-1" title="Ver"  data-bs-toggle="modal" data-bs-target="#modalVer{{$key}}" href="#modalVer{{$key}}">Ver</a>
-                            <a class="btn btn-outline-success btn-sm m-1" title="Marcar como entregado"  href="{{url('beneficiario/'.$b->id.'/entregarmaterial')}}">Entregar</a>
+                            <a class="btn btn-outline-success btn-sm m-1" title="Marcar como entregado"  href="{{ route('beneficiario.material', [$b->id]) }}">Entregar</a>
 
                         </div>
                     </div>
