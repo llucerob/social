@@ -72,7 +72,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                   <label class="form-label" for="inputfnac">Fecha Nacimiento</label>
-                                  <input class="datepicker-here form-control digits" required  data-lenguage="es" id="inputfnac" type="text" name="fnac" placeholder="12/01/1999">
+                                  <input class="datepicker-here form-control digits" required  data-lenguage="es" id="inputfnac" type="text" name="fnac" placeholder="12-01-1999">
                                   <div class="valid-feedback">¡Luce bien!</div>
                                 </div>
                               </div>
@@ -181,5 +181,33 @@
     <script src="{{ asset('assets/js/form-validation-custom.js')}}"></script>
     <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.js')}}"></script>
     <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.es.js')}}"></script>
-    <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.custom.js')}}"></script>
+    <script>
+    
+        
+        (function($) {
+        "use strict";
+         //Minimum and Maxium Date
+        $('#minMaxExample').datepicker({
+            language: 'es',
+            minDate: new Date() // Now can select only dates, which goes after today
+        })
+
+        //Disable Days of week
+        var disabledDays = [0, 6];
+
+        $('#disabled-days').datepicker({
+            language: 'es',
+            onRenderCell: function (date, cellType) {
+                if (cellType == 'day') {
+                    var day = date.getDay(),
+                        isDisabled = disabledDays.indexOf(day) != -1;
+                    return {
+                        disabled: isDisabled
+                    }
+                }
+            }
+        })
+        })(jQuery);
+    
+    </script>
 @endsection
