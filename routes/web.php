@@ -74,6 +74,7 @@ Route::middleware('auth')->group(function () {
     Route::post('beneficiario/agregar/boleta/{id}', [BeneficiariosController::class, 'agregarboleta'])->name('agregar.boleta');
     Route::get('beneficiario/ver/boletas/{id}', [BeneficiariosController::class, 'verboletas'])->name('ver.boletas');
     Route::get('/beneficiarios/{id}/verpedidos', [BeneficiariosController::class, 'verpedidos'])->name('ver.pedidos');
+    Route::post('beneficiario/fallecer/',[BeneficiariosController::class, 'fallecer'])->name('beneficiario.fallecer');
 
     //datatables
     Route::get('datatable/beneficiarios', [BeneficiariosController::class, 'ajaxbeneficiarios'])->name('datatable.beneficiarios');
@@ -96,6 +97,9 @@ Route::middleware('auth')->group(function () {
     Route::get('utils/sectores', [UtilsController::class, 'sectores'])->name('sectores');
     Route::post('utils/sectores/guardar', [UtilsController::class, 'storesectores'])->name('sectores.store');
     Route::get('utils/sectores/destroy/{id}', [UtilsController::class, 'destroysectores']);
+
+
+    Route::post('utils/impresion/sectores', [UtilsController::class, 'imprimesectores'])->name('eleccion.sectores');
 
     
 

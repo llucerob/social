@@ -72,7 +72,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                   <label class="form-label" for="inputfnac">Fecha Nacimiento</label>
-                                  <input class="datepicker-here form-control digits" data-lenguage="es" id="inputfnac" type="text" name="fnac" placeholder="12/01/1999" value="{{$beneficiario->fnac}}">
+                                  <input class="datepicker-here form-control digits" data-lenguage="es" id="inputfnac" type="text" name="fnac" placeholder="12-01-1999" value="{{$beneficiario->fnac}}">
                                   <div class="valid-feedback">¡Luce bien!</div>
                                 </div>
                               </div>

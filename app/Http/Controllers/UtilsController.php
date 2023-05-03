@@ -7,6 +7,8 @@ use App\Models\Sector;
 use App\Models\Categoria;
 use App\Models\Medida;
 use App\Models\Beneficiario;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Carbon;
 
 
 
@@ -120,8 +122,66 @@ class UtilsController extends Controller
 
         $beneficiarios = Beneficiario::all();
 
+        $sectores = Sector::all();
 
-        return view('dashboard', ['beneficiarios' => $beneficiarios]);
+
+        return view('dashboard', ['beneficiarios' => $beneficiarios, 'sectores' => $sectores]);
 
     }
+
+    public function imprimesectores(Request $request){
+
+        
+        $ciclos = count($request->sectores);
+
+        $beneficiarios = Beneficiario::Wherein('sector',$request->sectores)->get();
+        $arr = [];
+        
+        //dd($beneficiarios);
+
+        foreach($beneficiarios as $r => $b){
+
+
+            //dd($b->entregados->last()->created_at);
+            if(count($b->solicitudes) > 0){
+
+                $lista = [];
+
+                    $arr[$r]['nombre']       =   $b->nombres;
+                    $arr[$r]['apellido']     =   $b->apellidos;
+                    $arr[$r]['rut']          =   $b->rut;
+                    $arr[$r]['direccion']    =   $b->direccion;
+                    $arr[$r]['sector']       =   $b->sector;        
+                    $arr[$r]['telefono']     =   $b->telefono;
+                    $arr[$r]['correo']       =   $b->correo;
+                    $arr[$r]['ultimaentrega'] =  Carbon::createFromFormat('Y-m-d H:i:s', $b->entregados->last()->entregados->created_at)->format('d-m-Y');
+
+            
+                foreach($b->solicitudes as $key => $d){
+                    if($d->solicitudes->domicilio == 1){
+
+                        $lista[$key]['nombre']      = $d->nombre;
+                        $lista[$key]['cantidad']    = $d->solicitudes->cantidad;
+                        $lista[$key]['medida']      = $d->solicitudes->medida;
+                    }
+
+                }
+                $arr[$r]['productos']       =   $lista;
+                
+            }
+        }
+
+        //dd($arr);
+
+        view()->share('domicilio', $arr);
+
+        $pdf = PDF::loadView('pdfs.domicilio', $arr)->setPaper('letter','landscape');
+        return $pdf->download('domicilio.pdf');
+
+        
+
+
+    }
+
+
 }

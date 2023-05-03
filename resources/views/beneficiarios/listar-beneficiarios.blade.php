@@ -52,6 +52,34 @@
 
                     </div> 
 
+                    <div class="modal fade" id="modalFallecido" tabindex="-1" role="dialog" aria-labelledby="modalFallecido" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Atención</h5>
+                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                            
+                                <div class="modal-body"> 
+                                    <div class="modal-toggle-wrapper">  
+                                      <div class="modal-img text-center">
+                                         <img src="{{asset('assets/images/gif/danger.gif')}}"  width="100px" alt="error">
+                                      </div>
+                                      <h4 class="text-center pb-2">¿Realmente desea marcar como fallecido este registro?</h4>
+                                      <p class="text-center">Esta acción no se puede deshacer</p>
+                                      <form action="{{route('beneficiario.fallecer')}}"  method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="text" id="idusuario" name="idusuario" hidden>
+                                        <button class="btn btn-secondary d-flex m-auto" type="submit">Marcar como Fallecido</button>
+                                      </form>
+                                    </div>
+                                  </div>
+                            
+                        
+                        </div>
+                    </div>
+                </div>
+
                     <div class="modal fade" id="modalAumentar" tabindex="-1" role="dialog" aria-labelledby="modalAumentar" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
@@ -176,7 +204,7 @@
                         {data: 'direccion'},
                         {
                             data: null,
-                            defaultContent: '<button  class="btn solicitar btn-primary btn-sm m-1" title="Solicitar Material"><i class="fa fa-ticket"></i></button><button class="btn imprimir btn-secondary btn-sm m-1" title="imprimir"><i class="fa fa-file-pdf-o"></i></button><button href="#modalDevolucion" class="btn devolucion btn-info btn-sm m-1" title="Solicitar Devolución" data-bs-toggle="modal" data-bs-target="#modalDevolucion"><i class="fa fa-money"></i></button><button href="#modalAumentar" class="btn aumentar btn-success btn-sm m-1" title="Modificar %" data-bs-toggle="modal" data-bs-target="#modalAumentar"><i class="fa fa-plus"></i></button><button class="btn btn-warning btn-sm m-1 editar" title="Editar"><i class="fa fa-pencil"></i></button><button class="btn btn-danger eliminar btn-sm m-1" title="Eliminar"><i class="icon-trash"></i></button><button class="btn ver btn-dark btn-sm m-1" title="Ver"><i class="fa fa-eye"></i></button>',
+                            defaultContent: '<button  class="btn solicitar btn-primary btn-sm m-1" title="Solicitar Material"><i class="fa fa-ticket"></i></button><button class="btn imprimir btn-secondary btn-sm m-1" title="imprimir"><i class="fa fa-file-pdf-o"></i></button><button class="btn devolucion btn-info btn-sm m-1" title="Solicitar Devolución" data-bs-toggle="modal" data-bs-target="#modalDevolucion"><i class="fa fa-money"></i></button><button class="btn aumentar btn-success btn-sm m-1" title="Modificar %" data-bs-toggle="modal" data-bs-target="#modalAumentar"><i class="fa fa-plus"></i></button><button class="btn btn-warning btn-sm m-1 editar" title="Editar"><i class="fa fa-pencil"></i></button><button class="btn btn-danger fallecido btn-sm m-1" title="Marcar como fallecido" data-bs-toggle="modal" data-bs-target="#modalFallecido"><i class="icofont icofont-skull-face"></i></button><button class="btn ver btn-dark btn-sm m-1" title="Ver"><i class="fa fa-eye"></i></button>',
                            
                                 
                             },
@@ -191,7 +219,8 @@
             obtener_data_aumentar('#beneficiarios', tabla);
             obtener_data_devolucion('#beneficiarios', tabla);
             obtener_data_editar('#beneficiarios', tabla);
-            obtener_data_eliminar('#beneficiarios', tabla);
+            obtener_data_fallecido('#beneficiarios', tabla);
+            //obtener_data_eliminar('#beneficiarios', tabla);
             obtener_data_ver('#beneficiarios', tabla);
             
         });
@@ -237,12 +266,19 @@
             })
         }
 
-        var obtener_data_eliminar = function(tbody, tabla){
+        var obtener_data_fallecido = function(tbody, tabla){
+            $(tbody).on ('click', 'button.fallecido', function(){
+                var data = tabla.row($(this).parents('tr')).data();
+                var idusuario = $('#idusuario').val(data.id);
+            })
+        }
+
+        /*var obtener_data_eliminar = function(tbody, tabla){
             $(tbody).on ('click', 'button.eliminar', function(){
                 var data = tabla.row($(this).parents('tr')).data();
                 location.href = "destroy/"+data.id;
             })
-        }
+        }*/
         var obtener_data_ver = function(tbody, tabla){
             $(tbody).on ('click', 'button.ver', function(){
                 var data = tabla.row($(this).parents('tr')).data();

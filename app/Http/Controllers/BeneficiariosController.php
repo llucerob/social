@@ -43,6 +43,8 @@ class BeneficiariosController extends Controller
         $arr = [];
 
         foreach($ben  as $key => $b ){
+
+            if($b->fallecido == 'V'){
             
             $arr[$key]['rut']                   = $b->rut;
             $arr[$key]['nombre']                = $b->nombres.' '.$b->apellidos.' ('.Carbon::parse($b->fnac)->age.' Años)';
@@ -58,6 +60,7 @@ class BeneficiariosController extends Controller
             $arr[$key]['id']                    = $b->id;
             $arr[$key]['idficha']               = $b->registrosocial->id;
             $arr[$key]['porcentaje']            = $b->registrosocial->porcentaje;
+        }
 
         }
 
@@ -496,6 +499,17 @@ class BeneficiariosController extends Controller
         return view('beneficiarios.listar-solicitudes', ['beneficiario' => $beneficiario]);
 
 
+    }
+
+    public function fallecer(Request $request){
+
+        $beneficiario = Beneficiario::findOrFail($request->idusuario);
+
+        $beneficiario->fallecido = 'F';
+
+        $beneficiario->update();
+
+        return redirect()->route('beneficiarios.index')->with('success', 'El Beneficiario'.$beneficiario->nombres.' '.$beneficiario->apellidos.' se ha marcado como fallecido');
     }
 
 
