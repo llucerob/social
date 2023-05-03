@@ -144,12 +144,20 @@
                             </div>
 
                             <div class="col-md-6">
-                                <div class="mb-3">
-                                  <label class="form-label" for="inputCorreo">Email</label>
-                                  <input class="form-control" id="inputCorreo" type="email"  name="correo" placeholder="algo@algo.com">
-                                  <div class="valid-feedback">¡Luce bien!</div>
-                                </div>
+                              <div class="mb-3">
+                                <label class="form-label" for="inputCorreo">Email</label>
+                                <input class="form-control" id="inputCorreo" type="email"  name="correo" placeholder="algo@algo.com">
+                                <div class="valid-feedback">¡Luce bien!</div>
+                              </div>
                             </div>
+                            <div class="col-md-12">
+                              <div class="mb-3">
+                                <label class="form-label" for="inputComentario">Comentario</label>
+                                <input class="form-control" id="inputComentario" type="text"  name="comentario" placeholder="escriba un comentario aqui">
+                                <div class="valid-feedback">¡Luce bien!</div>
+                              </div>
+                            </div>
+
 
                           </div>
                           

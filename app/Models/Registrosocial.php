@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Registrosocial extends Model
 {
@@ -16,8 +16,8 @@ class Registrosocial extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function beneficiario(): HasOne
+    public function beneficiarios(): HasMany
     {
-        return $this->hasOne(Beneficiario::class, 'registrosociales_id', 'id');
+        return $this->hasMAny(Beneficiario::class, 'registrosociales_id', 'id');
     }
 }

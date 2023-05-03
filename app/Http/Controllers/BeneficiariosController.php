@@ -58,6 +58,7 @@ class BeneficiariosController extends Controller
             
             $arr[$key]['direccion']             = $b->direccion.' ,'.$b->sector;
             $arr[$key]['id']                    = $b->id;
+            $arr[$key]['comentario']            = $b->comentario;
             $arr[$key]['idficha']               = $b->registrosocial->id;
             $arr[$key]['porcentaje']            = $b->registrosocial->porcentaje;
         }
@@ -100,6 +101,7 @@ class BeneficiariosController extends Controller
         $beneficiario->telefono         = $request->telefono;
         $beneficiario->grupofamiliar    = $request->grupofam;
         $beneficiario->correo           = $request->correo;
+        $beneficiario->comentario       = $request->comentario;
 
         
 
@@ -166,6 +168,7 @@ class BeneficiariosController extends Controller
         $beneficiario->telefono         = $request->telefono;
         $beneficiario->correo           = $request->correo;
         $beneficiario->grupofamiliar    = $request->grupofam;
+        $beneficiario->comentario       = $request->comentario;
 
         //dd($beneficiario->registrosocial);
 
@@ -510,6 +513,13 @@ class BeneficiariosController extends Controller
         $beneficiario->update();
 
         return redirect()->route('beneficiarios.index')->with('success', 'El Beneficiario'.$beneficiario->nombres.' '.$beneficiario->apellidos.' se ha marcado como fallecido');
+    }
+
+    public function historiaxficha(string $id){
+        $fichaSocial = RegistroSocial::findOrFail($id);
+
+        dd($fichaSocial->beneficiarios[0]);
+
     }
 
 

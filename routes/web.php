@@ -75,6 +75,7 @@ Route::middleware('auth')->group(function () {
     Route::get('beneficiario/ver/boletas/{id}', [BeneficiariosController::class, 'verboletas'])->name('ver.boletas');
     Route::get('/beneficiarios/{id}/verpedidos', [BeneficiariosController::class, 'verpedidos'])->name('ver.pedidos');
     Route::post('beneficiario/fallecer/',[BeneficiariosController::class, 'fallecer'])->name('beneficiario.fallecer');
+    Route::get('beneficiarios/historiaxficha/{id}', [BeneficiariosController::class, 'historiaxficha'])->name('historiaficha');
 
     //datatables
     Route::get('datatable/beneficiarios', [BeneficiariosController::class, 'ajaxbeneficiarios'])->name('datatable.beneficiarios');

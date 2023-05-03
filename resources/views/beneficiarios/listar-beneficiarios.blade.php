@@ -73,12 +73,33 @@
                                         <button class="btn btn-secondary d-flex m-auto" type="submit">Marcar como Fallecido</button>
                                       </form>
                                     </div>
-                                  </div>
-                            
-                        
+                                </div>                                                   
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                    <div class="modal fade" id="modalComentario" tabindex="-1" role="dialog" aria-labelledby="modalComentario" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Comentario</h5>
+                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                            
+                                <div class="modal-body"> 
+                                    <div class="modal-toggle-wrapper">  
+                                      <div class="modal-img text-center" >
+
+                                        <p class="text-primary " id="contComentario"></p>
+                                         
+                                      </div>
+                                      
+                                                                            
+                                    </div>
+                                </div>                                                   
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="modal fade" id="modalAumentar" tabindex="-1" role="dialog" aria-labelledby="modalAumentar" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -204,7 +225,7 @@
                         {data: 'direccion'},
                         {
                             data: null,
-                            defaultContent: '<button  class="btn solicitar btn-primary btn-sm m-1" title="Solicitar Material"><i class="fa fa-ticket"></i></button><button class="btn imprimir btn-secondary btn-sm m-1" title="imprimir"><i class="fa fa-file-pdf-o"></i></button><button class="btn devolucion btn-info btn-sm m-1" title="Solicitar Devolución" data-bs-toggle="modal" data-bs-target="#modalDevolucion"><i class="fa fa-money"></i></button><button class="btn aumentar btn-success btn-sm m-1" title="Modificar %" data-bs-toggle="modal" data-bs-target="#modalAumentar"><i class="fa fa-plus"></i></button><button class="btn btn-warning btn-sm m-1 editar" title="Editar"><i class="fa fa-pencil"></i></button><button class="btn btn-danger fallecido btn-sm m-1" title="Marcar como fallecido" data-bs-toggle="modal" data-bs-target="#modalFallecido"><i class="icofont icofont-skull-face"></i></button><button class="btn ver btn-dark btn-sm m-1" title="Ver"><i class="fa fa-eye"></i></button>',
+                            defaultContent: '<button  class="btn solicitar btn-primary btn-sm m-1" title="Solicitar Material"><i class="fa fa-ticket"></i></button><button class="btn imprimir btn-secondary btn-sm m-1" title="imprimir"><i class="fa fa-file-pdf-o"></i></button><button class="btn devolucion btn-info btn-sm m-1" title="Solicitar Devolución" data-bs-toggle="modal" data-bs-target="#modalDevolucion"><i class="fa fa-money"></i></button><button class="btn aumentar btn-success btn-sm m-1" title="Modificar %" data-bs-toggle="modal" data-bs-target="#modalAumentar"><i class="fa fa-plus"></i></button><button class="btn btn-warning btn-sm m-1 editar" title="Editar"><i class="fa fa-pencil"></i></button><button class="btn btn-danger fallecido btn-sm m-1" title="Marcar como fallecido" data-bs-toggle="modal" data-bs-target="#modalFallecido"><i class="icofont icofont-skull-face"></i></button><button class="btn ver btn-dark btn-sm m-1" title="Ver"><i class="fa fa-eye"></i></button><button class="btn comentario btn-primary btn-sm m-1" title="Ver Comentarios" data-bs-toggle="modal" data-bs-target="#modalComentario"><i class="fa fa-book"></i></button>',
                            
                                 
                             },
@@ -222,6 +243,7 @@
             obtener_data_fallecido('#beneficiarios', tabla);
             //obtener_data_eliminar('#beneficiarios', tabla);
             obtener_data_ver('#beneficiarios', tabla);
+            obtener_data_comentario('#beneficiarios', tabla);
             
         });
 
@@ -283,6 +305,26 @@
             $(tbody).on ('click', 'button.ver', function(){
                 var data = tabla.row($(this).parents('tr')).data();
                 location.href = +data.id+"/verpedidos";
+            })
+        }
+
+        var obtener_data_xficha = function(tbody, tabla){
+            $(tbody).on ('click', 'button.historialficha', function(){
+                var data = tabla.row($(this).parents('tr')).data();
+                location.href = "historiaxficha/"+data.idficha;
+            })
+        }
+        var obtener_data_comentario = function(tbody, tabla){
+            $(tbody).on ('click', 'button.comentario', function(){
+                var data = tabla.row($(this).parents('tr')).data();
+                if(data.comentario){
+                    var comentario = $('#contComentario').html(data.comentario);
+
+                }else{
+                    var comentario = $('#contComentario').html('No se ha ingresado comentario');
+                }
+                 
+                 
             })
         }
 
