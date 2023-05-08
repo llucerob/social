@@ -42,7 +42,7 @@
                                     
                                     <th>Rut</th>
                                     <th>Monto</th>
-                                    <th>Mes</th>
+                                    <th>F. entrega</th>
                                     <th>Acción</th>
                                 </tr>
                             </thead>

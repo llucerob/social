@@ -5,6 +5,7 @@
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatables.css') }}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/daterange-picker.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/date-picker.css')}}">
 @endsection
 
 @section('style')
@@ -148,34 +149,18 @@
                                 <div class="mb-3">
                                     <label class="form-label" for="inputdevolucion">Ingrese el Valor de la devolucion </label>
                                     <input class="form-control" id="inputdevolucion" type="number" name="devolucion">
-                                    <input type="text" id="idusuario" name="idusuario" hidden>
+                                    <input type="text" id="usuario" name="idusuario" hidden>
                                     
                                 <div class="valid-feedback">¡Luce bien!</div>
                                 </div>
                             </div>
-                            <div class="col">                                                        
-                                    <div class="mb-3">
-                                        <label class="form-label" for="selectMes">Mes</label>
-                                        <select class="form-select digits" id="selectMes" name="mes">
-        
-                                            <option value="Enero {{now()->format('Y')}}">Enero {{now()->format('Y')}}</option>
-                                            <option value="Febrero {{now()->format('Y')}}">Febrero {{now()->format('Y')}}</option>
-                                            <option value="Marzo {{now()->format('Y')}}">Marzo {{now()->format('Y')}}</option>
-                                            <option value="Abril {{now()->format('Y')}}">Abril {{now()->format('Y')}}</option>
-                                            <option value="Mayo {{now()->format('Y')}}">Mayo {{now()->format('Y')}}</option>
-                                            <option value="Junio {{now()->format('Y')}}">Junio {{now()->format('Y')}}</option>
-                                            <option value="Julio {{now()->format('Y')}}">Julio {{now()->format('Y')}}</option>
-                                            <option value="Agosto {{now()->format('Y')}}">Agosto {{now()->format('Y')}}</option>
-                                            <option value="Septiembre {{now()->format('Y')}}">Septiembre {{now()->format('Y')}}</option>
-                                            <option value="Octubre {{now()->format('Y')}}">Octubre {{now()->format('Y')}}</option>
-                                            <option value="Noviembre {{now()->format('Y')}}">Noviembre {{now()->format('Y')}}</option>
-                                            <option value="Diciembre {{now()->format('Y')}}">Diciembre {{now()->format('Y')}}</option>
-                                           
-                                          
-                                        </select>
-                                        <div class="valid-feedback">¡Luce bien!</div>
-                                    </div>
-                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                  <label class="form-label" for="inputfechadev">Fecha Devolución</label>
+                                  <input class="datepicker-here form-control digits" data-lenguage="es" id="inputfechadev" type="text" name="mes" placeholder="12-01-1999">
+                                  <div class="valid-feedback">¡Luce bien!</div>
+                                </div>
+                              </div>
                             
                             
                             </div>
@@ -210,6 +195,9 @@
     <script src="{{asset('assets/js/touchspin/input-groups.min.js')}}"></script>
 
     <script src="{{asset('assets/js/datatable/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.js')}}"></script>
+    <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.es.js')}}"></script>
+    <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.custom.js')}}"></script>
     
 
     <script>
@@ -276,7 +264,7 @@
             $(tbody).on ('click', 'button.devolucion',function(){
                 var data = tabla.row($(this).parents('tr')).data();
                 
-                var idusuario = $('#idusuario').val(data.id);                
+                var usuario = $('#usuario').val(data.id);                
                 
 
             })

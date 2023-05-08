@@ -47,7 +47,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($materiales as $m )
+                                    @foreach ($materiales as $key => $m )
 
                                     <tr>
                                         <th>{{ $m->nombre }}</th>
@@ -56,18 +56,18 @@
                                         <th>{{ $m->limite }} [{{ $m->medida}}]</th>
                                         <th>{{ $m->limiteurgencia}} [{{ $m->medida}}]</th>
                                         <th>
-                                            <a href="#modalAumentar" class="btn btn-outline-success btn-sm" title="Agregar" data-bs-toggle="modal" data-bs-target="#modalAumentar"><i class="fa fa-plus"></i></a>
+                                            <a href="#modalAumentar{{$key}}" class="btn btn-outline-success btn-sm" title="Agregar" data-bs-toggle="modal" data-bs-target="#modalAumentar{{$key}}"><i class="fa fa-plus"></i></a>
                                             <a href="{{url('materiales/editar/'.$m->id)}}" class="btn btn-outline-primary btn-sm" title="Editar"><i class="fa fa-pencil"></i></a>
                                             <a href="{{url('materiales/destroy/'.$m->id)}}" class="btn btn-outline-danger btn-sm" title="Eliminar"><i class="icon-trash"></i></a>
 
-                                                <div class="modal fade" id="modalAumentar" tabindex="-1" role="dialog" aria-labelledby="modalAumentar" aria-hidden="true">
+                                                <div class="modal fade" id="modalAumentar{{$key}}" tabindex="-1" role="dialog" aria-labelledby="modalAumentar{{$key}}" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title">Aumento de material</h5>
                                                             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                        <form action="{{url('materiales/aumentar/'.$m->id.'/guardar')}}" method="post" enctype="multipart/form-data">
+                                                        <form action="{{route('materiales.aumentar',[$m->id])}}" method="post" enctype="multipart/form-data">
                                                             @csrf
                                                         <div class="modal-body">
 

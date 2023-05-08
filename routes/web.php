@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::get('materiales/destroy/{id}', [MaterialesController::class, 'destroy'])->name('materiales.destroy');
     Route::get('materiales/editar/{id}', [MaterialesController::class, 'edit']);
     Route::post('materiales/update/{id}', [MaterialesController::class, 'update']);
-    Route::post('materiales/aumentar/{id}/guardar', [MaterialesController::class, 'storeaumentar']);
+    Route::post('materiales/aumentar/{id}/guardar', [MaterialesController::class, 'storeaumentar'])->name('materiales.aumentar');
   
 
     
