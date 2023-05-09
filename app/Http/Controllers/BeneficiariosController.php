@@ -409,6 +409,7 @@ class BeneficiariosController extends Controller
         $reembolso      =   new Reembolso;
 
         $reembolso->beneficiarios_id    = $beneficiario->id;
+        $reembolso->motivo              = $request->motivo;
 
         $reembolso->total               = $request->devolucion;
         $reembolso->mes                 = $request->mes;
@@ -519,6 +520,37 @@ class BeneficiariosController extends Controller
         $fichaSocial = RegistroSocial::findOrFail($id);
 
         dd($fichaSocial->beneficiarios[0]);
+
+    }
+
+    public function imprimerendicion(string $id){
+
+
+        $rendicion = Reembolso::findOrFail($id);
+
+        $arr    = [];
+        
+        
+        $arr['nombre']      = $rendicion->beneficiario->nombres;
+        $arr['apellidos']   = $rendicion->beneficiario->apellidos;
+        $arr['rut']         = $rendicion->beneficiario->rut;
+        $arr['direccion']   = $rendicion->beneficiario->direccion;
+        $arr['sector']      = $rendicion->beneficiario->sector;
+        $arr['telefono']    = $rendicion->beneficiario->telefono;
+        $arr['correo']      = $rendicion->beneficiario->correo;
+
+        $arr['monto']       = $rendicion->total;
+        $arr['motivo']      = $rendicion->motivo;
+        $arr['fentrega']    = $rendicion->mes;
+        $arr['creacion']    = date_format($rendicion->created_at, 'd-m-Y');
+
+
+        //dd($arr);
+
+        view()->share('rendicion', $arr);
+
+        $pdf = PDF::loadView('pdfs.rendicion', $arr);
+        return $pdf->download('rendicion'.$rendicion->id.'.pdf');
 
     }
 

@@ -154,7 +154,16 @@
                                 <div class="valid-feedback">¡Luce bien!</div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label class="form-label" for="inputMotivo">Ingrese el Motivo </label>
+                                    <input class="form-control" id="inputMotivo" type="text" name="motivo">
+                                   
+                                    
+                                <div class="valid-feedback">¡Luce bien!</div>
+                                </div>
+                            </div>
+                            <div class="col">
                                 <div class="mb-3">
                                   <label class="form-label" for="inputfechadev">Fecha Devolución</label>
                                   <input class="datepicker-here form-control digits" data-lenguage="es" id="inputfechadev" type="text" name="mes" placeholder="12-01-1999">

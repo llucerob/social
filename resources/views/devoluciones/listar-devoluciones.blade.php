@@ -61,8 +61,10 @@
                                     <th>{{$r->mes }} </th>
                                     <th >
                                         
-                                        <a href="{{route('acepta.rendicion',[$r->id])}}" class="btn btn-outline-success btn-sm m-1" title="Aceptar rendicion"><i class="fa fa-check"></i></a>
+                                        <a href="{{route('acepta.rendicion',[$r->id])}}" class="btn btn-outline-success btn-sm m-1" title="Aceptar Rendición"><i class="fa fa-check"></i></a>
                                         
+                                        <a href="{{route('imprime.rendicion',[$r->id])}}" class="btn btn-outline-secondary btn-sm m-1" title="Imprimir Rendición"><i class="fa fa-file-pdf-o"></i></a>
+
                                         <a href="#modalmasboleta{{$key}}" class="btn btn-outline-primary btn-sm m-1" title="Agregar Boleta a la rendicion" data-bs-toggle="modal" data-bs-target="#modalmasboleta{{$key}}"><i class="fa fa-plus"></i></a>
                                         
                                         <a href="{{route('ver.boletas',[$r->id])}}" class="btn btn-outline-warning btn-sm m-1" ><i class="fa fa-eye"></i></a>
