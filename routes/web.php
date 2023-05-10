@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeneficiariosController;
 use App\Http\Controllers\MaterialesController;
 use App\Http\Controllers\UtilsController;
+use Illuminate\Support\Facades\Artisan;
 
 
 /*
@@ -104,7 +105,12 @@ Route::middleware('auth')->group(function () {
     Route::post('utils/impresion/sectores', [UtilsController::class, 'imprimesectores'])->name('eleccion.sectores');
 
     
-
+    Route::get('/clear-cache', function () {
+        Artisan::call('cache:clear');
+        Artisan::call('route:clear');
+     
+        return "Cache Limpiado";
+     });
     
 
 

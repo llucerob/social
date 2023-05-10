@@ -24,83 +24,11 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="row starter-main">
-       
-        @foreach ( $beneficiarios as $key => $b )
-            @if(count($b->solicitudes) > 0 )
-
-
-
-                <div class="col">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>{{$b->nombres}} {{$b->apellidos}}</h5>
-                          
-                            
-
-                        
-                        </div>
-                        <div class="card-body">
-                            {{count($b->solicitudes)}} materiales por entregar 
-                        </div>
-                        <div class="card-footer">
-                            <a class="btn btn-outline-primary btn-sm m-1" title="Imprimir" href="{{ route('imprimir', [$b->id]) }}">Imprimir</a>
-                            <a class="btn btn-outline-secondary btn-sm m-1" title="Ver"  data-bs-toggle="modal" data-bs-target="#modalVer{{$key}}" href="#modalVer{{$key}}">Ver</a>
-                            <a class="btn btn-outline-success btn-sm m-1" title="Marcar como entregado"  href="{{ route('beneficiario.material', [$b->id]) }}">Entregar</a>
-
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="modalVer{{$key}}" tabindex="-1" role="dialog" aria-labelledby="modalver" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Materiales por entregar </h5>
-                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                          
-                        <div class="modal-body">
-
-                            
-                            <div class="col">
-                                <div class="mb-3">
-                                    <ul>
-                                        @foreach ($b->solicitudes as $s )
-                                            <li> <i class="fa fa-arrow-right"></i> {{$s->nombre}} -- {{$s->solicitudes->cantidad}}[{{$s->solicitudes->medida}}] </li>
-                                        @endforeach
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            
-                        </div>
-                        <div class="modal-footer">
-                           
-                                                                                                 
-                        </div>
-                    
-                    </div>
-                </div>
-            </div>
-
-
-
-            @endif
-            
-        @endforeach
-        
-        
-        
-        
-        
-    </div>
+    
 
     <div class="row starter-main">
 
-        <h3 class="tex-center">Entrega a domicilio</h3>
+        
 
         <div class="col">
             <div class="card">
@@ -110,7 +38,7 @@
 
                         <div class="col-md-6">
                             <div class="mb-2">
-                              <div class="col-form-label">Sectores</div>
+                              <div class="col-form-label">Sectores (entrega domicilio)</div>
                               <select class="js-example-basic-multiple  col-sm-6" name="sectores[]" id="sectores" required multiple="multiple">
                                 
                                 @foreach($sectores as $s)
@@ -138,32 +66,42 @@
 
                             <thead>
                                 <tr class="text-center">
+                                    <th width="9%">Rut</th>
                                     <th>Nombres</th>
-                                    <th>Rut</th>
                                     <th>Direccion</th>
-                                    <th>Sector</th>
                                     <th>Materiales</th>
+                                    <th>Atendido</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                               @foreach ($beneficiarios as $d )
+                               @foreach ($beneficiarios as $key => $d )
                                     @if(count($d->solicitudes) > 0)
                                         <tr>
-                                            <th>{{$d->nombres}} {{$d->apellidos}}</th>
                                             <th>{{$d->rut}}</th>
-                                            <th>{{$d->direccion}}</th>
-                                            <th>{{$d->sector}}</th>
-
+                                            <th>{{$d->nombres}} {{$d->apellidos}}</th>
+                                            
+                                            <th>{{$d->direccion}}, {{$d->sector}}</th>
+                                            
                                             <th><ul>
                                             @foreach($d->solicitudes as $f)
 
-                                                <li>{{$f->solicitudes->cantidad}} {{$f->solicitudes->medida}} de {{$f->nombre}}</li>
+                                                <li>{{$f->solicitudes->cantidad}} {{$f->solicitudes->medida}} de {{$f->nombre}} <span class="text-danger"> @if($f->solicitudes->domicilio == 1) E. DOMICILIO  @else E. LOCAL @endif </span>  </li>
 
                                             @endforeach
                                             </ul></th>
+                                            <th>@if(is_null($d->solicitudes[0]->solicitudes->atendido)) No se asignó asistente @else {{$d->solicitudes[0]->solicitudes->atendido}} @endif</th>
+                                            <th>
+                                                <a class="btn btn-outline-primary btn-sm m-1" title="Imprimir" href="{{ route('imprimir', [$d->id]) }}">Imprimir</a>
+                                                
+                                                <a class="btn btn-outline-success btn-sm m-1" title="Marcar como entregado"  href="{{ route('beneficiario.material', [$d->id]) }}">Entregar</a>
+
+                                                
+                                            
+                                            </th>
                                         </tr>
 
-                                        
+                                                                                
                                     @endif
 
                                 @endforeach

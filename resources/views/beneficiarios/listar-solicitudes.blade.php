@@ -38,8 +38,9 @@
                             <thead>
                                 <tr class="text-center">
                                     <th>Nombre</th>
-                                    <th>Cantidad</th>                                    
                                     <th>Fecha</th>
+                                    <th>Hecho por</th>                                    
+                                    
                                     <th>Comentario</th>
                                     <th>Tipo Entrega</th>
                                 </tr>
@@ -51,11 +52,12 @@
 
                                 <tr>
                                     
-                                    <td>{{$e->nombre}}</td>
-                                    <td>{{$e->entregados->cantidad}}[{{$e->entregados->medida}}]</td>
+                                    <td>{{$e->entregados->cantidad}}[{{$e->entregados->medida}}] {{$e->nombre}}</td>
                                     <td>{{date_format( $e->entregados->created_at, 'd-m-Y')}}</td>
-                                    <td>{{$e->entregados->comentario}}</td>
-                                    <td>@if($e->entregados->domicilio == 1) ENTREGA DOMICILIO @else ENTREGA LOCAL @endif</td>   
+                                    <td>@if(is_null($e->entregados->atendido)) no se asignó asistente @else {{$e->entregados->atendido}} @endif </td>
+                                    
+                                    <td>@if(is_null($e->entregados->comentario)) no se asignó comentario @else {{$e->entregados->comentario}} @endif</td>
+                                    <td>@if($e->entregados->domicilio == 1) E. DOMICILIO @else E. LOCAL @endif</td>   
                                     
                                 </tr>
                                     
@@ -84,9 +86,10 @@
                             <thead>
                                 <tr class="text-center">
                                     <th>Nombre</th>
-                                    <th>Cantidad</th>
-                                    
                                     <th>Fecha</th>
+                                    <th>Hecho por</th>
+                                    
+                                    
                                     <th>Comentario</th>
                                     <th>Tipo de entrega</th>
                                 </tr>
@@ -98,11 +101,12 @@
 
                                 <tr>
                                     
-                                    <td>{{$e->nombre}}</td>
-                                    <td>{{$e->solicitudes->cantidad}}[{{$e->solicitudes->medida}}]</td>
+                                    <td>{{$e->solicitudes->cantidad}}[{{$e->solicitudes->medida}}] {{$e->nombre}}</td>
                                     <td>{{date_format($e->solicitudes->created_at, 'd-m-Y')}}</td>
-                                    <td>{{$e->solicitudes->comentario}}</td>
-                                    <td>@if($e->solicitudes->domicilio == 1) ENTREGA DOMICILIO @else ENTREGA LOCAL @endif</td>   
+                                    <td>@if(is_null($e->solicitudes->atendido)) no se asignó asistente @else {{$e->solicitudes->atendido}} @endif </td>
+                                    
+                                    <td>@if(is_null($e->solicitudes->comentario)) no se asignó comentario @else {{$e->solicitudes->comentario}} @endif</td>
+                                    <td>@if($e->solicitudes->domicilio == 1) E. DOMICILIO @else E. LOCAL @endif</td>   
                                 
 
                                     

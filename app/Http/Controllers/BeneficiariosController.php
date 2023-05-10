@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Session;
 
 
 
+
 class BeneficiariosController extends Controller
 {
     /**
@@ -61,11 +62,14 @@ class BeneficiariosController extends Controller
             $arr[$key]['comentario']            = $b->comentario;
             $arr[$key]['idficha']               = $b->registrosocial->id;
             $arr[$key]['porcentaje']            = $b->registrosocial->porcentaje;
+
+           
+            
         }
 
         }
 
-           // dd($arr);
+           //dd($arr);
         
         return DataTables($arr)->tojson();
 
@@ -288,10 +292,10 @@ class BeneficiariosController extends Controller
 
         foreach($request->material as $key => $m){
             if($request->domicilio == 'on'){
-                $beneficiario->solicitudes()->attach($m['id'], ['cantidad' => $m['cantidad'], 'medida' => $m['medida'], 'domicilio' => '1', 'comentario' => $request->comentario ]);
+                $beneficiario->solicitudes()->attach($m['id'], ['cantidad' => $m['cantidad'], 'medida' => $m['medida'], 'domicilio' => '1', 'comentario' => $request->comentario, 'atendido' => auth()->user()->name]);
                 
             }else{
-                $beneficiario->solicitudes()->attach($m['id'], ['cantidad' => $m['cantidad'], 'medida' => $m['medida'], 'domicilio' => '0', 'comentario' => $request->comentario ]);
+                $beneficiario->solicitudes()->attach($m['id'], ['cantidad' => $m['cantidad'], 'medida' => $m['medida'], 'domicilio' => '0', 'comentario' => $request->comentario, 'atendido' => auth()->user()->name]);
             }
             
            
@@ -382,6 +386,7 @@ class BeneficiariosController extends Controller
         $entregado->medida          = $solicitud->medida;
         $entregado->domicilio       = $solicitud->domicilio;
         $entregado->comentario      = $solicitud->comentario;
+        $entregado->atendido        = $solicitud->atendido;
 
         $entregado->save();
 

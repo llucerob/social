@@ -91,9 +91,12 @@
                                     <div class="modal-toggle-wrapper">  
                                       <div class="modal-img text-center" >
 
+
+
                                         <p class="text-primary " id="contComentario"></p>
                                          
                                       </div>
+
                                       
                                                                             
                                     </div>
@@ -207,7 +210,7 @@
     <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.js')}}"></script>
     <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.es.js')}}"></script>
     <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.custom.js')}}"></script>
-    
+
 
     <script>
         $(document).ready(function(){
@@ -316,6 +319,8 @@
                 var data = tabla.row($(this).parents('tr')).data();
                 if(data.comentario){
                     var comentario = $('#contComentario').html(data.comentario);
+
+                  
 
                 }else{
                     var comentario = $('#contComentario').html('No se ha ingresado comentario');
