@@ -34,7 +34,7 @@
                 </div>
                 
 
-                    <form class="needs-validation theme-form" novalidate="" action="{{ url('beneficiarios/solicitar/'.$beneficiario->id.'/parte1' )}}" method="post" enctype="multipart/form-data">
+                    <form class="needs-validation theme-form" novalidate="" onsubmit="enviar();" action="{{ url('beneficiarios/solicitar/'.$beneficiario->id.'/parte1' )}}" method="post" enctype="multipart/form-data">
                       @csrf  
                       <div class="card-body">
                           <div class="row g-3">
@@ -80,7 +80,7 @@
                         </div>
                         <div class="card-footer text-end">
                           <a class="btn btn-light" href="{{route('beneficiarios.index')}}">Volver</a>
-                          <button class="btn btn-primary" type="submit">Continuar</button>
+                          <button class="btn btn-primary" id="btn" type="submit">Continuar</button>
                           
                         </div>
                       </form>
@@ -112,6 +112,13 @@
 
         });
       });
+    </script>
+    <script>
+      function enviar(){
+      var btn = document.getElementById('btn');
+      btn.setAttribute('disabled','');
+     
+    }
     </script>
 
 @endsection
