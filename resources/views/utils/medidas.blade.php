@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Default')
+@section('title', 'Medidas - I. Municipalidad Coinco')
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatables.css') }}">

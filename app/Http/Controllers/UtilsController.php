@@ -9,6 +9,8 @@ use App\Models\Medida;
 use App\Models\Beneficiario;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
+use App\Models\Entregado;
+use Illuminate\Database\Eloquent\Builder;
 
 
 
@@ -181,6 +183,46 @@ class UtilsController extends Controller
         
 
 
+    }
+
+
+
+    public function crearnomina(){
+
+
+        $categorias = Categoria::all();
+
+        return view('transparencia.selector-mes', ['categorias' => $categorias]);
+    }
+
+
+    public function transparenciaseleccion(Request $request){
+
+        $categoria = $request->ayuda;
+
+        $entregados = Entregado::whereYear('created_at', $request->ano)
+                                ->whereMonth('created_at', $request->mes)
+                                ->wherehas('material', function(Builder $query) use($categoria){
+                                    $query->where('categoria_id', '=', $categoria);
+                                })
+                                ->get();
+        $arr = [];
+        
+        foreach($entregados as $key => $e){
+
+            $arr[$key]['ano']       = $e->created_at->locale('es')->isoFormat(('MMMM'));
+            $arr[$key]['mes']       = $e->created_at->locale('es')->isoFormat('Y');
+            $arr[$key]['nombre']    = $e->beneficiario->nombres;
+            $apellido = explode(" ", $e->beneficiario->apellidos);
+            $arr[$key]['paterno']   = $apellido[0];
+            $arr[$key]['materno']   = $apellido[1];
+
+        }
+
+
+        //dd($arr);
+
+        return view('transparencia.transparencia', ['entregados' => $arr]);
     }
 
 

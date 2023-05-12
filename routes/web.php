@@ -81,6 +81,9 @@ Route::middleware('auth')->group(function () {
 
     //datatables
     Route::get('datatable/beneficiarios', [BeneficiariosController::class, 'ajaxbeneficiarios'])->name('datatable.beneficiarios');
+    Route::post('transparencia/seleccion', [UtilsController::class, 'transparenciaseleccion'])->name('transparencia.seleccion');
+    Route::get('trasparencia/crearnomina', [UtilsController::class, 'crearnomina'])->name('crear.nomina');
+    //Route::get('transparencia/tabla', [UtilsController::class, 'transparencia'])->name('transparencia');
 
 
 

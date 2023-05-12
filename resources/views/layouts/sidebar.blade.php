@@ -58,6 +58,22 @@
 
 
             <li class="pin-title sidebar-main-title">
+                    <div> 
+                      <h6>Transparencia</h6>
+                    </div>
+            </li>
+
+            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="{{route('crear.nomina')}}">
+              <svg class="stroke-icon">
+                <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-charts') }}"></use>
+              </svg>
+              <svg class="fill-icon">
+                <use href="{{ asset('assets/svg/icon-sprite.svg#fill-charts') }}"></use>
+              </svg><span>Crear Nomina</span></a></li>
+
+
+
+            <li class="pin-title sidebar-main-title">
                   <div> 
                     <h6>Bodega</h6>
                   </div>

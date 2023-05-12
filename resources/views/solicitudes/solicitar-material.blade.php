@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Default')
+@section('title', 'Solicitar Material - I. Municipalidad Coinco')
 
 @section('css')
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/select2.css')}}">
