@@ -156,7 +156,12 @@ class UtilsController extends Controller
                     $arr[$r]['sector']       =   $b->sector;        
                     $arr[$r]['telefono']     =   $b->telefono;
                     $arr[$r]['correo']       =   $b->correo;
-                    $arr[$r]['ultimaentrega'] =  Carbon::createFromFormat('Y-m-d H:i:s', $b->entregados->last()->entregados->created_at)->format('d-m-Y');
+                    if(count($b->entregados) == 0){ 
+                        $arr[$r]['ultimaentrega'] = 'no registra entrega';
+                        }else{
+                        $arr[$r]['ultimaentrega'] = Carbon::createFromFormat('Y-m-d H:i:s', $b->entregados->last()->entregados->created_at)->format('d-m-Y');
+                            
+                        }
 
             
                 foreach($b->solicitudes as $key => $d){
