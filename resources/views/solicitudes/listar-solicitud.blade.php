@@ -33,7 +33,9 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="display datatables" id="beneficiarios">
+                        <form action="{{route('entregar.material')}}" onsubmit="enviar();" method="post" enctype="multipart/form-data">
+                            @csrf
+                        <table class="display " id="beneficiarios">
 
                             <thead>
                                 <tr class="text-center">
@@ -44,25 +46,50 @@
                                     <th>Acción</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ($beneficiario->solicitudes as $b )
-
+                            
+                           
                                
+                            <tbody>
+                                
+                                @foreach($beneficiario->solicitudes as $key => $b)
 
-                                <tr>
-                                    
-                                    <td>{{ $b->nombre }} </td>
-                                    <td>{{ $b->solicitudes->cantidad }} [{{$b->solicitudes->medida}}] </td>
-                                    <td>{{ $b->solicitudes->comentario}}</td>
-                                    <td><a href="{{route('entregar.material', [$b->solicitudes->id] )}}" class="btn btn-outline-success btn-sm m-1"><i class="fa fa-check"></i></a></td>
-                                    
-                                </tr>
+                                    <tr>
+                                        <td>{{$b->nombre}}</td>
+                                        <td>{{$b->solicitudes->cantidad}} [{{$b->solicitudes->medida}}]</td>
+                                        <td>{{$b->solicitudes->comentario}}</td>
+                                        <td>
+                                            
+                                              <div class="media">
+                                                <div class="media-body text-center icon-state">
+                                                  <label class="switch mb-0">
+                                                    <input type="checkbox" name="material[{{$key}}]" value="{{$b->solicitudes->id}}"><span class="switch-state bg-success"></span>
+                                                  </label>
+                                                  
+                                                </div>
+                                                
+                                              </div>
+                                        </td>
+                                    </tr>
+
                                     
                                 @endforeach
                                 
+                                                           
+                                   
+
+                                
+                                
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3"></td>
+                                    <td class="text-center"><button type="submit" id="btn" class="btn btn-success" >Entregar Seleccionados</button></td>
+                                </tr>
+                            </tfoot>
+                        
 
                         </table>
+                    </form>
 
                     </div> 
                    
@@ -99,6 +126,14 @@
             });
         });
     </script>
+
+<script>
+    function enviar(){
+    var btn = document.getElementById('btn');
+    btn.setAttribute('disabled','');
+   
+  }
+  </script>
     
    
 

@@ -70,6 +70,35 @@
               <svg class="fill-icon">
                 <use href="{{ asset('assets/svg/icon-sprite.svg#fill-charts') }}"></use>
               </svg><span>Crear Nomina</span></a></li>
+              <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="{{route('crear.decreto')}}">
+                <svg class="stroke-icon">
+                  <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-charts') }}"></use>
+                </svg>
+                <svg class="fill-icon">
+                  <use href="{{ asset('assets/svg/icon-sprite.svg#fill-charts') }}"></use>
+                </svg><span>Crear Decreto</span></a></li>
+
+
+
+              <li class="pin-title sidebar-main-title">
+                <div> 
+                  <h6>Municipal</h6>
+                </div>
+              </li>
+
+              <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#">
+                <svg class="stroke-icon">
+                  <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-to-do') }}"></use>
+                </svg>
+                <svg class="fill-icon">
+                  <use href="{{ asset('assets/svg/icon-sprite.svg#fill-to-do') }}"></use>
+                </svg><span>Solicitud Municipal</span></a>
+                <ul class="sidebar-submenu">
+                  <li><a href="{{route('listar.municipal')}}">Listar Solicitudes</a></li>
+                  <li><a href="{{route('solicitud.municipal')}}">Crear Solicitud</a></li>
+                 
+                </ul>
+            </li>
 
 
 

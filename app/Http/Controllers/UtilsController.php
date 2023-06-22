@@ -10,6 +10,8 @@ use App\Models\Beneficiario;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use App\Models\Entregado;
+use App\Models\Material;
+use App\Models\SolicitudMunicipal;
 use Illuminate\Database\Eloquent\Builder;
 
 
@@ -124,10 +126,34 @@ class UtilsController extends Controller
 
         $beneficiarios = Beneficiario::all();
 
+
+        $arr = [];
+
+        $mat = [];
+
+        foreach($beneficiarios as $key => $b){
+            if(count($b->solicitudes) > 0){
+                $arr[$key]['id']            = $b->id;
+                $arr[$key]['nombre']        = $b->nombres.' '.$b->apellidos;
+                $arr[$key]['rut']           = $b->rut;
+                $arr[$key]['direccion']     = $b->direccion.', '.$b->sector;
+                $arr[$key]['atendido']      = $b->solicitudes->first()->solicitudes->atendido;
+                foreach($b->solicitudes as $j => $a){
+                    $arr[$key]['materiales'][$j]['nombre']      = $a->solicitudes->cantidad.' '.$a->solicitudes->medida.' de '.$a->nombre;
+                    $arr[$key]['materiales'][$j]['domicilio']   = $a->solicitudes->domicilio;
+                }
+                
+
+            }
+            
+
+        }
+
+
         $sectores = Sector::all();
 
 
-        return view('dashboard', ['beneficiarios' => $beneficiarios, 'sectores' => $sectores]);
+        return view('dashboard', ['beneficiarios' => collect($arr)->values()->all(), 'sectores' => $sectores]);
 
     }
 
@@ -200,6 +226,49 @@ class UtilsController extends Controller
         return view('transparencia.selector-mes', ['categorias' => $categorias]);
     }
 
+    public function creardecreto(){
+
+
+        $categorias = Categoria::all();
+
+        return view('transparencia.decreto-selector-mes', ['categorias' => $categorias]);
+    }
+
+
+    
+    public function decretoseleccion(Request $request){
+
+        $categoria = $request->ayuda;
+
+        $entregados = Entregado::whereYear('created_at', $request->ano)
+                                ->whereMonth('created_at', $request->mes)
+                                ->wherehas('material', function(Builder $query) use($categoria){
+                                    $query->where('categoria_id', '=', $categoria);
+                                })
+                                ->get();
+        $arr = [];
+        
+        foreach($entregados as $key => $e){
+
+            $arr[$key]['material']       = $e->material->nombre;
+            $arr[$key]['cantidad']       = $e->cantidad.' '.$e->medida;
+            $arr[$key]['nombre']    = $e->beneficiario->nombres;
+            $apellido = explode(' ', $e->beneficiario->apellidos);
+            $arr[$key]['paterno']   = $apellido[0];
+            if(isset($apellido[1])){
+                $arr[$key]['materno']   =  $apellido[1]  ;
+                
+            }else{
+                $arr[$key]['materno']   =  ' '  ;
+            }
+
+        }
+
+
+        //dd($arr);
+
+        return view('transparencia.decreto', ['entregados' => $arr]);
+    }
 
     public function transparenciaseleccion(Request $request){
 
@@ -220,7 +289,12 @@ class UtilsController extends Controller
             $arr[$key]['nombre']    = $e->beneficiario->nombres;
             $apellido = explode(" ", $e->beneficiario->apellidos);
             $arr[$key]['paterno']   = $apellido[0];
-            $arr[$key]['materno']   = $apellido[1];
+            if(isset($apellido[1])){
+                $arr[$key]['materno']   =  $apellido[1]  ;
+                
+            }else{
+                $arr[$key]['materno']   =  ' '  ;
+            }
 
         }
 
@@ -228,6 +302,160 @@ class UtilsController extends Controller
         //dd($arr);
 
         return view('transparencia.transparencia', ['entregados' => $arr]);
+    }
+
+
+    public function solicitudmuni(){
+
+        $materiales = Material::all();
+
+
+        return view('solicitudes.solicitar-material-municipal', ['materiales' => $materiales]);        
+    }
+
+    public function storesolicitudmuni1(Request $request){
+
+
+
+        $solicitud = New SolicitudMunicipal;
+
+        $solicitud->motivo      = $request->motivo;
+        $solicitud->atendido    = auth()->user()->name;
+
+        $solicitud->save();
+
+
+        $seleccionados = [];
+        
+
+        foreach( $request->materiales as $key => $m )
+        {
+          
+            $material  = Material::findOrFail($m);
+            
+           
+                $seleccionados[$key]['id']        = $material->id;  
+                $seleccionados[$key]['nombre']    = $material->nombre;
+                $seleccionados[$key]['medida']    = $material->medida;
+                $seleccionados[$key]['stock']     = $material->stock;  
+
+   
+        }
+
+
+        return view('solicitudes.solicitar-material-municipal2', ['seleccionados' => $seleccionados, 'solicitud_id' => $solicitud->id]);
+        
+
+
+    }
+
+    public function storesolicitudmuni2(Request $request){
+
+
+        $solicitud = SolicitudMunicipal::findOrFail($request->solicitud_id);
+
+
+        foreach($request->material as  $m){
+
+            $solicitud->solicitudmunicipal()->attach($m['id'], ['cantidad' => $m['cantidad'], 'unidad' => $m['medida']]);
+            $material   = Material::findOrFail($m['id']);
+            $material->stock     =   $material->stock - $m['cantidad'];
+            $material->update();
+
+        }
+
+
+        return redirect()->route('listar.municipal')->with('success', 'Solicitud Municipal creada correctamente' );
+
+
+        
+
+
+    }
+
+    public function listarmuni(){
+
+
+        $solicitudes = SolicitudMunicipal::all();
+
+        return view('solicitudes.listar-municipalidad', ['solicitudes' => $solicitudes]);
+    }
+
+    public function reintegrar(String $id){
+        $solicitud = SolicitudMunicipal::findOrFail($id);
+        //dd($solicitud->solicitudmunicipal);
+
+        
+
+        return view('solicitudes.reintegrar-material', ['solicitud' => $solicitud]);
+    }
+
+    public function reintegrarmaterial(String $id, Request $request){
+
+        $solicitud = SolicitudMunicipal::findOrFail($id);
+        //dd($request->material);
+
+
+        foreach($solicitud->solicitudmunicipal as $s){
+
+        }
+
+
+
+        foreach($request->material as $m){
+            //dd($m['cantidad']);
+           
+            //dd($solicitud->solicitudmunicipal()->where('material_id', $m['material'])->first()->solicitudmunicipal->cantidad);
+            $reintegro = $solicitud->solicitudmunicipal()->where('material_id', $m['material'])->first()->solicitudmunicipal->cantidad - $m['cantidad'];
+            
+            //dd($reintegro);
+            $material  = Material::findOrFail($m['material']);
+            $material->stock = $material->stock + $reintegro;
+            $material->update(); 
+
+            $solicitud->solicitudmunicipal()->updateExistingPivot($m['material'], ['cantidad' => $m['cantidad']]);
+            //$solicitud->save();
+        }
+
+
+
+
+        return redirect()->route('listar.municipal')->with('info', ' se ha actualizado la informacion de la solicitud municipal');
+
+
+        
+
+
+    }
+
+    public function imprimirmunicipal(String $id){
+        
+        $solicitud = SolicitudMunicipal::findOrFail($id);
+
+        $arr = [];
+
+        foreach($solicitud->solicitudmunicipal as $key => $b){
+            $arr[$key]['material']  = $b->nombre;
+            $arr[$key]['cantidad']  = $b->solicitudmunicipal->cantidad;
+            $arr[$key]['unidad']    = $b->solicitudmunicipal->unidad;
+             
+        }
+
+        $s['objetivo']      = $solicitud->motivo;
+        $s['fecha']         = $solicitud->created_at;
+        $s['atendido']      = $solicitud->atendido;
+        $s['materiales']    = $arr;
+
+
+        view()->share('solicitud', $s);
+
+        $pdf = PDF::loadView('pdfs.solicitud-municipal', $s);
+        return $pdf->download('solicitud.pdf');
+
+
+
+
+
     }
 
 

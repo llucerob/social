@@ -12,11 +12,12 @@
 @endsection
 
 @section('breadcrumb-title')
-    <h3>Cantidad de solicitud</h3>
+    <h3>Solicitud Municipalidad</h3>
 @endsection
 
 @section('breadcrumb-items')
     <li class="breadcrumb-item">Solicitudes</li>
+    <li class="breadcrumb-item">Municipal</li>
     <li class="breadcrumb-item active">Nuevo</li>
    
 @endsection
@@ -29,31 +30,20 @@
         <div class="col-md-12">
             <div class="card" >
                 <div class="card-header">
-                    <h5>Usted esta solicitando materiales para {{$beneficiario->nombres}}</h5>
+                    
                     
                 </div>
                 
 
-                    <form class="needs-validation theme-form" novalidate="" onsubmit="enviar();" action="{{url('beneficiarios/solicitar/'.$beneficiario->id.'/parte2')}}" method="post" id="form" enctype="multipart/form-data">
+                    <form class="needs-validation theme-form" novalidate="" onsubmit="enviar();" action="{{route('store.solicitudmuni2')}}" method="post" id="form" enctype="multipart/form-data">
                       @csrf  
                       <div class="card-body">
                           <div class="row g-3">
-                            <div class="col-md-5 text-center">
-                              <div class="mb-3">
-                                <label class="col-form-label m-r-10 form-label" for="domicilio">¿A domicilio?
-                              
-                               
-                                  <div class="media-body text-end text-center mt-4" >
-                                    <label class="switch">
-                                    <input type="checkbox"  id="domicilio" name="domicilio"><span class="switch-state"></span>
-                                    </label>
-                                  </div>
-                                <div class="valid-feedback">¡Luce bien!</div>
-                              </div>
-                            </div>
                             
-                            <div class="col-md-7">
+                            
+                            <div class="col-md-8">
                                 <div class="mb-3">
+                                  <input type="text" hidden value={{$solicitud_id}} name="solicitud_id">
                             
                                   <label class="col-form-label m-r-10 form-label" for="cantidad">Ingrese  cantidad</label>
                                 
@@ -63,7 +53,7 @@
                                         <thead>
                                           <tr class="border-bottom-primary">
                                             <th scope="col">Nombre</th>
-                                            <th scope="col">Límite</th>
+                                            <th scope="col">Disponible</th>
                                             <th scope="col" width="30%">Cantidad</th>
                                             
                                           </tr>
@@ -74,7 +64,7 @@
                                              
                                             <td>{{$item['nombre']}} <input type="text" hidden value={{$item['id']}} name="material[{{$key}}][id]">
                                               <input type="text" hidden value={{$item['medida']}} name="material[{{$key}}][medida]"></td>
-                                            <td>{{$item['limite']}}</td>
+                                            <td>{{$item['stock']}} {{$item['medida']}}</td>
                                             <td><input class="touchspin"  value="0" name="material[{{$key}}][cantidad]">
                                                 
                                           </tr>
@@ -88,17 +78,7 @@
                           
                           
                         </div>
-                        <div class="row g-3">
-
-                          <div class="col-md-10">
-                            <div class="mb-3">
-                              <label class="form-label" for="inputComentario">Comentario</label>
-                              <input class="form-control" id="inputComentario" type="text" name="comentario" >
-                              <div class="valid-feedback">¡Luce bien!</div>
-                            </div>
-                          </div>
-                        </div>
-                        
+                       
 
                       </div>
                       
@@ -114,11 +94,6 @@
             </div>
         </div>
 
-        <div class="col-sm-6">
-
-
-
-        </div>
         
         
         

@@ -371,34 +371,47 @@ class BeneficiariosController extends Controller
 
     }
 
-    public function entregar(string $m){
+    public function entregar(Request $request){
 
 
-        $solicitud  = Solicitud::findOrFail($m);
+        //dd($request->material);
 
-        $material   = Material::findOrFail($solicitud->materiales_id);    
+        foreach($request->material as $m){
+            $solicitud  = Solicitud::findOrFail($m);
+            $material   = Material::findOrFail($solicitud->materiales_id);  
+            
+            $entregado  = new Entregado;
 
-        $entregado  = new Entregado;
+            $entregado->materiales_id   = $solicitud->materiales_id;
+            $entregado->beneficiario_id = $solicitud->beneficiario_id;
+            $entregado->cantidad        = $solicitud->cantidad;
+            $entregado->medida          = $solicitud->medida;
+            $entregado->domicilio       = $solicitud->domicilio;
+            $entregado->comentario      = $solicitud->comentario;
+            $entregado->atendido        = $solicitud->atendido;
+    
+            $entregado->save();
+    
+            $material->stock     =   $material->stock - $solicitud->cantidad;
+    
+            $material->update();
+    
+    
+    
+    
+            $solicitud->delete();
+    
 
-        $entregado->materiales_id   = $solicitud->materiales_id;
-        $entregado->beneficiario_id = $solicitud->beneficiario_id;
-        $entregado->cantidad        = $solicitud->cantidad;
-        $entregado->medida          = $solicitud->medida;
-        $entregado->domicilio       = $solicitud->domicilio;
-        $entregado->comentario      = $solicitud->comentario;
-        $entregado->atendido        = $solicitud->atendido;
-
-        $entregado->save();
-
-        $material->stock     =   $material->stock - $solicitud->cantidad;
-
-        $material->update();
 
 
+        }
 
 
-        $solicitud->delete();
+        
 
+         
+
+       
 
         
         

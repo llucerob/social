@@ -67,7 +67,7 @@ Route::middleware('auth')->group(function () {
     Route::get('beneficiarios/{id}/imprimir', [BeneficiariosController::class, 'imprimir'])->name('imprimir', '{id}');
     //Route::get('beneficiarios/{id}/ver', [BeneficiariosController::class, 'show']);
     Route::get('beneficiario/{id}/entregarmaterial', [BeneficiariosController::class, 'entregarmaterial'])->name('beneficiario.material');
-    Route::get('material/entregar/{m}', [BeneficiariosController::class, 'entregar'])->name('entregar.material');
+    Route::post('material/entregar/', [BeneficiariosController::class, 'entregar'])->name('entregar.material');
     Route::post('beneficiario/creardevolucion', [BeneficiariosController::class, 'creadevolucion'])->name('crear.devolucion');
     Route::get('beneficiarios/listar/devoluciones', [BeneficiariosController::class, 'listardevoluciones'])->name('listar.devoluciones');
     Route::get('beneficiario/aceptar/rendicion/{id}', [BeneficiariosController::class, 'aceptarendicion'])->name('acepta.rendicion');
@@ -83,7 +83,23 @@ Route::middleware('auth')->group(function () {
     Route::get('datatable/beneficiarios', [BeneficiariosController::class, 'ajaxbeneficiarios'])->name('datatable.beneficiarios');
     Route::post('transparencia/seleccion', [UtilsController::class, 'transparenciaseleccion'])->name('transparencia.seleccion');
     Route::get('trasparencia/crearnomina', [UtilsController::class, 'crearnomina'])->name('crear.nomina');
+    Route::get('transparencia/creardecreto', [UtilsController::class, 'creardecreto'])->name('crear.decreto');
+    Route::post('transparencia/selecciondecreto', [UtilsController::class, 'decretoseleccion'])->name('decreto.seleccion');
     //Route::get('transparencia/tabla', [UtilsController::class, 'transparencia'])->name('transparencia');
+
+
+    //solicitudes municipales
+
+    Route::get('municipal/solicitar', [UtilsController::class, 'solicitudmuni'])->name('solicitud.municipal');
+    Route::get('municipal/listar', [UtilsController::class, 'listarmuni'])->name('listar.municipal');
+    Route::post('municipal/solicitud/store/1', [UtilsController::class, 'storesolicitudmuni1'])->name('store.solicitudmuni1');
+    Route::post('municipal/solicitud/store/2', [UtilsController::class, 'storesolicitudmuni2'])->name('store.solicitudmuni2');
+    Route::get('municipal/reintegrar/solicitud/{id}', [UtilsController::class, 'reintegrar'])->name('reintegrar.material');
+    Route::post('municipal/reintegrarmaterial/{id}', [UtilsController::class, 'reintegrarmaterial'])->name('reintegro.material');
+    Route::get('municipal/imprimirpdf/{id}', [UtilsController::class, 'imprimirmunicipal'])->name('imprimir.municipal');
+
+
+ 
 
 
 
