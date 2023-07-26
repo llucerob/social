@@ -77,31 +77,32 @@
                             <tbody>
                                @foreach ($beneficiarios as  $d )
 
-                               @if($d['atendido'] ==  Auth::user()->name)
+                                        @if($d['atendido'] ==  Auth::user()->name || Auth::user()->hasRole('admin'))
                                     
-                                        <tr>
-                                            <th>{{$d['rut']}}</th>
-                                            <th>{{$d['nombre']}}</th>
-                                            
-                                            <th>{{$d['direccion']}}</th>
-                                            
-                                            <th><ul>
-                                            @foreach($d['materiales'] as $f)
+                                                <tr>
+                                                    <th>{{$d['rut']}}</th>
+                                                    <th>{{$d['nombre']}}</th>
+                                                    
+                                                    <th>{{$d['direccion']}}</th>
+                                                    
+                                                    <th><ul>
+                                                    @foreach($d['materiales'] as $f)
 
-                                                <li>{{$f['nombre']}} <span class="text-danger"> @if($f['domicilio'] == 1) E. DOMICILIO  @else E. LOCAL @endif </span>  </li>
+                                                        <li>{{$f['nombre']}} <span class="text-danger"> @if($f['domicilio'] == 1) E. DOMICILIO  @else E. LOCAL @endif </span>  </li>
 
-                                            @endforeach
-                                            </ul></th>
-                                            <th>@if(is_null($d['atendido'])) No se asignó asistente @else {{$d['atendido']}} @endif</th>
-                                            <th>
-                                                <a class="btn btn-outline-primary btn-sm m-1" title="Imprimir" href="{{ route('imprimir', $d['id']) }}">Imprimir</a>
-                                                
-                                                <a class="btn btn-outline-success btn-sm m-1" title="Marcar como entregado"  href="{{ route('beneficiario.material', $d['id']) }}">Entregar</a>
+                                                    @endforeach
+                                                    </ul></th>
+                                                    <th>@if(is_null($d['atendido'])) No se asignó asistente @else {{$d['atendido']}} @endif</th>
+                                                    <th>
+                                                        <a class="btn btn-outline-primary btn-sm m-1" title="Imprimir" href="{{ route('imprimir', $d['id']) }}">Imprimir</a>
+                                                        
+                                                        <a class="btn btn-outline-success btn-sm m-1" title="Marcar como entregado"  href="{{ route('beneficiario.material', $d['id']) }}">Entregar</a>
 
-                                                
-                                            
-                                            </th>
-                                        </tr>
+                                                        <a class="btn btn-outline-danger btn-sm m-1" title="Devolver solicitud"  href="{{ route('beneficiario.devolvermaterial', $d['id']) }}">Devolver</a>
+
+                                                    
+                                                    </th>
+                                                </tr>
                                         @endif
 
                                                                                 

@@ -140,7 +140,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Generar Devolución</h5>
+                                <h5 class="modal-title">Generar Aporte</h5>
                             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                         <form action="{{route('crear.devolucion')}}" method="post" enctype="multipart/form-data">
@@ -151,25 +151,34 @@
                             <div class="col">
                                 <div class="mb-3">
                                     <label class="form-label" for="inputdevolucion">Ingrese el Valor de la devolucion </label>
-                                    <input class="form-control" id="inputdevolucion" type="number" name="devolucion">
+                                    <input class="form-control" required id="inputdevolucion" type="number" name="devolucion">
                                     <input type="text" id="usuario" name="idusuario" hidden>
                                     
                                 <div class="valid-feedback">¡Luce bien!</div>
                                 </div>
-                            </div>
-                            <div class="col">
+                            </div><div class="col">
                                 <div class="mb-3">
-                                    <label class="form-label" for="inputMotivo">Ingrese el Motivo </label>
-                                    <input class="form-control" id="inputMotivo" type="text" name="motivo">
-                                   
+                                    <label class="form-label" for="inputprestacion">Ingrese el Tipo Prestación </label>
+                                    <input class="form-control" required id="inputprestacion" type="text" name="tipoprestacion">
+                                    
                                     
                                 <div class="valid-feedback">¡Luce bien!</div>
                                 </div>
                             </div>
                             <div class="col">
+                                <label class="form-label" for="inputMotivo">Ingrese el Motivo </label>
                                 <div class="mb-3">
-                                  <label class="form-label" for="inputfechadev">Fecha Devolución</label>
-                                  <input class="datepicker-here form-control digits" data-lenguage="es" id="inputfechadev" type="text" name="mes" placeholder="12-01-1999">
+                                   
+                                    <textarea name="motivo" required class="form-control" id="inputmotivo" cols="55" rows="10"></textarea>
+                                <div class="valid-feedback">¡Luce bien!</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label class="form-label" for="inputnboleta">Nº Boleta (separar numero boleta por " "(espacio) o salto de linea (enter))</label>
+                                <div class="mb-3">
+                                  
+                                  <textarea name="boleta" required id="inputboleta" class="form-control" cols="55" rows="5"></textarea>
+                                  
                                   <div class="valid-feedback">¡Luce bien!</div>
                                 </div>
                               </div>
@@ -177,7 +186,7 @@
                             
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-primary" type="submit">Guardar</button>                                                                         
+                                <button class="btn btn-primary" type="submit">Crear Aporte</button>                                                                         
                             </div>
                         </form>
                         </div>

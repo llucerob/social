@@ -12,15 +12,5 @@ class Solicitud extends Model
 
 
 
-    /**
-     * Get the beneficiario that owns the Solicitud
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function beneficiario(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'foreign_key', 'other_key');
-    }
-
     
 }

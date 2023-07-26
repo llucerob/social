@@ -133,7 +133,7 @@
     <td>
         <div class="receipt-right text-left">
             <p><b>Fecha :</b> {{$fechasolicitud->format('d/m/Y')}}</p>
-            <p><b>Atendido :</b>{{ Auth::user()->name }} </p>
+            <p><b>Atendido :</b>{{ $atendido }} </p>
             <p><b>Retiro :</b> @if($domicilio == 1) Envio a domicilio @else Retiro en local @endif </p>
             
         </div>

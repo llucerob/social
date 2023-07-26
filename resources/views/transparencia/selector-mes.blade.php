@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Default')
+@section('title', 'Crear Nómina')
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/date-picker.css')}}">
@@ -17,6 +17,7 @@
 
 @section('breadcrumb-items')
     <li class="breadcrumb-item">Transparencia</li>
+    <li class="breadcrumb-item">Reembolsos</li>
     <li class="breadcrumb-item active">Selector</li>
    
 @endsection

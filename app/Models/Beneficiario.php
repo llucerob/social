@@ -66,14 +66,24 @@ class Beneficiario extends Model
 
     }
 
-    /**
-     * Get all of the comments for the Beneficiario
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function devoluciones(): HasMany
-    {
-        return $this->hasMany(Reembolso::class, 'beneficiarios_id', 'id');
-    }
+   /**
+    * Get the user associated with the Beneficiario
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\HasOne
+    */
+   public function cuenta(): HasOne
+   {
+       return $this->hasOne(CuentaBancaria::class, 'beneficiario_id', 'id');
+   }   
+   
+   /**
+    * Get all of the comments for the Beneficiario
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    */
+   public function devoluciones(): HasMany
+   {
+       return $this->hasMany(Reembolso::class, 'beneficiarios_id', 'id');
+   }
 
 }

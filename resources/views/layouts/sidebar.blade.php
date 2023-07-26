@@ -54,7 +54,17 @@
                   </svg>
                   <svg class="fill-icon">
                     <use href="{{ asset('assets/svg/icon-sprite.svg#fill-charts') }}"></use>
-                  </svg><span>Boletas</span></a></li>
+                  </svg><span>Lista Reembolsos</span></a>
+            </li>
+
+            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="{{route('crear.nominareembolsos')}}">
+                    <svg class="stroke-icon">
+                      <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-charts') }}"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="{{ asset('assets/svg/icon-sprite.svg#fill-charts') }}"></use>
+                    </svg><span>Crear Nomina Reembolsos</span></a>
+            </li>
 
 
             <li class="pin-title sidebar-main-title">
@@ -63,13 +73,7 @@
                     </div>
             </li>
 
-            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="{{route('crear.nomina')}}">
-              <svg class="stroke-icon">
-                <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-charts') }}"></use>
-              </svg>
-              <svg class="fill-icon">
-                <use href="{{ asset('assets/svg/icon-sprite.svg#fill-charts') }}"></use>
-              </svg><span>Crear Nomina</span></a></li>
+           
               <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="{{route('crear.decreto')}}">
                 <svg class="stroke-icon">
                   <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-charts') }}"></use>

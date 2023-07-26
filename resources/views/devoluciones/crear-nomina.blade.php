@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Listar Boletas - I. Municipalidad Coinco')
+@section('title', 'Listar Devoluciones - I. Municipalidad Coinco')
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatables.css') }}">
@@ -11,12 +11,12 @@
 @endsection
 
 @section('breadcrumb-title')
-    <h3>Listado Devoluciones</h3>
+    <h3>Listado Reembolsos</h3>
 @endsection
 
 @section('breadcrumb-items')
-    <li class="breadcrumb-item">Boletas</li>
-    <li class="breadcrumb-item active">Listar</li>
+    <li class="breadcrumb-item">Reembolsos</li>
+    <li class="breadcrumb-item active">Crear Nomina</li>
    
 @endsection
 
@@ -28,7 +28,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>A continuación se listarán las boletas de la rendicion de {{$rendicion->mes}} de {{$rendicion->beneficiario->nombres}} {{$rendicion->beneficiario->apellidos}}</h5>
+                    <h5>A continuación se listarán todos los reembolsos por hacer</h5>
                     
                 </div>
                 <div class="card-body">
@@ -37,42 +37,39 @@
 
                             <thead>
                                 <tr class="text-center">
-                                    <th>id</th>
-                                    <th>Valor</th>
+                                                                       
+                                    <th>Rut</th>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>Banco</th>
+                                    <th>Forma de Pago</th>
+                                    <th>Nº Cuenta</th>
+                                    <th>Monto del Pago</th>
                                     
-                                    <th>Detalle</th>
-                                    
-                                    <th>Accion</th>
                                     
                                 </tr>
                             </thead>
                             <tbody>
-                               @foreach ($rendicion->boletas as $b )
-                                   
-                              
+                                @foreach ($reembolso as $r )
+
+                           
 
                                 <tr>
-                                    <th>{{ $b->id }}</th>
-                                    <th>${{ number_format($b->valor,0,',','.')  }}</th>
-                                   
-                                    <th>{{ $b->detalle }}</th>
+                                    <td>{{ $r['rut' ]}}</td>
+                                    <td>{{ $r['nombre'] }}</td>
+                                    <td>{{ $r['mail']}}</td>
+                                    <td>{{ $r['banco'] }}</td>
+                                    <td>{{ $r['formapago']}}</td>
+                                    <td>{{ $r['numerocuenta']}} </td>
+                                    <td>{{ $r['monto']}}</td>
                                     
-                                    
-                                    <th >
-                                        
-                                        
-                                        
-                                        <a href="{{url('storage/'.$b->ruta)}}" class="btn btn-outline-warning btn-sm m-1" target="_blank" title="ver Archivo"><i class="fa fa-eye"></i></a>
-  
-                                                                                       
-                                    </th>
                                 </tr>
 
-                                @endforeach
-                               
 
-                                
-                               
+                                                                    
+                      
+                                    
+                                @endforeach
                                 
                             </tbody>
 

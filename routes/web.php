@@ -68,16 +68,20 @@ Route::middleware('auth')->group(function () {
     //Route::get('beneficiarios/{id}/ver', [BeneficiariosController::class, 'show']);
     Route::get('beneficiario/{id}/entregarmaterial', [BeneficiariosController::class, 'entregarmaterial'])->name('beneficiario.material');
     Route::post('material/entregar/', [BeneficiariosController::class, 'entregar'])->name('entregar.material');
+    Route::get('beneficiario/{id}/devolvermaterial', [BeneficiariosController::class, 'devolvermaterial'])->name('beneficiario.devolvermaterial');
+    Route::post('beneficiario/devolver', [BeneficiariosController::class, 'devolver'])->name('devolver.material');
     Route::post('beneficiario/creardevolucion', [BeneficiariosController::class, 'creadevolucion'])->name('crear.devolucion');
     Route::get('beneficiarios/listar/devoluciones', [BeneficiariosController::class, 'listardevoluciones'])->name('listar.devoluciones');
     Route::get('beneficiario/aceptar/rendicion/{id}', [BeneficiariosController::class, 'aceptarendicion'])->name('acepta.rendicion');
     Route::get('beneficiario/imprime/rendicion/{id}', [BeneficiariosController::class, 'imprimerendicion'])->name('imprime.rendicion');
     Route::get('beneficiario/eliminar/rendicion/{id}', [BeneficiariosController::class, 'eliminarrendicion'])->name('eliminar.rendicion');
-    Route::post('beneficiario/agregar/boleta/{id}', [BeneficiariosController::class, 'agregarboleta'])->name('agregar.boleta');
-    Route::get('beneficiario/ver/boletas/{id}', [BeneficiariosController::class, 'verboletas'])->name('ver.boletas');
+    Route::post('beneficiario/agregar/cuenta/{id}', [BeneficiariosController::class, 'agregarcuenta'])->name('agregar.cuenta');
+    Route::get('beneficiario/generardecretoreembolso', [BeneficiariosController::class, 'generardecretoreembolso'])->name('generar.decretoreembolsos');
+    Route::get('beneficiario/crearnominareembolsos', [BeneficiariosController::class, 'crearnominareembolsos'])->name('crear.nominareembolsos');
     Route::get('/beneficiarios/{id}/verpedidos', [BeneficiariosController::class, 'verpedidos'])->name('ver.pedidos');
     Route::post('beneficiario/fallecer/',[BeneficiariosController::class, 'fallecer'])->name('beneficiario.fallecer');
     Route::get('beneficiarios/historiaxficha/{id}', [BeneficiariosController::class, 'historiaxficha'])->name('historiaficha');
+    Route::post('beneficiario/seleccion/reembolso', [BeneficiariosController::class, 'transparenciareembolso'])->name('transparencia.seleccionreembolso');
 
     //datatables
     Route::get('datatable/beneficiarios', [BeneficiariosController::class, 'ajaxbeneficiarios'])->name('datatable.beneficiarios');

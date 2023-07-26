@@ -110,7 +110,7 @@
     <td><img src="{{asset('assets/images/logo/logom.png')}}" alt="Logo Municipal" width="220px"></td>
     <td class="text-right">
         <div class="receipt-right">
-           <p>{{$creacion}}</p>       	
+           <p></p>       	
         </div>                  
     </td>
    </table>
@@ -118,7 +118,7 @@
 
    <table class="col-12 receipt-header">
     <tr><h4 class="text-center">I. Municipalidad de Coinco</h4></tr>
-    <tr><h5 class="text-center">Formulario de reembolso para Gastos Médicos</h5></tr>
+    <tr><h5 class="text-center">Formulario de Aporte Municipal</h5></tr>
    </table>
 
 
@@ -133,15 +133,17 @@
    <table class="table table-bordered ">
     <thead>
         <tr>
-           <th>Fecha</th>
-           <th>Monto</th>
+           <th>Fecha de Solicitud</th>
+           <th>Aporte Municipal</th>
+		   <th>Nº Boleta</th>
            <th>Firma</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td><p class="text-center" style="font-size:16px;">{{$fentrega}}</p></td>
+            <td><p class="text-center" style="font-size:16px;">{{$creacion}}</p></td>
             <td><p class="text-center" style="font-size:16px;">${{number_format($monto,0 ,',', '.')}}</p></td>
+			<td><p class="text-center" style="font-size:16px;">{{$boleta}}</p></td>
             <td></td>
         </tr>
 

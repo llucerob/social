@@ -127,7 +127,7 @@
         <div class="col-sm-10">
             <div class="card">
                 <div class="card-header">
-                    <h5>Devoluciones creadas {{$beneficiario->nombres}} {{$beneficiario->apellidos}} </h5>
+                    <h5>APORTES CREADOS PARA {{$beneficiario->nombres}} {{$beneficiario->apellidos}} </h5>
                     
                 </div>
                 <div class="card-body">
@@ -150,8 +150,8 @@
                                 <tr>
                                     
                                     <th>${{number_format($e->total,0,',','.')}}</th>
-                                    <th>{{$e->mes}}</th>
-                                    <th>@if($e->entregado == 0) RENDICION NO FINALIZADA O ACEPTADA @else RENDICION ACEPTADA @endif</th>
+                                    <th>{{date_format($e->created_at, 'd-m-Y')}}</th>
+                                    <th>@if($e->entregado == 0) APORTE NO FINALIZADO O ACEPTADO @elseif($e->entregado == 1) APORTE ACEPTADA @else TRANSFERIDA @endif</th>
                                     
                                 </tr>
                                     

@@ -11,6 +11,7 @@ use App\Models\Entregado;
 use App\Models\Solicitud;
 use App\Models\Reembolso;
 use App\Models\Boleta;
+use App\Models\CuentaBancaria;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -340,6 +341,7 @@ class BeneficiariosController extends Controller
            $lista[$key]['medida']   = $b->solicitudes->medida;
            $arr['fechasolicitud']   = $b->solicitudes->created_at;
            $arr['domicilio']        = $b->solicitudes->domicilio;
+           $arr['atendido']         = $b->solicitudes->atendido;
            
         }
         
@@ -404,38 +406,55 @@ class BeneficiariosController extends Controller
 
 
 
-        }
-
-
-        
-
-         
-
-       
-
-        
+        }        
         
 
         return redirect()->back()->with('success', 'Entrega realizada correctamente' );;
     }
+    public function devolver(Request $request){
+
+
+        //dd($request->material);
+
+        foreach($request->material as $m){
+            $solicitud  = Solicitud::findOrFail($m);
+               
+            $solicitud->delete();
+    
+
+
+
+        }        
+        
+
+        return redirect()->route('dashboard')->with('success', 'Se han eliminado las solicitudes correctamente' );;
+    }
+
+    public function devolvermaterial($id){
+        $beneficiario = Beneficiario::findOrFail($id);
+
+        return view('solicitudes.listar-solicitud-entrega', ['beneficiario' => $beneficiario]);
+
+    }
 
     public function creadevolucion(Request $request){
 
-        $beneficiario       = Beneficiario::findOrFail($request->idusuario);
+        //$beneficiario       = Beneficiario::findOrFail($request->idusuario);
 
 
         $reembolso      =   new Reembolso;
 
-        $reembolso->beneficiarios_id    = $beneficiario->id;
+        $reembolso->beneficiarios_id    = $request->idusuario;
         $reembolso->motivo              = $request->motivo;
+        $reembolso->boleta              = str_replace(' ', '-//-',$request->boleta);
+        $reembolso->tipoprestacion      = $request->tipoprestacion;
 
         $reembolso->total               = $request->devolucion;
-        $reembolso->mes                 = $request->mes;
-
+        
         $reembolso->save();
 
 
-        return redirect()->back()->with('success', 'Se ha creado una nueva devolucion' );
+        return redirect()->route('listar.devoluciones')->with('success', 'Se ha creado una nueva devolucion' );
 
 
 
@@ -452,11 +471,13 @@ class BeneficiariosController extends Controller
 
         $reembolso = Reembolso::findOrFail($id);
 
-        $reembolso->entregado = 1;
+        $reembolso->entregado = '1';
 
         $reembolso->update();
 
-        return redirect()->back();
+        
+
+        return redirect()->route('listar.devoluciones');
 
     }
 
@@ -469,46 +490,36 @@ class BeneficiariosController extends Controller
         return redirect()->back();
     }
 
-    public function agregarboleta(string $id , Request $request){
+    public function agregarcuenta(string $id , Request $request){
 
-        $boleta = new Boleta;
+        $cuenta = new CuentaBancaria;
 
-        if($request->file('boleta')){
-            $ruta = Storage::disk('public')->put('boletas', $request->file('boleta'));
+        $beneficiario = Beneficiario::findOrFail($id);
 
-            $boleta->reembolsos_id  = $id;
-            $boleta->ruta           = $ruta;
-            $boleta->valor          = $request->valor;
-            $boleta->detalle        = $request->comentario;
-            $boleta->save();
-
-            //aqui voy
-
-            $rendicion = Reembolso::findorfail($id);
-
-            $rendicion->suma = $rendicion->suma + $request->valor;
-            $rendicion->update();
+        $cuenta->beneficiario_id    = $beneficiario->id;
+        $cuenta->banco              = $request->banco; 
+        $cuenta->tipocuenta         = $request->tipocuenta;   
+        $cuenta->numerocuenta       = $request->cuenta;
+        $cuenta->save();
+ 
+        return redirect()->back()->with('success', 'Se agregó la cuenta bancaria correctamente');
+         
+    }
+    public function crearnominareembolsos(){
 
 
+        $reembolsos = Reembolso::where('entregado','2')->get();
 
-            return redirect()->back(); 
+        $arr = [];
+
+        foreach($reembolsos as $key => $r){
+            $arr[$key] = $r->solicitud;
         }
 
-
-        return redirect()->back();
+            //dd(array_unique($arr));
         
 
-        
-    }
-
-    public function verboletas(string $id){
-
-
-        $r = Reembolso::findOrFail($id);
-
-        
-        return view('devoluciones.listar-boletas', ['rendicion' => $r]);
-
+        return view('devoluciones.selector-mes', ['lista' => array_unique($arr)]);
     }
 
 
@@ -559,7 +570,8 @@ class BeneficiariosController extends Controller
 
         $arr['monto']       = $rendicion->total;
         $arr['motivo']      = $rendicion->motivo;
-        $arr['fentrega']    = $rendicion->mes;
+        $arr['boleta']      = $rendicion->boleta;
+        
         $arr['creacion']    = date_format($rendicion->created_at, 'd-m-Y');
 
 
@@ -570,6 +582,42 @@ class BeneficiariosController extends Controller
         $pdf = PDF::loadView('pdfs.rendicion', $arr);
         return $pdf->download('rendicion'.$rendicion->id.'.pdf');
 
+    }
+
+    public function generardecretoreembolso(){
+        $reembolso = Reembolso::all();
+
+        foreach($reembolso as $r){
+            if($r->entregado  == 1){
+                $r->entregado = '2';
+                $r->solicitud = date_format($r->created_at, 'd-m-Y');
+                $r->update();
+            }
+        }
+
+        return redirect()->back();
+    }
+
+    public function transparenciareembolso(Request $request){
+
+        $reembolsos = Reembolso::where('solicitud', $request->lista)->get();
+
+        $arr = [];
+
+        foreach($reembolsos as $key => $r){
+            $arr[$key]['rut']       = $r->beneficiario->rut;
+            $arr[$key]['nombre']    = $r->beneficiario->nombres.' '.$r->beneficiario->apellidos; 
+            $arr[$key]['mail']      = 'jfuenzalida@municoinco.cl';
+            $arr[$key]['banco']     = $r->beneficiario->cuenta->banco;
+            $arr[$key]['formapago'] = $r->beneficiario->cuenta->tipocuenta;
+            $arr[$key]['numerocuenta']  = $r->beneficiario->cuenta->numerocuenta;
+            $arr[$key]['monto']     = $r->total;
+        }
+        //dd($reembolsos[0]->beneficiario->cuenta);
+
+
+
+        return view('devoluciones.crear-nomina', ['reembolso' => $arr]);
     }
 
 

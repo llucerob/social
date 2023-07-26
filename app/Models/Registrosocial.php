@@ -18,6 +18,6 @@ class Registrosocial extends Model
      */
     public function beneficiarios(): HasMany
     {
-        return $this->hasMAny(Beneficiario::class, 'registrosociales_id', 'id');
+        return $this->hasMany(Beneficiario::class, 'registrosociales_id', 'id');
     }
 }
