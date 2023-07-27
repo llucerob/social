@@ -27,8 +27,13 @@
         
         <div class="col-sm-12">
             <div class="card">
-                <div class="card-header">
-                    <h5>A continuación se listarán todos los reembolsos por hacer</h5>
+                <div class="card-header text-center">
+                    <h5>A continuación se listarán todos los Aportes por hacer en el decreto {{$decreto}}</h5>
+                        <span class="text-danger"><strong>Si uno se encuentra malo presionar el boton rectificar en caso contrario aceptar</strong></span>
+                        <a href="{{route('acepta.decreto', [$decreto])}}"  class="btn btn-outline-success btn-sm m-3" title="Aceptar Nómina">Aceptar</a>
+                        <a data-bs-toggle="modal" data-bs-target="#modalRechazo" class="btn btn-outline-warning btn-sm m-3" title="Rechazar Nómina">Rechazar</a>
+
+
                     
                 </div>
                 <div class="card-body">
@@ -76,6 +81,40 @@
                         </table>
 
                     </div> 
+
+                    <div class="modal fade" id="modalRechazo" tabindex="-1" role="dialog" aria-labelledby="modalDecreto" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Agregar Decreto</h5>
+                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                            <form action="{{route('rechaza.decreto', [$decreto])}}"  method="post" enctype="multipart/form-data">
+                                @csrf
+                                <div class="modal-body">
+    
+                                    
+                                
+    
+                                   
+                                    <div class="col">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="inputComentario">Comentario</label>
+                                            <input type="text" class="form-control" id="inputcomentario" name="comentario">
+                                            
+                                        <div class="valid-feedback">¡Luce bien!</div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" type="submit">Guardar</button>                                                                         
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+    
                    
                 </div>
             </div>

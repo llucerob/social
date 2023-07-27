@@ -41,7 +41,7 @@
 
                             <div class="col-md-4">
                               <div class="mb-3">
-                                <label class="form-label" for="inputLista">Fecha</label>
+                                <label class="form-label" for="inputLista">Decreto</label>
                                 <select class="form-control" id="inputLista"  required name="lista">
 
                                   @foreach($lista as $l)

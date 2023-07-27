@@ -63,7 +63,15 @@
                     </svg>
                     <svg class="fill-icon">
                       <use href="{{ asset('assets/svg/icon-sprite.svg#fill-charts') }}"></use>
-                    </svg><span>Crear Nomina Reembolsos</span></a>
+                    </svg><span>Nómina Transferencia</span></a>
+            </li>
+            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="{{route('aportes.fallas', ['sin-decreto'])}}">
+                    <svg class="stroke-icon">
+                      <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-charts') }}"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="{{ asset('assets/svg/icon-sprite.svg#fill-charts') }}"></use>
+                    </svg><span>Rectificación Aportes</span></a>
             </li>
 
 

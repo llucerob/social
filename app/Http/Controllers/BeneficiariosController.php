@@ -18,6 +18,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Session;
+use App\Models\Comentario;
 
 
 
@@ -519,7 +520,7 @@ class BeneficiariosController extends Controller
             //dd(array_unique($arr));
         
 
-        return view('devoluciones.selector-mes', ['lista' => array_unique($arr)]);
+        return view('devoluciones.selector-decreto', ['lista' => array_unique($arr)]);
     }
 
 
@@ -584,13 +585,13 @@ class BeneficiariosController extends Controller
 
     }
 
-    public function generardecretoreembolso(){
+    public function generardecretoreembolso(Request $request){
         $reembolso = Reembolso::all();
 
         foreach($reembolso as $r){
             if($r->entregado  == 1){
                 $r->entregado = '2';
-                $r->solicitud = date_format($r->created_at, 'd-m-Y');
+                $r->solicitud = $request->decreto;
                 $r->update();
             }
         }
@@ -613,12 +614,96 @@ class BeneficiariosController extends Controller
             $arr[$key]['numerocuenta']  = $r->beneficiario->cuenta->numerocuenta;
             $arr[$key]['monto']     = $r->total;
         }
+
+        
         //dd($reembolsos[0]->beneficiario->cuenta);
 
 
 
-        return view('devoluciones.crear-nomina', ['reembolso' => $arr]);
+        return view('devoluciones.crear-nomina', ['reembolso' => $arr, 'decreto' => $request->lista]);
     }
 
+    public function aceptadecreto($decreto){
+        
+        $reembolsos = Reembolso::where('solicitud', $decreto)->get();
+
+        //entregado en 2 = transferencia;
+        //entregado en 3 = decreto correcto;
+        //entregado en 4 = decreto con fallas;
+        
+        foreach($reembolsos as $r){
+            $r->entregado = '3';
+            $r->update();
+        }
+
+        return redirect()->back()->with('success', 'Nómina marcada como correcta');
+
+    }
+    public function rechazadecreto($decreto, Request $request){
+        
+        $reembolsos = Reembolso::where('solicitud', $decreto)->get();
+
+
+        //entregado en 2 = transferencia;
+        //entregado en 3 = decreto correcto;
+        //entregado en 4 = decreto con fallas;
+        
+        foreach($reembolsos as $r){
+            $r->entregado = '4';
+            $r->update();
+        }
+
+        $comentario = new Comentario;
+        $comentario->decreto = $decreto;
+        $comentario->comentario = $request->comentario;
+
+        $comentario->save();
+
+
+
+        return redirect()->back()->with('success', 'Nómina marcada para rectificación');
+
+    }
+
+    public function aportesfallas($decreto){
+        $reembolso = Reembolso::where('entregado', '4')->get();
+
+        if($decreto == 'sin-decreto'){
+          
+
+            $arr = [];
+
+            foreach($reembolso as $key => $r){
+                $arr[$key] = $r->solicitud;
+            }
+
+           
+        
+
+
+            return view('devoluciones.listar-rectificaciones', ['reembolso' => 'sinregistro', 'lista' => array_unique($arr)]);
+
+        }else{
+
+            $arr = [];
+
+            foreach($reembolso as $key => $r){
+                $arr[$key] = $r->solicitud;
+            }
+            $reembolso = Reembolso::where('solicitud', $decreto)->get();
+
+            $comentarios = Comentario::where('decreto', $decreto)->get();
+
+
+
+
+            return view('devoluciones.listar-rectificaciones', ['reembolso' => $reembolso, 'lista' => array_unique($arr), 'comentarios' => $comentarios]);
+
+
+
+        }
+        
+
+    }
 
 }

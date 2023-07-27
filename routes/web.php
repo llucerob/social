@@ -82,6 +82,10 @@ Route::middleware('auth')->group(function () {
     Route::post('beneficiario/fallecer/',[BeneficiariosController::class, 'fallecer'])->name('beneficiario.fallecer');
     Route::get('beneficiarios/historiaxficha/{id}', [BeneficiariosController::class, 'historiaxficha'])->name('historiaficha');
     Route::post('beneficiario/seleccion/reembolso', [BeneficiariosController::class, 'transparenciareembolso'])->name('transparencia.seleccionreembolso');
+    Route::post('beneficiario/aporte/rechaza/{decreto}', [BeneficiariosController::class, 'rechazadecreto'])->name('rechaza.decreto');
+    Route::get('beneficiario/aporte/acepta/{decreto}', [BeneficiariosController::class, 'aceptadecreto'])->name('acepta.decreto');
+    Route::get('beneficiario/aportes/rectificacion/{decreto}', [BeneficiariosController::class, 'aportesfallas'])->name('aportes.fallas'); 
+
 
     //datatables
     Route::get('datatable/beneficiarios', [BeneficiariosController::class, 'ajaxbeneficiarios'])->name('datatable.beneficiarios');
