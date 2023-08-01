@@ -58,7 +58,7 @@ Route::middleware('auth')->group(function () {
     Route::get('beneficiarios/nuevo', [BeneficiariosController::class, 'create'])->name('beneficiarios.create');
     Route::post('beneficiarios/guardar', [BeneficiariosController::class, 'store'])->name('beneficiarios.store');
     Route::get('beneficiarios/destroy/{id}', [BeneficiariosController::class, 'destroy']);
-    Route::get('beneficiarios/editar/{id}', [BeneficiariosController::class, 'edit']);
+    Route::get('beneficiarios/editar/{id}', [BeneficiariosController::class, 'edit'])->name('beneficiarios.edit');
     Route::post('beneficiarios/update/{id}', [BeneficiariosController::class, 'update'])->name('beneficiarios.update');
     Route::post('beneficiarios/porcentaje/modificar', [BeneficiariosController::class, 'modificaporcentaje' ])->name('porcentaje.modificar');
     Route::get('beneficiarios/solicitar/{id}', [BeneficiariosController::class, 'solicitar'])->name('beneficiarios.solicitar');
@@ -76,7 +76,7 @@ Route::middleware('auth')->group(function () {
     Route::get('beneficiario/imprime/rendicion/{id}', [BeneficiariosController::class, 'imprimerendicion'])->name('imprime.rendicion');
     Route::get('beneficiario/eliminar/rendicion/{id}', [BeneficiariosController::class, 'eliminarrendicion'])->name('eliminar.rendicion');
     Route::post('beneficiario/agregar/cuenta/{id}', [BeneficiariosController::class, 'agregarcuenta'])->name('agregar.cuenta');
-    Route::get('beneficiario/generardecretoreembolso', [BeneficiariosController::class, 'generardecretoreembolso'])->name('generar.decretoreembolsos');
+    Route::post('beneficiario/generardecretoreembolso', [BeneficiariosController::class, 'generardecretoreembolso'])->name('generar.decretoreembolsos');
     Route::get('beneficiario/crearnominareembolsos', [BeneficiariosController::class, 'crearnominareembolsos'])->name('crear.nominareembolsos');
     Route::get('/beneficiarios/{id}/verpedidos', [BeneficiariosController::class, 'verpedidos'])->name('ver.pedidos');
     Route::post('beneficiario/fallecer/',[BeneficiariosController::class, 'fallecer'])->name('beneficiario.fallecer');
@@ -85,7 +85,8 @@ Route::middleware('auth')->group(function () {
     Route::post('beneficiario/aporte/rechaza/{decreto}', [BeneficiariosController::class, 'rechazadecreto'])->name('rechaza.decreto');
     Route::get('beneficiario/aporte/acepta/{decreto}', [BeneficiariosController::class, 'aceptadecreto'])->name('acepta.decreto');
     Route::get('beneficiario/aportes/rectificacion/{decreto}', [BeneficiariosController::class, 'aportesfallas'])->name('aportes.fallas'); 
-
+    Route::post('beneficiario/{id}/editarcuenta', [BeneficiariosController::class, 'editarcuenta'])->name('editar.cuenta');
+    Route::get('beneficiario/reenviar/{decreto}', [BeneficiariosController::class, 'reenviadecreto'])->name('reenviar.decreto');
 
     //datatables
     Route::get('datatable/beneficiarios', [BeneficiariosController::class, 'ajaxbeneficiarios'])->name('datatable.beneficiarios');

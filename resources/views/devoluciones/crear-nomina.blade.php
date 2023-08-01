@@ -82,11 +82,11 @@
 
                     </div> 
 
-                    <div class="modal fade" id="modalRechazo" tabindex="-1" role="dialog" aria-labelledby="modalDecreto" aria-hidden="true">
+                    <div class="modal fade" id="modalRechazo" tabindex="-1" role="dialog" aria-labelledby="modalRechazo" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Agregar Decreto</h5>
+                                    <h5 class="modal-title">Agregar Comentario</h5>
                                 <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                             <form action="{{route('rechaza.decreto', [$decreto])}}"  method="post" enctype="multipart/form-data">

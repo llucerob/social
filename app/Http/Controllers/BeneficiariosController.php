@@ -636,7 +636,7 @@ class BeneficiariosController extends Controller
             $r->update();
         }
 
-        return redirect()->back()->with('success', 'Nómina marcada como correcta');
+        return redirect()->route('crear.nominareembolsos')->with('success', 'Nómina marcada como correcta');
 
     }
     public function rechazadecreto($decreto, Request $request){
@@ -661,7 +661,7 @@ class BeneficiariosController extends Controller
 
 
 
-        return redirect()->back()->with('success', 'Nómina marcada para rectificación');
+        return redirect()->route('crear.nominareembolsos')->with('success', 'Nómina marcada para rectificación');
 
     }
 
@@ -681,7 +681,7 @@ class BeneficiariosController extends Controller
         
 
 
-            return view('devoluciones.listar-rectificaciones', ['reembolso' => 'sinregistro', 'lista' => array_unique($arr)]);
+            return view('devoluciones.listar-rectificaciones', ['reembolso' => 'sinregistro', 'lista' => array_unique($arr), 'comentarios' => null, 'decreto' => $decreto]);
 
         }else{
 
@@ -697,7 +697,7 @@ class BeneficiariosController extends Controller
 
 
 
-            return view('devoluciones.listar-rectificaciones', ['reembolso' => $reembolso, 'lista' => array_unique($arr), 'comentarios' => $comentarios]);
+            return view('devoluciones.listar-rectificaciones', ['reembolso' => $reembolso, 'lista' => array_unique($arr) , 'comentarios' => $comentarios, 'decreto' => $decreto]);
 
 
 
@@ -705,5 +705,40 @@ class BeneficiariosController extends Controller
         
 
     }
+
+    public function editarcuenta($id, Request $request){
+        $beneficiario = Beneficiario::findOrFail($id);
+
+
+        $beneficiario->cuenta->banco                = $request->banco;
+        $beneficiario->cuenta->tipocuenta           = $request->tipocuenta;
+        $beneficiario->cuenta->numerocuenta         = $request->cuenta;
+
+        $beneficiario->cuenta->update();
+
+        return redirect()->back();
+
+
+
+    }
+
+
+    public function reenviadecreto($decreto){
+
+        $reembolso = Reembolso::where('solicitud', $decreto)->get();
+
+        foreach($reembolso as $r){
+            $r->entregado = '2';
+            $r->update();
+        }
+
+
+        return redirect()->route('listar.devoluciones')->with('se ha reenviado la nómina');
+
+
+
+    }
+
+
 
 }

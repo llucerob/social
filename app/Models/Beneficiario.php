@@ -73,7 +73,9 @@ class Beneficiario extends Model
     */
    public function cuenta(): HasOne
    {
-       return $this->hasOne(CuentaBancaria::class, 'beneficiario_id', 'id');
+       return $this->hasOne(CuentaBancaria::class, 'beneficiario_id', 'id')->withDefault(['banco' => '00',
+                                                                                          'tipocuenta' => '00',
+                                                                                          'numerocuenta' => '00']);
    }   
    
    /**
