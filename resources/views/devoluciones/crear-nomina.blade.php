@@ -100,7 +100,8 @@
                                     <div class="col">
                                         <div class="mb-3">
                                             <label class="form-label" for="inputComentario">Comentario</label>
-                                            <input type="text" class="form-control" id="inputcomentario" name="comentario">
+                                            <textarea id="inputcomentario" name="comentario"  class="form-control" cols="30" rows="10"></textarea>
+                                                            
                                             
                                         <div class="valid-feedback">¡Luce bien!</div>
                                         </div>

@@ -38,7 +38,7 @@
                             <thead>
                                 <tr class="text-center">
                                     <th>Nombre</th>
-                                    <th>Fecha</th>
+                                    <th width="15%">Fecha</th>
                                     <th>Hecho por</th>                                    
                                     
                                     <th>Comentario</th>
@@ -53,7 +53,7 @@
                                 <tr>
                                     
                                     <td>{{$e->entregados->cantidad}}[{{$e->entregados->medida}}] {{$e->nombre}}</td>
-                                    <td>{{date_format( $e->entregados->created_at, 'd-m-Y')}}</td>
+                                    <td>{{date_format( $e->entregados->created_at, 'Y-m-d')}}</td>
                                     <td>@if(is_null($e->entregados->atendido)) no se asignó asistente @else {{$e->entregados->atendido}} @endif </td>
                                     
                                     <td>@if(is_null($e->entregados->comentario)) no se asignó comentario @else {{$e->entregados->comentario}} @endif</td>
@@ -102,7 +102,7 @@
                                 <tr>
                                     
                                     <td>{{$e->solicitudes->cantidad}}[{{$e->solicitudes->medida}}] {{$e->nombre}}</td>
-                                    <td>{{date_format($e->solicitudes->created_at, 'd-m-Y')}}</td>
+                                    <td>{{date_format($e->solicitudes->created_at, 'Y-m-d')}}</td>
                                     <td>@if(is_null($e->solicitudes->atendido)) no se asignó asistente @else {{$e->solicitudes->atendido}} @endif </td>
                                     
                                     <td>@if(is_null($e->solicitudes->comentario)) no se asignó comentario @else {{$e->solicitudes->comentario}} @endif</td>
@@ -149,9 +149,9 @@
 
                                 <tr>
                                     
-                                    <th>${{number_format($e->total,0,',','.')}}</th>
-                                    <th>{{date_format($e->created_at, 'd-m-Y')}}</th>
-                                    <th>@if($e->entregado == 0) APORTE NO FINALIZADO O ACEPTADO @elseif($e->entregado == 1) APORTE ACEPTADA @else TRANSFERIDA @endif</th>
+                                    <td>${{number_format($e->total,0,',','.')}}</td>
+                                    <td>{{date_format($e->updated_at, 'Y-m-d')}}</td>
+                                    <td>@if($e->entregado == 0) APORTE CREADO @elseif($e->entregado == 1) APORTE A ESPERA DE LA CREACION DE DECRETO @elseif($e->entregado == 2) APORTE PARA EVALUACION EN FINANZAS @elseif ($e->entregado == 3) APORTE TRANSFERIDO @else APORTE CON PROBLEMAS, A LA ESPERA DE RECTIFICACION @endif</td>
                                     
                                 </tr>
                                     
@@ -193,7 +193,11 @@
 
             $('#entregados').DataTable({
                 language: {url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-CL.json',
+                       
+
                 },
+                order: [[1, 'desc']]
+                
             });
         });
     </script>

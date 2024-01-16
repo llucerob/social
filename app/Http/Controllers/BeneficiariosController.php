@@ -289,10 +289,13 @@ class BeneficiariosController extends Controller
         $beneficiario = Beneficiario::findOrFail($id);
 
         //dd($beneficiario);
+        
 
         
 
         foreach($request->material as $key => $m){
+            
+            
             if($request->domicilio == 'on'){
                 $beneficiario->solicitudes()->attach($m['id'], ['cantidad' => $m['cantidad'], 'medida' => $m['medida'], 'domicilio' => '1', 'comentario' => $request->comentario, 'atendido' => auth()->user()->name]);
                 
@@ -398,20 +401,20 @@ class BeneficiariosController extends Controller
             $material->stock     =   $material->stock - $solicitud->cantidad;
     
             $material->update();
-    
-    
-    
-    
-            $solicitud->delete();
-    
 
+            if($solicitud->comentario != null){
+                $beneficiario = Beneficiario::findOrFail($solicitud->beneficiario_id);
+                $beneficiario->comentario = $entregado->comentario; 
+                $beneficiario->update();
+            }
+            
+            $solicitud->delete();    
 
+        }    
 
-        }        
-        
-
-        return redirect()->back()->with('success', 'Entrega realizada correctamente' );;
+        return redirect()->back()->with('success', 'Entrega realizada correctamente' );
     }
+
     public function devolver(Request $request){
 
 

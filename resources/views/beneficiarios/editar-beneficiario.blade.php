@@ -167,7 +167,7 @@
                             </div>
                             <div class="col-md-12">
                               <div class="mb-3">
-                                <label class="form-label" for="inputComentario">Comentario</label>
+                                <label class="form-label" for="inputComentario">Opinión Profesional</label>
                                 <input class="form-control" id="inputComentario" type="text"  name="comentario" placeholder="escriba un comentario aqui" value="{{$beneficiario->comentario}}">
                                 <div class="valid-feedback">¡Luce bien!</div>
                               </div>
