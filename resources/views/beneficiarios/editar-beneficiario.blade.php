@@ -12,12 +12,12 @@
 @endsection
 
 @section('breadcrumb-title')
-    <h3>Crear Nuevo Beneficiario</h3>
+    <h3>Ficha Municipal</h3>
 @endsection
 
 @section('breadcrumb-items')
     <li class="breadcrumb-item">Beneficiarios</li>
-    <li class="breadcrumb-item active">Nuevo</li>
+    <li class="breadcrumb-item active">Ficha</li>
    
 @endsection
 
@@ -26,12 +26,14 @@
     <div class="row starter-main">
        
         
-        <div class="col-sm-12">
+        <div class="col-sm-6">
             <div class="card">
                 <div class="card-header">
-                    <h5>A continuación usted modificará los datos de {{$beneficiario->nombres}} {{$beneficiario->apellidos}}.</h5>
+                    <h5>Datos Personales</h5>
                     
                 </div>
+
+
                 
 
                     <form class="needs-validation theme-form" novalidate="" action="{{ route('beneficiarios.update', [$beneficiario->id])}}" method="post" enctype="multipart/form-data">
@@ -165,20 +167,33 @@
                                   <div class="valid-feedback">¡Luce bien!</div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+
+                            <div hidden class="col-md-12">
                               <div class="mb-3">
                                 <label class="form-label" for="inputComentario">Opinión Profesional</label>
-                                <input class="form-control" id="inputComentario" type="text"  name="comentario" placeholder="escriba un comentario aqui" value="{{$beneficiario->comentario}}">
+                                <input class="form-control" id="inputComentario" type="textarea"  name="comentario" placeholder="escriba un comentario aqui" value="{{$beneficiario->comentario}}">
                                 <div class="valid-feedback">¡Luce bien!</div>
                               </div>
                             </div>
 
                           </div>
+
+                          
                           
                           
                         </div>
+
+                        
+                  
+
+
+
+
+
+
+
                         <div class="card-footer text-end">
-                          <button class="btn btn-primary" type="submit">Grabar</button>
+                          <button class="btn btn-primary" type="submit">Actualizar datos Personales</button>
                           <input class="btn btn-light" type="reset" value="Cancel">
                         </div>
                       </form>
@@ -187,6 +202,119 @@
                 
             </div>
         </div>
+
+
+
+
+        <div class="col-sm-6 notification box-col-6">
+          <div class="card card-no-border">
+            <div class="card-header ">
+                <h5>Menú</h5>
+                
+            </div>
+            
+            
+            <div class="card-body pt-3">
+              <a class="btn ver btn-dark btn-sm m-1" href="{{route('ver.pedidos', [$beneficiario->id])}}" title="Ver"><i class="fa fa-eye"></i></a>
+              
+              <a  class="btn solicitar btn-primary btn-sm m-1" title="Solicitar Material" href="{{route('beneficiarios.solicitar', [$beneficiario->id] )}}"><i class="fa fa-ticket"></i></a>
+              <a  class="btn btn-warning btn-sm m-1" title="Crear Pdf" href="{{route('crearfichainterna', [$beneficiario->id])}}"><i class="fa fa-file-pdf-o"></i></a>
+              <button data-bs-toggle="modal" data-bs-target="#modalSituacion" title="Ingresar Situaciones" class="btn btn-danger btn-sm m-1"><i class="fa fa-plus"></i></button>
+             
+
+              <div class="modal fade" id="modalSituacion" tabindex="-1" role="dialog" aria-labelledby="modalSituacion" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <form action="{{route('storesituacion', [$beneficiario->id])}}" method="post">
+                            @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title">Ingrese un nuevo hito</h5>
+                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                    
+                        <div class="modal-body"> 
+                            <div class="modal-toggle-wrapper">  
+
+                              
+    
+                                
+    
+                                <div class="col">
+                                    <div class="mb-3">
+                                      <label class="form-label" for="tipo">Tipo</label>
+                                        <select name="tipo" required class="form-control" >
+                                            <option value="familiar">Situación Familiar</option>
+                                            <option value="salud">Situacion de Salud</option>
+                                            <option value="profesional">Opinión Profesional</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                      <label class="form-label" for="comentario">Mensaje</label>
+                                      <textarea name="comentario" class="form-control" id="mensaje" cols="10" rows="10"></textarea>
+                                      
+                                    </div>
+                                </div>
+                                
+                                
+                               
+                               
+                              
+                                                                    
+                            </div>
+                        </div>  
+    
+                        <div class="modal-footer">
+                            <button type="submit" data-dismiss="modal" class="btn btn-primary">Agregar</button>
+                        </div>
+                        
+                        
+                        </form>                                              
+                        
+                    </div>
+                </div>
+            </div>
+  
+            </div>      
+           
+        </div>
+          
+          <div class="card height-equal card-no-border">
+              <div class="card-header ">
+                  <h5>Historial Situaciones </h5>
+                  
+              </div>
+              <div class="card-body pt-3">
+                <ul style="padding-left:0px !important;"> 
+              
+              
+                  @foreach($beneficiario->situaciones as $sit)
+
+                    <li class="d-flex">
+                      <div @if($sit->tipo == 'familiar') class="activity-dot-success" @elseif($sit->tipo == 'salud') class="activity-dot-danger"  @else class="activity-dot-primary" @endif></div>
+                      <div class=" ms-3">
+                        <p class="d-flex justify-content-between mb-2 mt-3"><span class="date-content light-background">{{date_format($sit->updated_at, 'd/m/Y')}}</span></p>
+                        <h6>@if($sit->tipo == 'familiar') Hito Familiar @elseif($sit->tipo == 'salud') Hito Salud  @else Opinión Profesional @endif<span class="dot-notification"> </span></h6>
+                        <p class="f-light">{{$sit->comentario}}</p>
+                      </div>
+                    </li>
+
+                  @endforeach
+              
+
+              
+              
+            </ul>
+          </div> 
+                    
+          
+          
+          </div>
+        </div>
+        
+
+              
         
         
         
@@ -200,6 +328,13 @@
 @endsection
 
 @section('script')
+
+  <script src="{{ asset('assets/js/height-equal.js') }}"></script>
+
+
+
+
+
 
     <script>
       

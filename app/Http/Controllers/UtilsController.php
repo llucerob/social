@@ -11,6 +11,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use App\Models\Entregado;
 use App\Models\Material;
+
 use App\Models\SolicitudMunicipal;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -269,6 +270,50 @@ class UtilsController extends Controller
 
         return view('transparencia.decreto', ['entregados' => $arr]);
     }
+    public function decretoseleccion1(){
+
+       
+
+        $entregados = Entregado::whereYear('created_at', '2023')->get();
+        //dd($entregados);
+        $arr = [];
+        
+        foreach($entregados as $key => $e){
+
+            $arr[$key]['material']       = $e->material->nombre;
+            $arr[$key]['cantidad']       = $e->cantidad.' '.$e->medida;
+            $arr[$key]['nombre']    = $e->beneficiario->nombres;
+            $apellido = explode(' ', $e->beneficiario->apellidos);
+            $arr[$key]['paterno']   = $apellido[0];
+            if(isset($apellido[1])){
+                $arr[$key]['materno']   =  $apellido[1]  ;
+                
+            }else{
+                $arr[$key]['materno']   =  ' '  ;
+            }
+            $rut = explode('-', $e->beneficiario->rut);
+            $arr[$key]['rut']   = $rut[0];
+            //dd($rut);
+            if(isset($rut[1])){
+                $arr[$key]['dv']    = $rut[1];
+            }else{
+                $arr[$key]['dv']    = ' ';
+            }
+            
+            $arr[$key]['fecha'] = date_format($e->created_at, 'd/m/Y');
+            
+
+
+
+        }
+        
+
+        //dd($arr);
+
+        return view('transparencia.totales', ['entregados' => $arr]);
+    }
+
+
 
     public function transparenciaseleccion(Request $request){
 
@@ -456,6 +501,97 @@ class UtilsController extends Controller
 
 
 
+    }
+    public function controlmasivo(){
+
+        $materiales = Material::all();
+       
+
+
+
+        return view('materiales.control-masivo-selector', ['materiales' => $materiales,]);
+    }
+
+    public function controlmasivopost(Request $request){
+       
+        $materiales = Material::all();
+        
+        $local = Entregado::whereYear('created_at', $request->ano)
+                                    ->where('materiales_id', $request->material)
+                                    ->where('domicilio', '0')
+                                    ->sum('cantidad');
+
+
+
+        $domicilio = Entregado::whereYear('created_at', $request->ano)
+                                        ->where('materiales_id', $request->material)
+                                        ->where('domicilio', '1')
+                                        ->sum('cantidad');
+
+        $totales[0]       = (int)$local;
+        $totales[1]   = (int)$domicilio;
+
+        $mat = Material::findOrFail($request->material);
+
+        $material['nombre'] = $mat->nombre;
+        $material['ano']    = $request->ano;
+
+        $mensual = [];
+
+        for($i = 0; $i < 12 ; $i++){
+            $mensual[$i] = (int) Entregado::whereYear('created_at', $request->ano)
+                                    ->whereMonth('created_at', $i+1)
+                                    ->where('materiales_id', $request->material)
+                                    ->sum('cantidad');
+        }
+
+        $sectores = ['COINCO', 'COPEQUEN', 'CHILLEHUE', 'MILLAHUE', 'EL RULO', 'EL CAJON', 'TRES PUENTES', 'EL CARDAL', 'FALTA ASIGNAR'];
+
+
+        $sector = [];
+
+        foreach($sectores as $key => $s ){
+            $sector[$key] = (int) Entregado::whereYear('created_at', $request->ano)
+                            ->where('materiales_id', $request->material)
+                            ->wherehas('beneficiario', function(Builder $query) use ($s) {
+                                $query->where('sector', $s);
+                            })
+                            ->sum('cantidad');
+
+        }
+
+
+
+        $beneficiarios = Entregado::whereYear('created_at', $request->ano)
+                                    ->where('materiales_id', $request->material)
+                                    ->get();
+
+        $rangos = [0,0,0,0];
+        foreach($beneficiarios as $b){
+
+            if(Carbon::parse($b->beneficiario->fnac)->age < 35){
+                $rangos[0] = $rangos[0] + $b->cantidad;
+
+            }elseif(Carbon::parse($b->beneficiario->fnac)->age > 35 && Carbon::parse($b->beneficiario->fnac)->age < 45){
+                $rangos[1] = $rangos[1] + $b->cantidad;
+            }elseif(Carbon::parse($b->beneficiario->fnac)->age > 46 && Carbon::parse($b->beneficiario->fnac)->age < 55){
+                $rangos[2] = $rangos[2] + $b->cantidad;
+            }else{
+                $rangos[3] = $rangos[3] + $b->cantidad;
+            }
+            
+
+        }
+        //dd($rangos);
+
+
+          
+        //$totales = [(int)$local, (int)$domicilio];
+                
+        //dd($rangos);
+
+        
+        return view('materiales.control-masivo', ['materiales' => $materiales, 'material' => $material, 'totales' => $totales, 'mensual' => $mensual,  'porsector' => $sector, 'rangos' => $rangos]);
     }
 
 

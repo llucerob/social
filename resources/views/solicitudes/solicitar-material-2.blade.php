@@ -75,7 +75,7 @@
                                             <td>{{$item['nombre']}} <input type="text" hidden value={{$item['id']}} name="material[{{$key}}][id]">
                                               <input type="text" hidden value={{$item['medida']}} name="material[{{$key}}][medida]"></td>
                                             <td>{{$item['limite']}}</td>
-                                            <td><input class="touchspin"   name="material[{{$key}}][cantidad]" min="1" pattern="^[1-9]+" required>
+                                            <td><input class="touchspin"   name="material[{{$key}}][cantidad]" value="1" min="1" pattern="^[1-9]+" required>
                                                 
                                           </tr>
                                           @endforeach

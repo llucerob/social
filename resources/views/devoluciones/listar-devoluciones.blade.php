@@ -233,6 +233,13 @@
                                 @endforeach
                                 
                             </tbody>
+                        <tfoot>
+                            <tr>
+                                
+                            </tr>
+ 
+                        </tfoot>
+
 
                         </table>
 
@@ -260,7 +267,7 @@
                                     
                                     
                                     <th>Nombre</th>
-                                    <th>Rut</th>
+                                    <th>Ruts</th>
                                     <th>Monto</th>
                                     <th>Tipo de Cuenta</th>
                                     <th>Tipo de Prestación</th>
@@ -313,6 +320,9 @@
                                 @endforeach
                                 
                             </tbody>
+                            <tfoot>
+                                <tr></tr>
+                            </tfoot>
 
                         </table>
 
@@ -411,13 +421,19 @@
     <script src="{{asset('assets/js/datatable/datatable-extension/dataTables.fixedHeader.min.js')}}"></script>
     <script src="{{asset('assets/js/datatable/datatable-extension/dataTables.rowReorder.min.js')}}"></script>
     <script src="{{asset('assets/js/datatable/datatable-extension/dataTables.scroller.min.js')}}"></script>
+    <script src="https://cdn.datatables.net/plug-ins/2.0.3/api/sum().js"></script>
 
     <script>
         $(document).ready(function(){
 
             $('#porhacer').DataTable({
-                language: {url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-CL.json',
-                },
+            
+
+                drawCallback: function(){
+                    var api = this.api();
+                        $(api.table().footer()).html('<td colspan="6" class="text-center">Total:  $ '+api.column(3).data().sum()+'.000.... creo</td>')        
+                    },
+                language: {url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-CL.json'},
             });
         });
     </script>
@@ -425,8 +441,14 @@
         $(document).ready(function(){
 
             $('#aceptadas').DataTable({
+
+                drawCallback: function(){
+                    var api = this.api();
+                        $(api.table().footer()).html('<td colspan="6" class="text-center">Total:  $ '+api.column(3).data().sum()+'.000.... creo</td>')        
+                    },
                 language: {url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-CL.json'},
                 dom: 'Bfrtip',
+                
         	    buttons: [
             	
             	    'excelHtml5',

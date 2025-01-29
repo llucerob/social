@@ -78,7 +78,7 @@ Route::middleware('auth')->group(function () {
     Route::post('beneficiario/agregar/cuenta/{id}', [BeneficiariosController::class, 'agregarcuenta'])->name('agregar.cuenta');
     Route::post('beneficiario/generardecretoreembolso', [BeneficiariosController::class, 'generardecretoreembolso'])->name('generar.decretoreembolsos');
     Route::get('beneficiario/crearnominareembolsos', [BeneficiariosController::class, 'crearnominareembolsos'])->name('crear.nominareembolsos');
-    Route::get('/beneficiarios/{id}/verpedidos', [BeneficiariosController::class, 'verpedidos'])->name('ver.pedidos');
+    Route::get('beneficiarios/{id}/verpedidos', [BeneficiariosController::class, 'verpedidos'])->name('ver.pedidos');
     Route::post('beneficiario/fallecer/',[BeneficiariosController::class, 'fallecer'])->name('beneficiario.fallecer');
     Route::get('beneficiarios/historiaxficha/{id}', [BeneficiariosController::class, 'historiaxficha'])->name('historiaficha');
     Route::post('beneficiario/seleccion/reembolso', [BeneficiariosController::class, 'transparenciareembolso'])->name('transparencia.seleccionreembolso');
@@ -88,12 +88,18 @@ Route::middleware('auth')->group(function () {
     Route::post('beneficiario/{id}/editarcuenta', [BeneficiariosController::class, 'editarcuenta'])->name('editar.cuenta');
     Route::get('beneficiario/reenviar/{decreto}', [BeneficiariosController::class, 'reenviadecreto'])->name('reenviar.decreto');
 
+    Route::post('beneficiario/storesituacion/{id}', [BeneficiariosController::class, 'storesituacion'])->name('storesituacion');
+    Route::get('Beneficiario/crearfichainterna/{id}', [BeneficiariosController::class, 'crearfichainterna'])->name('crearfichainterna');
+    Route::get('materiales/controlmasivo', [UtilsController::class, 'controlmasivo'])->name('controlmasivo');
+    Route::post('materiales/postcontrol', [UtilsController::class, 'controlmasivopost'])->name('postcontrol');
+
     //datatables
     Route::get('datatable/beneficiarios', [BeneficiariosController::class, 'ajaxbeneficiarios'])->name('datatable.beneficiarios');
     Route::post('transparencia/seleccion', [UtilsController::class, 'transparenciaseleccion'])->name('transparencia.seleccion');
     Route::get('trasparencia/crearnomina', [UtilsController::class, 'crearnomina'])->name('crear.nomina');
     Route::get('transparencia/creardecreto', [UtilsController::class, 'creardecreto'])->name('crear.decreto');
     Route::post('transparencia/selecciondecreto', [UtilsController::class, 'decretoseleccion'])->name('decreto.seleccion');
+    Route::get('transparencia/anual', [UtilsController::class, 'decretoseleccion1'])->name('decreto.1');
     //Route::get('transparencia/tabla', [UtilsController::class, 'transparencia'])->name('transparencia');
 
 

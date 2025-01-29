@@ -28,18 +28,6 @@ class Beneficiario extends Model
     
 
     /**
-     * Get the registrosical associated with the Beneficiario
-     *
-     * @return \IlluminaBeneficiarioatabase\Elregistrosociales_idtions\HasOne
-     */
-
-    /*
-    public function registrosocial(): HasOne
-    {
-        return $this->hasOne(Beneficiario::class, 'registrosociales_id', 'id');
-    }*/
-
-    /**
      * las solicitudes hechas por el beneficiario a traves de un pivote
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -87,5 +75,16 @@ class Beneficiario extends Model
    {
        return $this->hasMany(Reembolso::class, 'beneficiarios_id', 'id');
    }
+
+ /**
+  * Get all of the comments for the Beneficiario
+  *
+  * @return \Illuminate\Database\Eloquent\Relations\HasMany
+  */
+    public function situaciones(): HasMany
+    {
+     return $this->hasMany(Situacion::class, 'beneficiario_id', 'id');
+     }
+
 
 }

@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('sector');
             $table->integer('telefono')->nullable();
             $table->string('correo')->nullable();
+            $table->string('fnac');
+            $table->enum('fallecido',['V', 'F']);
             $table->timestamps();
         });
     }

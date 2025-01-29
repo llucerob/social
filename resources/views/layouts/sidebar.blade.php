@@ -130,6 +130,7 @@
               <ul class="sidebar-submenu">
                 <li><a href="{{route('materiales.index')}}">Listar Material</a></li>
                 <li><a href="{{route('materiales.create')}}">Nuevo Material</a></li>
+                <li><a href="{{route('controlmasivo')}}">Analisis Material</a></li>
               </ul>
               </li>
 

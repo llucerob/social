@@ -19,6 +19,7 @@ use Illuminate\Support\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Session;
 use App\Models\Comentario;
+use App\Models\Situacion;
 
 
 
@@ -154,6 +155,7 @@ class BeneficiariosController extends Controller
     {
         $beneficiario   = Beneficiario::findOrFail($id);
         $sector         =    Sector::all();
+        
 
         return view('beneficiarios.editar-beneficiario', ['beneficiario' => $beneficiario, 'sector' => $sector]);
     }
@@ -214,7 +216,7 @@ class BeneficiariosController extends Controller
 
 
 
-        return redirect()->route('beneficiarios.index')->with('success', 'Se ha actualizado el beneficiario' );
+        return redirect()->back()->with('success', 'Se ha actualizado el beneficiario' );
     }
 
     /**
@@ -738,6 +740,74 @@ class BeneficiariosController extends Controller
 
         return redirect()->route('listar.devoluciones')->with('se ha reenviado la nómina');
 
+
+
+    }
+
+    public function storesituacion(Request $request, $id){
+
+        $situacion = new Situacion;
+
+        $situacion->beneficiario_id = $id;
+        $situacion->tipo            = $request->tipo;
+        $situacion->comentario      = $request->comentario;
+
+
+        $situacion->save();
+
+
+        return redirect()->back();
+
+
+
+    }
+
+    public function crearfichainterna(string $id){
+
+        $beneficiario = Beneficiario::findOrFail($id);
+
+        $arr    = [];
+        
+        
+        $arr['nombre']      = $beneficiario->nombres;
+        $arr['apellido']   = $beneficiario->apellidos;
+        $arr['rut']         = $beneficiario->rut;
+        $arr['direccion']   = $beneficiario->direccion;
+        $arr['sector']      = $beneficiario->sector;
+        $arr['telefono']    = $beneficiario->telefono;
+        $arr['correo']      = $beneficiario->correo;
+        $arr['fecha']       = date_format(now(), 'd-m-Y');
+        $arr['atendido']    = auth()->user()->name;
+
+        $arr['registrosocial']          = $beneficiario->registrosocial->folioid;
+        $arr['porcentaje']              = $beneficiario->registrosocial->porcentaje;
+       
+        $familiar = [];
+        $salud = [];
+        foreach($beneficiario->situaciones as $key => $s){
+
+            if($s->tipo == 'familiar'){
+                $familiar[$key]['fecha']      = date_format($s->created_at, 'd-m-Y');
+                $familiar[$key]['comentario'] = $s->comentario;
+            }elseif($s->tipo == 'salud'){
+                $salud[$key]['fecha']         = date_format($s->created_at, 'd-m-Y');
+                $salud[$key]['comentario']    = $s->comentario;
+            }
+
+             
+         }
+         
+         $arr['salud']      = $salud;
+         $arr['familiar']   = $familiar;
+
+
+
+        //dd($arr);
+
+        view()->share('ficha', $arr);
+
+        $pdf = PDF::loadView('pdfs.ficha', $arr);
+        return $pdf->download('fichaMunicipal'.$arr['rut'].'.pdf');
 
 
     }
